@@ -1,16 +1,23 @@
 #include <cmath>
 #include <iostream>
+#include <map>
 #include <memory>
+#include <stdexcept>
 #include <string>
+#include <vector>
 
 #include "TFile.h"
 #include "TH1D.h"
+#include "TKey.h"
 #include "TNamed.h"
+#include "TObject.h"
 
 #include "CommandLine.h"
 
 namespace
 {
+   using HistMap = std::map<std::string, std::unique_ptr<TH1D>>;
+
    struct AxisSummary
    {
       std::string Name;
@@ -22,13 +29,86 @@ namespace
       {"thrust", "thrust axis"},
    };
 
-   TH1D *GetHistogram(TFile &file, const std::string &name, bool required = true)
+   std::vector<std::string> CleanInputList(const std::vector<std::string> &raw)
    {
-      TH1D *hist = nullptr;
-      file.GetObject(name.c_str(), hist);
-      if (hist == nullptr && required)
-         throw std::runtime_error("Missing histogram " + name);
-      return hist;
+      std::vector<std::string> result;
+      for (const std::string &item : raw)
+      {
+         if (!item.empty())
+            result.push_back(item);
+      }
+      return result;
+   }
+
+   std::string Join(const std::vector<std::string> &items, const std::string &separator)
+   {
+      std::string result;
+      for (std::size_t i = 0; i < items.size(); ++i)
+      {
+         if (i != 0)
+            result += separator;
+         result += items[i];
+      }
+      return result;
+   }
+
+   void AddHistogram(HistMap &target, const TH1D &source)
+   {
+      const std::string name = source.GetName();
+      auto iter = target.find(name);
+      if (iter == target.end())
+      {
+         TH1D *clone = static_cast<TH1D *>(source.Clone(name.c_str()));
+         clone->SetDirectory(nullptr);
+         target[name].reset(clone);
+      }
+      else
+      {
+         iter->second->Add(&source);
+      }
+   }
+
+   HistMap ReadHistograms(const std::string &fileName)
+   {
+      TFile inputFile(fileName.c_str(), "READ");
+      if (inputFile.IsZombie())
+         throw std::runtime_error("Failed to open input file: " + fileName);
+
+      HistMap result;
+      TIter nextKey(inputFile.GetListOfKeys());
+      while (TKey *key = static_cast<TKey *>(nextKey()))
+      {
+         std::unique_ptr<TObject> object(key->ReadObj());
+         if (!object || !object->InheritsFrom(TH1D::Class()))
+            continue;
+         AddHistogram(result, *static_cast<TH1D *>(object.get()));
+      }
+      return result;
+   }
+
+   HistMap SumHistograms(const std::vector<HistMap> &inputs, int skipIndex = -1)
+   {
+      HistMap result;
+      for (int i = 0; i < static_cast<int>(inputs.size()); ++i)
+      {
+         if (i == skipIndex)
+            continue;
+         for (const auto &item : inputs[i])
+            AddHistogram(result, *item.second);
+      }
+      return result;
+   }
+
+   const TH1D *GetHistogram(const HistMap &histograms, const std::string &name, bool required = true)
+   {
+      auto iter = histograms.find(name);
+      if (iter == histograms.end())
+      {
+         if (required)
+            throw std::runtime_error("Missing histogram " + name);
+         return nullptr;
+      }
+      return iter->second.get();
    }
 
    std::unique_ptr<TH1D> CloneEmpty(const TH1D &source,
@@ -62,17 +142,23 @@ namespace
          hist.SetBinContent(bin, value);
    }
 
-   void WriteAxisSummary(TFile &inputFile, const AxisSummary &axis)
+   void AddOutput(std::vector<std::unique_ptr<TH1D>> &outputs, std::unique_ptr<TH1D> hist)
+   {
+      outputs.push_back(std::move(hist));
+   }
+
+   void BuildAxisSummary(const HistMap &input, const AxisSummary &axis,
+      std::vector<std::unique_ptr<TH1D>> &outputs)
    {
       const std::string suffix = "_" + axis.Name;
-      TH1D *sumNum2 = GetHistogram(inputFile, "hSumNum2" + suffix);
-      TH1D *sumDen2 = GetHistogram(inputFile, "hSumDen2" + suffix);
-      TH1D *sumNum4 = GetHistogram(inputFile, "hSumNum4" + suffix);
-      TH1D *sumDen4 = GetHistogram(inputFile, "hSumDen4" + suffix);
-      TH1D *sumNum6 = GetHistogram(inputFile, "hSumNum6" + suffix);
-      TH1D *sumDen6 = GetHistogram(inputFile, "hSumDen6" + suffix);
-      TH1D *sumNum8 = GetHistogram(inputFile, "hSumNum8" + suffix);
-      TH1D *sumDen8 = GetHistogram(inputFile, "hSumDen8" + suffix);
+      const TH1D *sumNum2 = GetHistogram(input, "hSumNum2" + suffix);
+      const TH1D *sumDen2 = GetHistogram(input, "hSumDen2" + suffix);
+      const TH1D *sumNum4 = GetHistogram(input, "hSumNum4" + suffix);
+      const TH1D *sumDen4 = GetHistogram(input, "hSumDen4" + suffix);
+      const TH1D *sumNum6 = GetHistogram(input, "hSumNum6" + suffix);
+      const TH1D *sumDen6 = GetHistogram(input, "hSumDen6" + suffix);
+      const TH1D *sumNum8 = GetHistogram(input, "hSumNum8" + suffix);
+      const TH1D *sumDen8 = GetHistogram(input, "hSumDen8" + suffix);
 
       auto corr2 = CloneEmpty(*sumDen2, "hCorr2" + suffix,
          "<2> correlation, " + axis.Label + ";charged multiplicity bin;<2>");
@@ -150,23 +236,23 @@ namespace
          }
       }
 
-      corr2->Write();
-      corr4->Write();
-      corr6->Write();
-      corr8->Write();
-      c2->Write();
-      c4->Write();
-      c6->Write();
-      c8->Write();
-      v22->Write();
-      v24->Write();
-      v26->Write();
-      v28->Write();
+      AddOutput(outputs, std::move(corr2));
+      AddOutput(outputs, std::move(corr4));
+      AddOutput(outputs, std::move(corr6));
+      AddOutput(outputs, std::move(corr8));
+      AddOutput(outputs, std::move(c2));
+      AddOutput(outputs, std::move(c4));
+      AddOutput(outputs, std::move(c6));
+      AddOutput(outputs, std::move(c8));
+      AddOutput(outputs, std::move(v22));
+      AddOutput(outputs, std::move(v24));
+      AddOutput(outputs, std::move(v26));
+      AddOutput(outputs, std::move(v28));
 
-      TH1D *sumNumV224 = GetHistogram(inputFile, "hSumNumV224" + suffix, false);
-      TH1D *sumDenV224 = GetHistogram(inputFile, "hSumDenV224" + suffix, false);
-      TH1D *sumNumV224ThreeSub = GetHistogram(inputFile, "hSumNumV224ThreeSub" + suffix, false);
-      TH1D *sumDenV224ThreeSub = GetHistogram(inputFile, "hSumDenV224ThreeSub" + suffix, false);
+      const TH1D *sumNumV224 = GetHistogram(input, "hSumNumV224" + suffix, false);
+      const TH1D *sumDenV224 = GetHistogram(input, "hSumDenV224" + suffix, false);
+      const TH1D *sumNumV224ThreeSub = GetHistogram(input, "hSumNumV224ThreeSub" + suffix, false);
+      const TH1D *sumDenV224ThreeSub = GetHistogram(input, "hSumDenV224ThreeSub" + suffix, false);
 
       if (sumNumV224 != nullptr && sumDenV224 != nullptr)
       {
@@ -178,7 +264,7 @@ namespace
             if (HasRatio(sumNumV224, sumDenV224, bin))
                SetIfFinite(*v224, bin, Ratio(sumNumV224, sumDenV224, bin));
          }
-         v224->Write();
+         AddOutput(outputs, std::move(v224));
       }
 
       if (sumNumV224ThreeSub != nullptr && sumDenV224ThreeSub != nullptr)
@@ -191,7 +277,83 @@ namespace
             if (HasRatio(sumNumV224ThreeSub, sumDenV224ThreeSub, bin))
                SetIfFinite(*v224ThreeSub, bin, Ratio(sumNumV224ThreeSub, sumDenV224ThreeSub, bin));
          }
-         v224ThreeSub->Write();
+         AddOutput(outputs, std::move(v224ThreeSub));
+      }
+   }
+
+   std::vector<std::unique_ptr<TH1D>> BuildSummaries(const HistMap &input)
+   {
+      std::vector<std::unique_ptr<TH1D>> outputs;
+      for (const AxisSummary &axis : Axes)
+         BuildAxisSummary(input, axis, outputs);
+      return outputs;
+   }
+
+   TH1D *FindOutput(std::vector<std::unique_ptr<TH1D>> &outputs, const std::string &name)
+   {
+      for (auto &hist : outputs)
+      {
+         if (hist->GetName() == name)
+            return hist.get();
+      }
+      return nullptr;
+   }
+
+   void ApplyJackknifeErrors(std::vector<std::unique_ptr<TH1D>> &central,
+      const std::vector<HistMap> &inputBlocks)
+   {
+      const int blockCount = static_cast<int>(inputBlocks.size());
+      if (blockCount < 2)
+         return;
+
+      std::vector<std::vector<std::unique_ptr<TH1D>>> leaveOneSummaries;
+      leaveOneSummaries.reserve(blockCount);
+      for (int skip = 0; skip < blockCount; ++skip)
+      {
+         HistMap leaveOne = SumHistograms(inputBlocks, skip);
+         leaveOneSummaries.push_back(BuildSummaries(leaveOne));
+      }
+
+      for (auto &centralHist : central)
+      {
+         for (int bin = 1; bin <= centralHist->GetNbinsX(); ++bin)
+         {
+            double mean = 0.0;
+            int valid = 0;
+            for (auto &sample : leaveOneSummaries)
+            {
+               TH1D *sampleHist = FindOutput(sample, centralHist->GetName());
+               if (sampleHist == nullptr)
+                  continue;
+               const double value = sampleHist->GetBinContent(bin);
+               if (!std::isfinite(value))
+                  continue;
+               mean += value;
+               valid += 1;
+            }
+
+            if (valid < 2)
+               continue;
+            mean /= static_cast<double>(valid);
+
+            double varianceSum = 0.0;
+            for (auto &sample : leaveOneSummaries)
+            {
+               TH1D *sampleHist = FindOutput(sample, centralHist->GetName());
+               if (sampleHist == nullptr)
+                  continue;
+               const double value = sampleHist->GetBinContent(bin);
+               if (!std::isfinite(value))
+                  continue;
+               const double delta = value - mean;
+               varianceSum += delta * delta;
+            }
+
+            const double error = std::sqrt((static_cast<double>(valid) - 1.0) /
+               static_cast<double>(valid) * varianceSum);
+            if (std::isfinite(error))
+               centralHist->SetBinError(bin, error);
+         }
       }
    }
 }
@@ -201,15 +363,25 @@ int main(int argc, char *argv[])
    try
    {
       CommandLine cl(argc, argv);
-      const std::string inputFileName = cl.Get("Input", "output/aleph_charged_cumulants_merged.root");
+      std::vector<std::string> inputFileNames;
+      if (cl.Has("Inputs"))
+         inputFileNames = CleanInputList(cl.GetStringVector("Inputs", ""));
+      else
+         inputFileNames.push_back(cl.Get("Input", "output/aleph_charged_cumulants_merged.root"));
+
+      if (inputFileNames.empty())
+         throw std::runtime_error("No input files were provided");
+
       const std::string outputFileName = cl.Get("Output", "output/aleph_charged_cumulants_summary.root");
 
-      TFile inputFile(inputFileName.c_str(), "READ");
-      if (inputFile.IsZombie())
-      {
-         std::cerr << "Failed to open input file: " << inputFileName << std::endl;
-         return 1;
-      }
+      std::vector<HistMap> inputBlocks;
+      inputBlocks.reserve(inputFileNames.size());
+      for (const std::string &fileName : inputFileNames)
+         inputBlocks.push_back(ReadHistograms(fileName));
+
+      HistMap total = SumHistograms(inputBlocks);
+      std::vector<std::unique_ptr<TH1D>> outputs = BuildSummaries(total);
+      ApplyJackknifeErrors(outputs, inputBlocks);
 
       TFile outputFile(outputFileName.c_str(), "RECREATE");
       if (outputFile.IsZombie())
@@ -219,14 +391,26 @@ int main(int argc, char *argv[])
       }
 
       outputFile.cd();
-      for (const AxisSummary &axis : Axes)
-         WriteAxisSummary(inputFile, axis);
+      for (auto &hist : outputs)
+         hist->Write();
 
-      TNamed metadata("SummarySource", inputFileName.c_str());
+      const std::string sourceSummary = Join(inputFileNames, ",");
+      TNamed metadata("SummarySource", sourceSummary.c_str());
       metadata.Write();
+
+      const std::string errorSummary = inputFileNames.size() >= 2
+         ? "bin errors are delete-one-block jackknife errors from input chunk files"
+         : "bin errors are not evaluated for a single merged input file; pass --Inputs chunk1.root,chunk2.root,...";
+      TNamed errorMetadata("StatisticalErrorMethod", errorSummary.c_str());
+      errorMetadata.Write();
+
       outputFile.Close();
 
       std::cout << "Wrote " << outputFileName << std::endl;
+      if (inputFileNames.size() >= 2)
+         std::cout << "Set jackknife errors from " << inputFileNames.size() << " input blocks" << std::endl;
+      else
+         std::cout << "No statistical errors set; provide chunk files through --Inputs for jackknife errors" << std::endl;
       return 0;
    }
    catch (const std::exception &error)
@@ -235,4 +419,3 @@ int main(int argc, char *argv[])
       return 1;
    }
 }
-

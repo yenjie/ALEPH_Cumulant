@@ -78,8 +78,10 @@ wait
 MERGED_FILE="${OUTPUT_PREFIX}_merged.root"
 SUMMARY_FILE="${OUTPUT_PREFIX}_summary.root"
 rm -f "$MERGED_FILE" "$SUMMARY_FILE"
-"${REPO_DIR}/bin/merge_correlation_chunks" "$MERGED_FILE" "${CHUNK_DIR}"/chunk_*.root >"${OUTPUT_PREFIX}_merge.log" 2>&1
-"${REPO_DIR}/bin/aleph_cumulant_summary" --Input "$MERGED_FILE" --Output "$SUMMARY_FILE" >"${OUTPUT_PREFIX}_summary.log" 2>&1
+CHUNK_FILES=("${CHUNK_DIR}"/chunk_*.root)
+"${REPO_DIR}/bin/merge_correlation_chunks" "$MERGED_FILE" "${CHUNK_FILES[@]}" >"${OUTPUT_PREFIX}_merge.log" 2>&1
+INPUT_LIST=$(IFS=,; echo "${CHUNK_FILES[*]}")
+"${REPO_DIR}/bin/aleph_cumulant_summary" --Inputs "$INPUT_LIST" --Output "$SUMMARY_FILE" >"${OUTPUT_PREFIX}_summary.log" 2>&1
 
 echo "Merged output written to $MERGED_FILE"
 echo "Summary output written to $SUMMARY_FILE"

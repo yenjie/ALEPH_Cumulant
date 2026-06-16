@@ -16,6 +16,7 @@ Standalone ROOT/C++ analysis repository for charged-particle multi-particle cumu
 - Computes full-event and three-subevent `v224 = <exp(i(2 phi1 + 2 phi2 - 4 phi3))>`.
 - Runs both beam-axis azimuth and thrust-axis azimuth in one pass.
 - Writes mergeable numerator and denominator histograms for chunked processing.
+- Writes jackknife statistical uncertainties on summary histograms when run from chunk files.
 
 ## Build
 
@@ -24,6 +25,14 @@ make
 ```
 
 Requires ROOT with `root-config` in `PATH`.
+
+Run the internal formula check:
+
+```bash
+make check
+```
+
+This compares the production ordered-correlator routine against brute-force distinct-particle sums for `<2>`, `<4>`, `<6>`, `<8>`, and the full-event `v224` numerator.
 
 ## Quick LEP1 1994 Run
 
@@ -42,6 +51,8 @@ Outputs:
 - `output/lep1_1994_charged_pt04_merged.root`
 - `output/lep1_1994_charged_pt04_summary.root`
 
+The summary output contains central values and, for chunked runs, delete-one-chunk jackknife bin errors.
+
 ## Manual Run
 
 Single process:
@@ -57,6 +68,14 @@ bin/aleph_charged_cumulants \
 
 bin/aleph_cumulant_summary \
   --Input output/charged_cumulants.root \
+  --Output output/charged_cumulants_summary.root
+```
+
+For statistical errors, provide independent chunk files instead of a single merged file:
+
+```bash
+bin/aleph_cumulant_summary \
+  --Inputs output/charged_pt04_chunks/chunk_000.root,output/charged_pt04_chunks/chunk_001.root \
   --Output output/charged_cumulants_summary.root
 ```
 

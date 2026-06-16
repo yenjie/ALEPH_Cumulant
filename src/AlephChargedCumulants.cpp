@@ -2,6 +2,7 @@
 #include <array>
 #include <cmath>
 #include <complex>
+#include <functional>
 #include <iostream>
 #include <memory>
 #include <stdexcept>
@@ -108,6 +109,7 @@ namespace
       bool RequireHighPurity = false;
       bool ThrustChargedOnly = false;
       bool UseWideTailBinning = false;
+      bool SelfTest = false;
       double LabPtMin = 0.4;
       double ThrustPtMin = 0.4;
       double SubeventEtaBoundary = 0.5;
@@ -640,6 +642,129 @@ namespace
       return result;
    }
 
+   double BruteForceOrderedNumerator(const std::vector<double> &phis, int harmonic, int half)
+   {
+      const int multiplicity = static_cast<int>(phis.size());
+      const int order = 2 * half;
+      if (multiplicity < order)
+         return 0.0;
+
+      using Complex = std::complex<double>;
+      Complex sum(0.0, 0.0);
+      std::vector<bool> used(multiplicity, false);
+
+      std::function<void(int, Complex)> recurse = [&](int depth, Complex value)
+      {
+         if (depth == order)
+         {
+            sum += value;
+            return;
+         }
+
+         const int sign = (depth < half) ? 1 : -1;
+         for (int i = 0; i < multiplicity; ++i)
+         {
+            if (used[i])
+               continue;
+            used[i] = true;
+            recurse(depth + 1, value * std::polar(1.0,
+               static_cast<double>(sign * harmonic) * phis[i]));
+            used[i] = false;
+         }
+      };
+
+      recurse(0, Complex(1.0, 0.0));
+      return std::real(sum);
+   }
+
+   double BruteForceV224Numerator(const std::vector<TrackSummary> &tracks)
+   {
+      using Complex = std::complex<double>;
+      Complex sum(0.0, 0.0);
+      const int multiplicity = static_cast<int>(tracks.size());
+      for (int i = 0; i < multiplicity; ++i)
+      {
+         for (int j = 0; j < multiplicity; ++j)
+         {
+            if (j == i)
+               continue;
+            for (int k = 0; k < multiplicity; ++k)
+            {
+               if (k == i || k == j)
+                  continue;
+               sum += std::polar(1.0,
+                  2.0 * tracks[i].Phi + 2.0 * tracks[j].Phi - 4.0 * tracks[k].Phi);
+            }
+         }
+      }
+      return std::real(sum);
+   }
+
+   bool NearlyEqual(double lhs, double rhs, double scale)
+   {
+      const double tolerance = 1e-9 * std::max(1.0, scale);
+      return std::abs(lhs - rhs) <= tolerance;
+   }
+
+   bool RunCorrelatorSelfTest()
+   {
+      for (int harmonic : {1, 2, 3})
+      {
+         for (int multiplicity = 0; multiplicity <= 8; ++multiplicity)
+         {
+            std::vector<double> phis;
+            for (int i = 0; i < multiplicity; ++i)
+               phis.push_back(0.17 + 0.31 * i + 0.013 * i * i + 0.07 * harmonic);
+
+            std::array<double, MaxHalfCorrelation + 1> numerators = {};
+            std::array<double, MaxHalfCorrelation + 1> denominators = {};
+            FillOrderedCorrelators(phis, harmonic, numerators, denominators);
+
+            for (int half = 1; half <= std::min(MaxHalfCorrelation, multiplicity / 2); ++half)
+            {
+               const double brute = BruteForceOrderedNumerator(phis, harmonic, half);
+               const double expectedDenominator = FallingFactorial(multiplicity, 2 * half);
+               if (!NearlyEqual(numerators[half], brute, expectedDenominator) ||
+                  !NearlyEqual(denominators[half], expectedDenominator, expectedDenominator))
+               {
+                  std::cerr << "Self-test failed for harmonic=" << harmonic
+                     << " multiplicity=" << multiplicity
+                     << " half=" << half
+                     << " numerator=" << numerators[half]
+                     << " brute=" << brute
+                     << " denominator=" << denominators[half]
+                     << " expectedDenominator=" << expectedDenominator << std::endl;
+                  return false;
+               }
+            }
+         }
+      }
+
+      for (int multiplicity = 3; multiplicity <= 8; ++multiplicity)
+      {
+         std::vector<TrackSummary> tracks;
+         for (int i = 0; i < multiplicity; ++i)
+            tracks.push_back({-1.0 + 0.3 * i, 0.11 + 0.37 * i + 0.019 * i * i});
+
+         const CorrelatorContribution production = ComputeFullEventV224(tracks);
+         const double brute = BruteForceV224Numerator(tracks);
+         const double expectedDenominator = FallingFactorial(multiplicity, 3);
+         if (!production.Valid || !NearlyEqual(production.Num, brute, expectedDenominator) ||
+            !NearlyEqual(production.Den, expectedDenominator, expectedDenominator))
+         {
+            std::cerr << "Self-test failed for v224 multiplicity=" << multiplicity
+               << " numerator=" << production.Num
+               << " brute=" << brute
+               << " denominator=" << production.Den
+               << " expectedDenominator=" << expectedDenominator << std::endl;
+            return false;
+         }
+      }
+
+      std::cout << "Correlator self-test passed" << std::endl;
+      return true;
+   }
+
    TH1D *MakeHistogram(const std::string &name, const std::string &title,
       const std::vector<MultiplicityBin> &multBins)
    {
@@ -790,6 +915,7 @@ namespace
       options.RequireHighPurity = cl.GetBool("RequireHighPurity", false);
       options.ThrustChargedOnly = cl.GetBool("ThrustChargedOnly", false);
       options.UseWideTailBinning = cl.GetBool("UseWideTailBinning", false);
+      options.SelfTest = cl.GetBool("SelfTest", false);
       options.LabPtMin = cl.GetDouble("LabPtMin", 0.4);
       options.ThrustPtMin = cl.GetDouble("ThrustPtMin", 0.4);
       options.SubeventEtaBoundary = cl.GetDouble("SubeventEtaBoundary", 0.5);
@@ -804,6 +930,9 @@ int main(int argc, char *argv[])
    try
    {
       const AnalysisOptions options = ParseOptions(argc, argv);
+      if (options.SelfTest)
+         return RunCorrelatorSelfTest() ? 0 : 1;
+
       const std::vector<MultiplicityBin> multBins = ResolveMultiplicityBins(options);
 
       TFile inputFile(options.InputFileName.c_str(), "READ");
