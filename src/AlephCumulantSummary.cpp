@@ -316,8 +316,15 @@ namespace
 
       for (auto &centralHist : central)
       {
+         const std::string centralName = centralHist->GetName();
+         const bool skipInvalidZero = centralName.rfind("hV2_", 0) == 0 ||
+            centralName.rfind("hV224", 0) == 0;
+
          for (int bin = 1; bin <= centralHist->GetNbinsX(); ++bin)
          {
+            if (skipInvalidZero && centralHist->GetBinContent(bin) == 0.0)
+               continue;
+
             double mean = 0.0;
             int valid = 0;
             for (auto &sample : leaveOneSummaries)
