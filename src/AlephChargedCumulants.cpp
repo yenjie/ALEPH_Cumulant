@@ -11,6 +11,7 @@
 #include "TBranch.h"
 #include "TClass.h"
 #include "TFile.h"
+#include "TLeaf.h"
 #include "TH1D.h"
 #include "TNamed.h"
 #include "TTree.h"
@@ -175,6 +176,21 @@ namespace
       return className.find("vector") != std::string::npos;
    }
 
+   std::string LeafTypeName(TTree *tree, const std::string &name)
+   {
+      if (tree == nullptr)
+         return "";
+      TLeaf *leaf = tree->GetLeaf(name.c_str());
+      if (leaf == nullptr)
+         return "";
+      return leaf->GetTypeName();
+   }
+
+   bool LeafTypeIsFloat(const std::string &typeName)
+   {
+      return typeName == "Float_t" || typeName == "float" || typeName == "Float32_t";
+   }
+
    void RequireBranch(TTree *tree, const std::string &name)
    {
       if (!BranchExists(tree, name))
@@ -285,7 +301,11 @@ namespace
          Tree->SetBranchAddress("px", ArrayPx);
          Tree->SetBranchAddress("py", ArrayPy);
          Tree->SetBranchAddress("pz", ArrayPz);
-         Tree->SetBranchAddress("pwflag", ArrayPwflag);
+         ArrayPwflagIsFloat = LeafTypeIsFloat(LeafTypeName(Tree, "pwflag"));
+         if (ArrayPwflagIsFloat)
+            Tree->SetBranchAddress("pwflag", ArrayPwflagFloat);
+         else
+            Tree->SetBranchAddress("pwflag", ArrayPwflagShort);
          if (HasPassEventSelection)
             Tree->SetBranchAddress("passEventSelection", &PassEventSelection);
          if (HasHighPurity)
@@ -329,7 +349,10 @@ namespace
             event.Px.push_back(ArrayPx[i]);
             event.Py.push_back(ArrayPy[i]);
             event.Pz.push_back(ArrayPz[i]);
-            event.Pwflag.push_back(ArrayPwflag[i]);
+            const short pwflag = ArrayPwflagIsFloat
+               ? static_cast<short>(std::lround(ArrayPwflagFloat[i]))
+               : ArrayPwflagShort[i];
+            event.Pwflag.push_back(pwflag);
             event.HighPurity.push_back(HasHighPurity ? static_cast<bool>(ArrayHighPurity[i]) : true);
          }
          return true;
@@ -354,7 +377,9 @@ namespace
       Float_t ArrayPx[MaxArrayParticles] = {};
       Float_t ArrayPy[MaxArrayParticles] = {};
       Float_t ArrayPz[MaxArrayParticles] = {};
-      Short_t ArrayPwflag[MaxArrayParticles] = {};
+      Short_t ArrayPwflagShort[MaxArrayParticles] = {};
+      Float_t ArrayPwflagFloat[MaxArrayParticles] = {};
+      bool ArrayPwflagIsFloat = false;
       Bool_t ArrayHighPurity[MaxArrayParticles] = {};
    };
 

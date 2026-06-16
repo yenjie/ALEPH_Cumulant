@@ -8,6 +8,7 @@ Standalone ROOT/C++ analysis repository for charged-particle multi-particle cumu
 - Supports both common ALEPH ROOT layouts:
   - vector branches: `px`, `py`, `pz`, `pwflag`, optional `passEventSelection`
   - StudyMult fixed arrays: `nParticle`, `px[nParticle]`, `py[nParticle]`, `pz[nParticle]`, `pwflag[nParticle]`
+    - accepts both newer `Short_t` and older `Float_t` `pwflag` leaves
 - Computes integrated charged-particle Q-cumulant sums for harmonic `n=2` by default:
   - `<2>`, `<4>`, `<6>`, `<8>`
   - derived `c2{2}`, `c2{4}`, `c2{6}`, `c2{8}`
