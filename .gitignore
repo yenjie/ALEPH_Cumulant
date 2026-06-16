@@ -1,0 +1,13 @@
+bin/*
+!bin/.gitkeep
+output/*
+!output/.gitkeep
+*.root
+*.log
+*_chunks/
+*_logs/
+*.o
+*.so
+*.d
+core
+

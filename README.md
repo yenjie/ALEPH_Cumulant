@@ -1,0 +1,80 @@
+# ALEPH Charged-Particle Cumulants
+
+Standalone ROOT/C++ analysis repository for charged-particle multi-particle cumulants in ALEPH LEP1 e+e- data. The implementation is based on the local StudyMult branch conventions and the nearby ALEPH cumulant prototypes, with the physics target aligned with the CMS multi-particle-correlation strategy in arXiv:1606.06198.
+
+## What It Does
+
+- Selects charged particles with StudyMult `pwflag` values `0`, `1`, or `2`.
+- Supports both common ALEPH ROOT layouts:
+  - vector branches: `px`, `py`, `pz`, `pwflag`, optional `passEventSelection`
+  - StudyMult fixed arrays: `nParticle`, `px[nParticle]`, `py[nParticle]`, `pz[nParticle]`, `pwflag[nParticle]`
+- Computes integrated charged-particle Q-cumulant sums for harmonic `n=2` by default:
+  - `<2>`, `<4>`, `<6>`, `<8>`
+  - derived `c2{2}`, `c2{4}`, `c2{6}`, `c2{8}`
+  - derived `v2{2}`, `v2{4}`, `v2{6}`, `v2{8}`
+- Computes full-event and three-subevent `v224 = <exp(i(2 phi1 + 2 phi2 - 4 phi3))>`.
+- Runs both beam-axis azimuth and thrust-axis azimuth in one pass.
+- Writes mergeable numerator and denominator histograms for chunked processing.
+
+## Build
+
+```bash
+make
+```
+
+Requires ROOT with `root-config` in `PATH`.
+
+## Quick LEP1 1994 Run
+
+```bash
+scripts/run_lep1_1994_example.sh
+```
+
+This uses:
+
+```text
+/raid5/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root
+```
+
+Outputs:
+
+- `output/lep1_1994_charged_pt04_merged.root`
+- `output/lep1_1994_charged_pt04_summary.root`
+
+## Manual Run
+
+Single process:
+
+```bash
+bin/aleph_charged_cumulants \
+  --Input /path/to/input.root \
+  --Output output/charged_cumulants.root \
+  --Tree t \
+  --LabPtMin 0.4 \
+  --ThrustPtMin 0.4 \
+  --MultiplicityBins 0,10,15,20,25,30,35,40,999
+
+bin/aleph_cumulant_summary \
+  --Input output/charged_cumulants.root \
+  --Output output/charged_cumulants_summary.root
+```
+
+Chunked:
+
+```bash
+scripts/run_chunks.sh /path/to/input.root output/charged_pt04 16 --Tree t --InputFormat auto
+```
+
+## Important Options
+
+- `--InputFormat auto|vector|array`: auto-detects by default.
+- `--UsePassEventSelection 1`: use `passEventSelection` when the branch exists.
+- `--RequireHighPurity 1`: require `highPurity` when available; fails if requested and missing.
+- `--ThrustChargedOnly 1`: compute the thrust axis from charged particles only. Default uses all particles for the thrust axis and charged particles for cumulants, matching the local prototypes.
+- `--Harmonic 2`: harmonic for `<2k>` cumulant sums.
+- `--SubeventEtaBoundary 0.5`: three-subevent split in the selected coordinate system.
+
+## Local Provenance
+
+See `docs/local_sources.md` for the StudyMult and prototype files used to build this repository.
+
