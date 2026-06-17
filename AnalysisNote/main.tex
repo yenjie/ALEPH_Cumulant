@@ -40,9 +40,9 @@ ordered, distinct-particle correlations through eighth order and propagates
 statistical uncertainties with delete-one-chunk jackknife resampling over
 sixteen event chunks. The present result is a detector-level charged-particle
 study; detector-response, acceptance, and model-dependent systematic
-uncertainties are not yet included. Matched 1994 reconstructed-MC comparisons
-are included as baseline closure-style checks of the beam-axis and thrust-axis
-trends, including a separate two-subevent cumulant construction.
+uncertainties are not yet included. A 1994 reconstructed-MC baseline is included for detector-level comparisons
+of the beam-axis and thrust-axis trends, including rapidity-gap and two-subevent
+cumulant constructions.
 \end{abstract}
 
 \noindent\textbf{Keywords:} ALEPH, archived \(e^+e^-\) data, charged-particle
@@ -130,26 +130,20 @@ stored as zero in the exported CSV table.
 \section{Data Setup and Selections}
 \label{sec:data}
 
-The figures in this note currently use the matched LEP1 1994 reconstructed
+The figures in this note currently use the merged LEP1 1992--1995 reconstructed
 data sample
 \begin{center}
-\path{/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root}.
+\path{/mnt/data3/data3/yjlee/StudyMultSamples/ALEPH/LEP1/LEP1Merged_20200611.root}.
 \end{center}
-This file contains \(1{,}365{,}440\) entries in the tree \texttt{t}; after the
-charged-particle selection and multiplicity-bin requirement, \(1{,}321{,}026\)
-events enter the main cumulant histograms. The input format is the vector
-layout with \texttt{px}, \texttt{py}, \texttt{pz}, \texttt{pwflag}, and
-optional \texttt{passEventSelection} branches.
-
-This is not yet the full 1991--1995 LEP1 data set. The available local LEP1
-path lists contain 15, 31, 27, 171, and 31 input files for 1991, 1992, 1993,
-1994, and 1995, respectively. A combined vector-format input, or an equivalent
-year-by-year chunk production merged at the histogram level, is needed before
-the result can be quoted as using all LEP1 statistics. The older local
-StudyMult fixed-array file
-\path{/data/yjlee/StudyMult/DataFiles/ROOTfiles/cleaned_ALEPH_Data-all.aleph.root}
-contains \(59{,}874\) entries and corresponds to an earlier prototype
-production; those counts are not used for the current figures.
+This file contains \(3{,}050{,}610\) entries in the tree \texttt{t}; all entries
+pass the current charged-particle selection and multiplicity-bin requirement.
+The input format is the StudyMult fixed-array layout with \texttt{year},
+\texttt{RunNo}, \texttt{EventNo}, \texttt{nParticle}, \texttt{px}, \texttt{py},
+\texttt{pz}, and \texttt{pwflag} branches. The year composition is
+\(551{,}474\) events from 1992, \(538{,}601\) from 1993, \(1{,}365{,}440\) from
+1994, and \(595{,}095\) from 1995. A converted 1991 ROOT sample was not found in
+the available merged samples, so this production uses the available merged LEP1
+statistics from 1992--1995 rather than the complete 1991--1995 data set.
 
 Charged particles are selected using the StudyMult charged-particle convention
 \begin{equation}
@@ -174,14 +168,14 @@ detector-level cumulant analysis.}
 \toprule
 Multiplicity bin & Events \\
 \midrule
-\([0,10)\) & 91054 \\
-\([10,15)\) & 454384 \\
-\([15,20)\) & 497271 \\
-\([20,25)\) & 220815 \\
-\([25,30)\) & 50506 \\
-\([30,35)\) & 6527 \\
-\([35,40)\) & 449 \\
-\([40,\infty)\) & 20 \\
+\([0,10)\) & 241919 \\
+\([10,15)\) & 1046419 \\
+\([15,20)\) & 1132225 \\
+\([20,25)\) & 500481 \\
+\([25,30)\) & 113682 \\
+\([30,35)\) & 14738 \\
+\([35,40)\) & 1095 \\
+\([40,\infty)\) & 51 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -277,14 +271,14 @@ or unavailable in the current sample.}
 \toprule
 Multiplicity & \(\vn{2}{2}\) & \(\vn{2}{4}\) & \(\vn{2}{6}\) & \(\vn{2}{8}\) \\
 \midrule
-\([0,10)\) & \(0.7277\pm0.0024\) & \(0.7047\pm0.0032\) & \(0.7031\pm0.0034\) & \(0.7029\pm0.0034\) \\
-\([10,15)\) & \(0.7182\pm0.0027\) & \(0.6802\pm0.0040\) & \(0.6757\pm0.0041\) & \(0.6748\pm0.0042\) \\
-\([15,20)\) & \(0.7109\pm0.0023\) & \(0.6705\pm0.0038\) & \(0.6654\pm0.0041\) & \(0.6645\pm0.0042\) \\
-\([20,25)\) & \(0.6720\pm0.0029\) & \(0.6210\pm0.0045\) & \(0.6140\pm0.0049\) & \(0.6125\pm0.0050\) \\
-\([25,30)\) & \(0.6114\pm0.0044\) & \(0.5372\pm0.0070\) & \(0.5251\pm0.0077\) & \(0.5222\pm0.0079\) \\
-\([30,35)\) & \(0.5332\pm0.0046\) & \(0.4265\pm0.0080\) & \(0.3982\pm0.0120\) & \(0.3847\pm0.0169\) \\
-\([35,40)\) & \(0.4823\pm0.0079\) & \(0.3506\pm0.0184\) & \(0.2981\pm0.0481\) & -- \\
-\([40,\infty)\) & \(0.4469\pm0.0093\) & \(0.3018\pm0.0297\) & -- & -- \\
+\([0,10)\) & \(0.8121\pm0.0004\) & \(0.8078\pm0.0004\) & \(0.8075\pm0.0004\) & \(0.8075\pm0.0004\) \\
+\([10,15)\) & \(0.7834\pm0.0002\) & \(0.7720\pm0.0002\) & \(0.7711\pm0.0002\) & \(0.7709\pm0.0002\) \\
+\([15,20)\) & \(0.7396\pm0.0002\) & \(0.7183\pm0.0002\) & \(0.7162\pm0.0003\) & \(0.7159\pm0.0003\) \\
+\([20,25)\) & \(0.6808\pm0.0002\) & \(0.6449\pm0.0003\) & \(0.6411\pm0.0003\) & \(0.6404\pm0.0003\) \\
+\([25,30)\) & \(0.6181\pm0.0005\) & \(0.5662\pm0.0006\) & \(0.5602\pm0.0007\) & \(0.5591\pm0.0007\) \\
+\([30,35)\) & \(0.5620\pm0.0016\) & \(0.4952\pm0.0022\) & \(0.4869\pm0.0023\) & \(0.4852\pm0.0023\) \\
+\([35,40)\) & \(0.5124\pm0.0077\) & \(0.4384\pm0.0102\) & \(0.4262\pm0.0110\) & \(0.4233\pm0.0113\) \\
+\([40,\infty)\) & \(0.5174\pm0.0255\) & \(0.4491\pm0.0426\) & \(0.4345\pm0.0518\) & \(0.4302\pm0.0570\) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -300,14 +294,14 @@ or unavailable in the current sample.}
 \toprule
 Multiplicity & \(\vn{2}{2}\) & \(\vn{2}{4}\) & \(\vn{2}{6}\) & \(\vn{2}{8}\) \\
 \midrule
-\([0,10)\) & \(0.6655\pm0.0045\) & \(0.6034\pm0.0068\) & \(0.5958\pm0.0070\) & \(0.5938\pm0.0072\) \\
-\([10,15)\) & \(0.6627\pm0.0039\) & \(0.5748\pm0.0056\) & \(0.5515\pm0.0065\) & \(0.5431\pm0.0071\) \\
-\([15,20)\) & \(0.6300\pm0.0051\) & \(0.5294\pm0.0068\) & \(0.4962\pm0.0078\) & \(0.4791\pm0.0090\) \\
-\([20,25)\) & \(0.5582\pm0.0046\) & \(0.4341\pm0.0063\) & \(0.3787\pm0.0114\) & \(0.2828\pm0.4437\) \\
-\([25,30)\) & \(0.4810\pm0.0025\) & \(0.3535\pm0.0066\) & \(0.2963\pm0.0180\) & -- \\
-\([30,35)\) & \(0.4488\pm0.0050\) & \(0.3359\pm0.0094\) & \(0.3011\pm0.0212\) & \(0.2802\pm0.0490\) \\
-\([35,40)\) & \(0.4231\pm0.0071\) & \(0.3294\pm0.0118\) & \(0.3125\pm0.0166\) & \(0.3094\pm0.0200\) \\
-\([40,\infty)\) & \(0.4151\pm0.0101\) & \(0.3084\pm0.0189\) & \(0.2475\pm0.0754\) & -- \\
+\([0,10)\) & \(0.3367\pm0.0016\) & -- & -- & \(0.3510\pm0.0074\) \\
+\([10,15)\) & \(0.3647\pm0.0003\) & -- & -- & -- \\
+\([15,20)\) & \(0.3983\pm0.0004\) & -- & -- & -- \\
+\([20,25)\) & \(0.4173\pm0.0003\) & \(0.2846\pm0.0015\) & -- & -- \\
+\([25,30)\) & \(0.4201\pm0.0006\) & \(0.3165\pm0.0015\) & \(0.2819\pm0.0037\) & \(0.2458\pm0.0119\) \\
+\([30,35)\) & \(0.4107\pm0.0023\) & \(0.3168\pm0.0037\) & \(0.3028\pm0.0034\) & \(0.2991\pm0.0035\) \\
+\([35,40)\) & \(0.3990\pm0.0080\) & \(0.3036\pm0.0190\) & \(0.2873\pm0.0243\) & \(0.2847\pm0.0258\) \\
+\([40,\infty)\) & \(0.4242\pm0.0275\) & \(0.3231\pm0.0634\) & -- & -- \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -316,20 +310,16 @@ Multiplicity & \(\vn{2}{2}\) & \(\vn{2}{4}\) & \(\vn{2}{6}\) & \(\vn{2}{8}\) \\
 \subsection{Matched 1994 reconstructed-MC comparison}
 \label{subsec:mc-comparison}
 
-A separate MC production was run on the matched LEP1 1994 reconstructed-MC
+A separate MC production was run on the available LEP1 1994 reconstructed-MC
 sample
 \begin{center}
-\path{/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/alephMCRecoAfterCutPaths_1994_thrust_pt04_t.root}.
+\path{/mnt/data3/data3/yjlee/StudyMultSamples/LEP1MCMerged.root}.
 \end{center}
-For a like-for-like comparison, the corresponding 1994 data sample
-\begin{center}
-\path{/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root}
-\end{center}
-was processed with the same cumulant settings, multiplicity bins, and
-sixteen-chunk jackknife procedure. The processed inputs contain 771,597 MC
-entries and 1,365,440 data entries; after the charged-particle selection and
-multiplicity-bin requirement, 749,082 MC events and 1,321,026 data events enter
-the inclusive cumulant histograms.
+This MC file contains 771,597 reconstructed entries in tree \texttt{t}, all
+from 1994. It is therefore used as a detector-level baseline rather than a
+strict year-matched comparison to the 1992--1995 data sample. After the
+charged-particle selection and multiplicity-bin requirement, 749,082 MC events
+enter the inclusive cumulant histograms.
 
 Figures~\ref{fig:v2-mc-beam} and~\ref{fig:v2-mc-thrust} show the standalone MC
 result for the beam and thrust axes. The beam-axis MC follows the same broad
@@ -342,7 +332,7 @@ therefore not plotted.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{v2_multiplicity_mc_beam.pdf}
-  \caption{Matched LEP1 1994 reconstructed-MC \(\vn{2}{2}\), \(\vn{2}{4}\),
+  \caption{LEP1 1994 reconstructed-MC \(\vn{2}{2}\), \(\vn{2}{4}\),
   \(\vn{2}{6}\), and \(\vn{2}{8}\) versus selected charged-particle
   multiplicity using the laboratory beam-axis azimuth.}
   \label{fig:v2-mc-beam}
@@ -351,14 +341,14 @@ therefore not plotted.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{v2_multiplicity_mc_thrust.pdf}
-  \caption{Matched LEP1 1994 reconstructed-MC \(\vn{2}{2}\), \(\vn{2}{4}\),
+  \caption{LEP1 1994 reconstructed-MC \(\vn{2}{2}\), \(\vn{2}{4}\),
   \(\vn{2}{6}\), and \(\vn{2}{8}\) versus selected charged-particle
   multiplicity using azimuth around the event thrust axis.}
   \label{fig:v2-mc-thrust}
 \end{figure}
 
 Figures~\ref{fig:v2-data-mc-beam} and~\ref{fig:v2-data-mc-thrust} compare the
-matched 1994 data and reconstructed MC directly. For the beam axis, the data/MC
+LEP1 1992--1995 data and 1994 reconstructed MC directly. For the beam axis, the data/MC
 agreement is at the percent level over most of the populated multiplicity range;
 the largest deviations appear in the highest-multiplicity bin, where the
 statistical uncertainty is also largest. For the thrust axis, \(\vn{2}{2}\) is
@@ -370,7 +360,7 @@ value under the standard cumulant sign convention.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.98\textwidth]{v2_data_mc_compare_beam.pdf}
-  \caption{Beam-axis comparison of matched LEP1 1994 data and reconstructed MC.
+  \caption{Beam-axis comparison of LEP1 1992--1995 data and 1994 reconstructed MC.
   Each panel shows one cumulant order, with data and MC offset slightly in the
   lab-selected charged-multiplicity bin for readability.}
   \label{fig:v2-data-mc-beam}
@@ -379,7 +369,7 @@ value under the standard cumulant sign convention.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.98\textwidth]{v2_data_mc_compare_thrust.pdf}
-  \caption{Thrust-axis comparison of matched LEP1 1994 data and reconstructed
+  \caption{Thrust-axis comparison of LEP1 1992--1995 data and 1994 reconstructed
   MC. Missing high-order points correspond to sign-invalid cumulants or bins
   without a valid real-valued \(\vn{2}{m}\).}
   \label{fig:v2-data-mc-thrust}
@@ -390,15 +380,16 @@ value under the standard cumulant sign convention.
 
 The inclusive two-particle result contains every ordered charged-particle pair
 in an event. To test the sensitivity to short-range and same-jet correlations,
-the matched 1994 data and reconstructed-MC samples were reprocessed with an
+the LEP1 1992--1995 data and 1994 reconstructed-MC samples were reprocessed with an
 additional two-particle rapidity-gap observable. The track selection,
 axis definitions, charged-multiplicity bins, and sixteen event chunks are the
-same as in the inclusive data/MC comparison. The only additional requirement is
-a strict pair cut
+same as in the inclusive data/MC comparison. The default additional requirement is a strict pair cut
 \begin{equation}
-  |\eta_i-\eta_j| > 2.0,
+  |\eta_i-\eta_j| > 2.0.
 \end{equation}
-where \(\eta\) is evaluated in the same coordinate system as the azimuthal angle:
+A second production is also run with \(|\eta_i-\eta_j|>1.6\) to test the
+stability of the rapidity-gap suppression against the gap threshold. In both cases,
+\(\eta\) is evaluated in the same coordinate system as the azimuthal angle:
 laboratory pseudorapidity for the beam-axis result and pseudorapidity around the
 reconstructed thrust axis for the thrust-axis result. The horizontal axis remains
 the selected laboratory charged-particle multiplicity, matching the other
@@ -435,10 +426,10 @@ Figures~\ref{fig:v2-eta-gap-data-mc-beam} and
 measurements. MC is drawn as histogram bands and data as points. In the beam
 axis, the rapidity-gap value is close to the inclusive value at low multiplicity
 and becomes smaller from roughly 15 charged tracks onward; the data gap/inclusive
-ratio falls to about 0.66 in the 30--35 bin, with the high-multiplicity tail
+ratio falls to about 0.65 in the 30--35 bin, with the high-multiplicity tail
 limited by statistics. The reconstructed MC follows the same trend. In the
 thrust axis, the rapidity-gap suppression is stronger: the data gap/inclusive
-ratio decreases from about 0.74 in the 0--10 bin to about 0.44 around 30--35
+ratio decreases from about 0.71 in the 0--10 bin to about 0.43 around 30--35
 charged tracks, again with consistent MC behavior within the quoted statistical
 uncertainties. This pattern is consistent with a sizable contribution to the
 inclusive two-particle coefficient from short-range or jet-like correlations
@@ -448,7 +439,7 @@ that are reduced by the large \(|\Delta\eta|\) separation.
   \centering
   \includegraphics[width=0.98\textwidth]{v2_eta_gap_data_mc_compare_beam.pdf}
   \caption{Beam-axis comparison of inclusive \(\vn{2}{2}\) and
-  \(\vn{2}{2,|\Delta\eta|>2}\) for matched LEP1 1994 data and reconstructed
+  \(\vn{2}{2,|\Delta\eta|>2}\) for LEP1 1992--1995 data and 1994 reconstructed
   MC. MC is shown as histogram bands and data as points. The lower panel shows
   the rapidity-gap value divided by the inclusive value.}
   \label{fig:v2-eta-gap-data-mc-beam}
@@ -458,11 +449,36 @@ that are reduced by the large \(|\Delta\eta|\) separation.
   \centering
   \includegraphics[width=0.98\textwidth]{v2_eta_gap_data_mc_compare_thrust.pdf}
   \caption{Thrust-axis comparison of inclusive \(\vn{2}{2}\) and
-  \(\vn{2}{2,|\Delta\eta|>2}\) for matched LEP1 1994 data and reconstructed
+  \(\vn{2}{2,|\Delta\eta|>2}\) for LEP1 1992--1995 data and 1994 reconstructed
   MC. The rapidity gap is evaluated using pseudorapidity around the thrust axis;
   the multiplicity bin remains the selected laboratory charged-particle
   multiplicity.}
   \label{fig:v2-eta-gap-data-mc-thrust}
+\end{figure}
+
+
+Figures~\ref{fig:v2-eta-gap-1p6-data-mc-beam} and
+\ref{fig:v2-eta-gap-1p6-data-mc-thrust} show the corresponding comparison for
+\(|\Delta\eta|>1.6\). As expected, the looser gap admits more event pairs and
+therefore gives a less suppressed gap/inclusive ratio than the \(|\Delta\eta|>2\)
+selection, while preserving the same qualitative multiplicity dependence.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{v2_eta_gap_1p6_data_mc_compare_beam.pdf}
+  \caption{Beam-axis comparison of inclusive \(\vn{2}{2}\) and
+  \(\vn{2}{2,|\Delta\eta|>1.6}\) for LEP1 1992--1995 data and 1994 reconstructed
+  MC.}
+  \label{fig:v2-eta-gap-1p6-data-mc-beam}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{v2_eta_gap_1p6_data_mc_compare_thrust.pdf}
+  \caption{Thrust-axis comparison of inclusive \(\vn{2}{2}\) and
+  \(\vn{2}{2,|\Delta\eta|>1.6}\) for LEP1 1992--1995 data and 1994 reconstructed
+  MC.}
+  \label{fig:v2-eta-gap-1p6-data-mc-thrust}
 \end{figure}
 
 \newpage
@@ -494,10 +510,10 @@ that are reduced by the large \(|\Delta\eta|\) separation.
   \end{center}
 \end{figure}
 
-\subsection{Two-subevent matched data/MC comparison}
+\subsection{Two-subevent detector-level data/MC comparison}
 \label{subsec:two-subevent-comparison}
 
-The matched 1994 data and reconstructed-MC samples were reprocessed with the
+The LEP1 1992--1995 data and 1994 reconstructed-MC samples were reprocessed with the
 same track selection, multiplicity bins, and sixteen-chunk jackknife procedure,
 adding the two-subevent cumulant sums described above. Figures~\ref{fig:v2-two-sub-data-mc-beam}
 and~\ref{fig:v2-two-sub-data-mc-thrust} show MC as histograms with statistical
@@ -521,8 +537,8 @@ comparison.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.98\textwidth]{v2_two_sub_data_mc_compare_beam.pdf}
-  \caption{Beam-axis two-subevent comparison of matched LEP1 1994 data and
-  reconstructed MC. MC is drawn as a histogram with statistical band, while data
+  \caption{Beam-axis two-subevent comparison of LEP1 1992--1995 data and 1994 reconstructed
+  MC. MC is drawn as a histogram with statistical band, while data
   are shown as points with delete-one-chunk jackknife uncertainties.}
   \label{fig:v2-two-sub-data-mc-beam}
 \end{figure}
@@ -530,8 +546,8 @@ comparison.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.98\textwidth]{v2_two_sub_data_mc_compare_thrust.pdf}
-  \caption{Thrust-axis two-subevent comparison of matched LEP1 1994 data and
-  reconstructed MC. Missing or zero high-order entries correspond to
+  \caption{Thrust-axis two-subevent comparison of LEP1 1992--1995 data and 1994 reconstructed
+  MC. Missing or zero high-order entries correspond to
   sign-invalid cumulants or bins without a valid real-valued
   \(\vn{2}{2k}_{\mathrm{2sub}}\).}
   \label{fig:v2-two-sub-data-mc-thrust}
@@ -561,16 +577,16 @@ as a corrected ALEPH measurement.
 
 A first ALEPH charged-particle cumulant workflow has been built from the local
 StudyMult code base and validated against exact brute-force ordered-particle
-sums. The current figures use the matched LEP1 1994 reconstructed data sample,
-with \(1{,}365{,}440\) input entries and \(1{,}321{,}026\) selected events in the
-analysis multiplicity bins; this is not yet the full 1991--1995 LEP1 data
-statistics. The analysis extracts \(\vn{2}{2}\), \(\vn{2}{4}\), \(\vn{2}{6}\),
-and \(\vn{2}{8}\) versus charged-particle multiplicity for both the beam-axis
-and thrust-axis azimuthal definitions. Statistical uncertainties are propagated
-through the nonlinear cumulant definitions with a sixteen-chunk jackknife. The
-beam-axis and thrust-axis figures included in this note provide the current
-detector-level baseline for subsequent correction, all-LEP1 production, and
-systematic-uncertainty studies.
+sums. The current figures use the merged LEP1 1992--1995 reconstructed data
+sample, with \(3{,}050{,}610\) selected events in the analysis multiplicity
+bins. The analysis extracts \(\vn{2}{2}\), \(\vn{2}{4}\), \(\vn{2}{6}\), and
+\(\vn{2}{8}\) versus charged-particle multiplicity for both the beam-axis and
+thrust-axis azimuthal definitions, and compares inclusive \(\vn{2}{2}\) with
+rapidity-gap selections \(|\Delta\eta|>2.0\) and \(|\Delta\eta|>1.6\).
+Statistical uncertainties are propagated through the nonlinear cumulant
+definitions with a sixteen-chunk jackknife. The beam-axis and thrust-axis
+figures included in this note provide the current detector-level baseline for
+subsequent correction, 1991-data recovery, and systematic-uncertainty studies.
 
 \bibliographystyle{unsrt}
 \bibliography{references}

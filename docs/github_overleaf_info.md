@@ -7,7 +7,7 @@ This file records where the ALEPH cumulant analysis code and note are maintained
 - Web URL: https://github.com/yenjie/ALEPH_Cumulant
 - SSH URL: `git@github.com:yenjie/ALEPH_Cumulant.git`
 - Main branch: `main`
-- Latest analysis-code update before this information file: `f46ac77 Center two-subevent data markers`
+- Latest recorded code update: 2026-06-17, merged LEP1 1992--1995 data production with added `|Delta eta| > 1.6` rapidity-gap figures
 
 Clone with SSH:
 
@@ -31,14 +31,14 @@ The detailed run instructions are in `docs/run_instructions.md`.
 - Git URL: `https://git@git.overleaf.com/6a320514b63e8500bc0db2d7`
 - SSH Git URL, if port 22 is available: `git@git.overleaf.com:6a320514b63e8500bc0db2d7`
 - Main branch: `main`
-- Latest note update before this information file: `80d133f Center two-subevent data markers`
+- Latest recorded note update: 2026-06-17, merged LEP1 1992--1995 data production with added `|Delta eta| > 1.6` rapidity-gap figures
 
 The Overleaf project contains the analysis note source, selected figure PDFs/CSVs, and review markdown files. Token values are not stored in this repository.
 
 ## Current Analysis Artifacts
 
-- Analysis note PDF in GitHub checkout: `AnalysisNote/main.pdf`
-- Note figures in GitHub checkout: `AnalysisNote/figures/`
+- Analysis note PDF in GitHub checkout: `AnalysisNote/main.pdf` (18 pages after the merged LEP1 update)
+- Note figures in GitHub checkout: `AnalysisNote/figures/`, including inclusive, MC-only, data/MC, `|Delta eta| > 2.0`, `|Delta eta| > 1.6`, and two-subevent comparisons
 - Review files in GitHub checkout:
   - `20260617-review.md`
   - `20260617-review-response.md`

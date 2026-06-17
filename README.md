@@ -14,7 +14,7 @@ Standalone ROOT/C++ analysis repository for charged-particle multi-particle cumu
   - derived `c2{2}`, `c2{4}`, `c2{6}`, `c2{8}`
   - derived `v2{2}`, `v2{4}`, `v2{6}`, `v2{8}`
 - Computes full-event and three-subevent `v224 = <exp(i(2 phi1 + 2 phi2 - 4 phi3))>`.
-- Computes the eta-gap two-particle observable `v2{2, |Delta eta| > 2}` for comparison with inclusive `v2{2}`.
+- Computes eta-gap two-particle observables, including `v2{2, |Delta eta| > 2}` and `v2{2, |Delta eta| > 1.6}`, for comparison with inclusive `v2{2}`.
 - Runs both beam-axis azimuth and thrust-axis azimuth in one pass.
 - Writes mergeable numerator and denominator histograms for chunked processing.
 - Writes jackknife statistical uncertainties on summary histograms when run from chunk files.
@@ -25,7 +25,7 @@ For a complete GitHub-checkout workflow, including clone/build, smoke test, full
 
 GitHub and Overleaf project links are recorded in [`docs/github_overleaf_info.md`](docs/github_overleaf_info.md).
 
-Sample provenance and checked event counts are recorded in [`docs/sample_audit_20260617.md`](docs/sample_audit_20260617.md). The current figures use matched LEP1 1994 data/MC, not the full 1991--1995 LEP1 data statistics yet.
+Sample provenance and checked event counts are recorded in [`docs/sample_audit_20260617.md`](docs/sample_audit_20260617.md). The current figures use the merged LEP1 1992--1995 data sample `LEP1Merged_20200611.root` with 3,050,610 entries, compared to the merged 1994 MC baseline.
 
 ## Build
 
@@ -116,84 +116,16 @@ make note
 
 The compiled note is `AnalysisNote/main.pdf`; the included v2-vs-multiplicity figures and CSV tables are copied into `AnalysisNote/figures/` for stable note provenance.
 
-The matched 1994 data/MC result in the note was produced with:
+The current note figures were produced from the merged LEP1 data and merged 1994 MC samples:
 
-```bash
-ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
-  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/alephMCRecoAfterCutPaths_1994_thrust_pt04_t.root \
-  output/lep1_1994_mc_charged_pt04 16 \
-  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
-  --MultiplicityBins 0,10,15,20,25,30,35,40,999
-
-ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
-  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root \
-  output/lep1_1994_data_charged_pt04 16 \
-  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
-  --MultiplicityBins 0,10,15,20,25,30,35,40,999
+```text
+Data: /mnt/data3/data3/yjlee/StudyMultSamples/ALEPH/LEP1/LEP1Merged_20200611.root
+MC:   /mnt/data3/data3/yjlee/StudyMultSamples/LEP1MCMerged.root
 ```
 
-The standalone MC plots are produced with:
+Both samples are read as StudyMult array trees with `--InputFormat array --Tree t`. The data sample contains 3,050,610 entries from 1992--1995; no converted 1991 ROOT file was found in the checked StudyMult sample directories. The MC sample contains 771,597 entries and is used as the 1994 baseline comparison.
 
-```bash
-bin/plot_v2_multiplicity \
-  --Input output/lep1_1994_mc_charged_pt04_summary.root \
-  --OutputPrefix output/lep1_1994_mc_charged_pt04_v2
-```
-
-A matched data/MC comparison can be plotted with:
-
-```bash
-bin/compare_v2_multiplicity \
-  --DataSummary output/lep1_1994_data_charged_pt04_summary.root \
-  --MCSummary output/lep1_1994_mc_charged_pt04_summary.root \
-  --OutputPrefix output/lep1_1994_data_mc_charged_pt04_compare
-```
-
-The two-subevent result uses `eta < 0` and `eta > 0` in each axis frame by default and samples `k` particles from each subevent for `v2{2k}`. With `--TwoSubeventEtaBoundary 0.0` this is a two-hemisphere split, not a finite eta-gap suppression. It is produced with:
-
-```bash
-ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
-  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/alephMCRecoAfterCutPaths_1994_thrust_pt04_t.root \
-  output/lep1_1994_mc_charged_pt04_twosub 16 \
-  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
-  --TwoSubeventEtaBoundary 0.0 \
-  --MultiplicityBins 0,10,15,20,25,30,35,40,999
-
-ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
-  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root \
-  output/lep1_1994_data_charged_pt04_twosub 16 \
-  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
-  --TwoSubeventEtaBoundary 0.0 \
-  --MultiplicityBins 0,10,15,20,25,30,35,40,999
-
-bin/compare_two_subevent_v2_multiplicity \
-  --DataSummary output/lep1_1994_data_charged_pt04_twosub_summary.root \
-  --MCSummary output/lep1_1994_mc_charged_pt04_twosub_summary.root \
-  --OutputPrefix output/lep1_1994_data_mc_charged_pt04_twosub_compare
-```
-
-The inclusive `v2{2}` and eta-gap `v2{2, |Delta eta| > 2}` comparison is produced from the same matched samples with an explicit eta-gap pair count:
-
-```bash
-ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
-  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/alephMCRecoAfterCutPaths_1994_thrust_pt04_t.root \
-  output/lep1_1994_mc_charged_pt04_etagap 16 \
-  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
-  --EtaGapMin 2.0 \
-  --MultiplicityBins 0,10,15,20,25,30,35,40,999
-
-ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
-  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root \
-  output/lep1_1994_data_charged_pt04_etagap 16 \
-  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
-  --EtaGapMin 2.0 \
-  --MultiplicityBins 0,10,15,20,25,30,35,40,999
-
-bin/compare_v22_eta_gap \
-  --DataSummary output/lep1_1994_data_charged_pt04_etagap_summary.root \
-  --MCSummary output/lep1_1994_mc_charged_pt04_etagap_summary.root \
-  --OutputPrefix output/lep1_1994_data_mc_charged_pt04_etagap_compare
-```
+The full reproducible workflow is in [`docs/run_instructions.md`](docs/run_instructions.md). It covers the inclusive cumulants, MC-only plots, data/MC comparisons, `|Delta eta| > 2.0`, the added `|Delta eta| > 1.6` rapidity-gap comparison, and the two-subevent production.
 
 ## Local Provenance
 

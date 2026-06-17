@@ -160,7 +160,8 @@ namespace
    }
 
    void PlotAxis(TFile &dataFile, TFile &mcFile, const std::string &axis,
-      const std::string &outputPrefix, const std::string &dataLabel, const std::string &mcLabel)
+      const std::string &outputPrefix, const std::string &dataLabel,
+      const std::string &mcLabel, const std::string &gapLabel)
    {
       gStyle->SetOptStat(0);
       gStyle->SetEndErrorSize(3);
@@ -231,9 +232,9 @@ namespace
       legend.SetBorderSize(0);
       legend.SetFillStyle(0);
       legend.AddEntry(dataInclusiveGraph.get(), (dataLabel + " inclusive").c_str(), "pe");
-      legend.AddEntry(dataGapGraph.get(), (dataLabel + " |#Delta#eta|>2").c_str(), "pe");
+      legend.AddEntry(dataGapGraph.get(), (dataLabel + " " + gapLabel).c_str(), "pe");
       legend.AddEntry(mcInclusiveBand.get(), (mcLabel + " inclusive").c_str(), "lf");
-      legend.AddEntry(mcGapBand.get(), (mcLabel + " |#Delta#eta|>2").c_str(), "lf");
+      legend.AddEntry(mcGapBand.get(), (mcLabel + " " + gapLabel).c_str(), "lf");
       legend.Draw();
       upper.Modified();
 
@@ -273,6 +274,7 @@ int main(int argc, char *argv[])
       const std::string outputPrefix = cl.Get("OutputPrefix", "output/lep1_1994_data_mc_charged_pt04_etagap_compare");
       const std::string dataLabel = cl.Get("DataLabel", "ALEPH 1994 data");
       const std::string mcLabel = cl.Get("MCLabel", "ALEPH 1994 MC");
+      const std::string gapLabel = cl.Get("GapLabel", "|#Delta#eta|>2");
 
       TFile dataFile(dataName.c_str(), "READ");
       if (dataFile.IsZombie())
@@ -284,7 +286,7 @@ int main(int argc, char *argv[])
       for (const std::string &axis : {std::string("beam"), std::string("thrust")})
       {
          WriteComparisonTable(dataFile, mcFile, axis, outputPrefix + "_" + axis + ".csv");
-         PlotAxis(dataFile, mcFile, axis, outputPrefix, dataLabel, mcLabel);
+         PlotAxis(dataFile, mcFile, axis, outputPrefix, dataLabel, mcLabel, gapLabel);
       }
 
       std::cout << "Wrote " << outputPrefix << "_[beam,thrust].[csv,png,pdf]" << std::endl;
