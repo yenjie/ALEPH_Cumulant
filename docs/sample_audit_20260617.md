@@ -49,6 +49,8 @@ The current production is 1994-only, not all LEP1. The available local LEP1 data
 
 A targeted check of `/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp` found ready vector-format LEP1 data ROOT files for 1994 only. Before quoting an all-LEP1 result, the 1991, 1992, 1993, 1994, and 1995 inputs need to be converted or merged into a compatible ROOT input, or processed year-by-year into chunk ROOT files and then summarized together.
 
+Representative entries from these path lists, for example `/data/flowex/Datasamples/LEP1_MAIN/LEP1/1991/LEP1Data1991_recons_aftercut-001.aleph` and `/data/flowex/Datasamples/LEP1_MAIN/LEP1/1994/LEP1Data1994_recons_aftercut-001.aleph`, are ASCII ALEPH event records beginning with `ALEPH_DATA RUN = ...`, not ROOT TTrees. A direct probe with `bin/aleph_charged_cumulants --PrintEntries` fails with `not a ROOT file`, and `rootls` does not treat them as ROOT inputs. The existing StudyMult conversion path is `DataProcessing/src/scan.cc`, driven historically by `DataProcessing/bash/processLEP1.sh`; that script covers 1992, 1993, 1994, and 1995, while an all-LEP1 rerun should explicitly add the separate 1991 path list.
+
 ## Required Follow-Up for All LEP1 Statistics
 
 1. Produce or identify compatible vector-format ROOT inputs for 1991-1995 data using the five LEP1 path lists above.

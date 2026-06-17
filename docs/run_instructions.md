@@ -48,6 +48,8 @@ COMMON_ARGS="--InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 --Mu
 
 Charged particles are selected with StudyMult `pwflag` values `0`, `1`, or `2`. Both beam-axis and thrust-axis cumulants are binned versus laboratory selected charged-particle multiplicity. The thrust-selected multiplicity is written only as a diagnostic histogram in the current production.
 
+The all-LEP1 data path lists under `/data/yjlee/StudyMult/DataProcessing/paths/alephDataPaths_LEP1_*.txt` point to ASCII ALEPH event-record files, not directly to ROOT TTrees. Convert those records with the StudyMult `scan.cc` preprocessing chain, or produce an equivalent compatible ROOT tree, before running the cumulant analyzer on all 1991--1995 data.
+
 ## 3. Quick Smoke Test
 
 Run over a small entry range before launching full production:
