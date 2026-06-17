@@ -10,4 +10,12 @@ output/*
 *.so
 *.d
 core
-
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz

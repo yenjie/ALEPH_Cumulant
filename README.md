@@ -94,6 +94,16 @@ scripts/run_chunks.sh /path/to/input.root output/charged_pt04 16 --Tree t --Inpu
 - `--Harmonic 2`: harmonic for `<2k>` cumulant sums.
 - `--SubeventEtaBoundary 0.5`: three-subevent split in the selected coordinate system.
 
+## Analysis Note
+
+The repository includes an Electron-Positron Alliance-style analysis note in `AnalysisNote/`. Rebuild it with:
+
+```bash
+make note
+```
+
+The compiled note is `AnalysisNote/main.pdf`; the included v2-vs-multiplicity figures and CSV tables are copied into `AnalysisNote/figures/` for stable note provenance.
+
 ## Local Provenance
 
 See `docs/local_sources.md` for the StudyMult and prototype files used to build this repository.

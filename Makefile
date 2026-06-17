@@ -6,12 +6,15 @@ CXX ?= g++
 CXXFLAGS ?= -O3 -std=c++17 -Wall -Wextra -Iinclude $(ROOTCFLAGS)
 LDFLAGS ?= $(ROOTLIBS)
 
-.PHONY: all check clean
+.PHONY: all check note clean
 
 all: bin/aleph_charged_cumulants bin/merge_correlation_chunks bin/aleph_cumulant_summary bin/plot_v2_multiplicity
 
 check: all
 	bin/aleph_charged_cumulants --SelfTest 1
+
+note:
+	$(MAKE) -C AnalysisNote main.pdf
 
 bin/aleph_charged_cumulants: src/AlephChargedCumulants.cpp include/CommandLine.h include/ThrustTools.h | bin
 	$(CXX) $(CXXFLAGS) src/AlephChargedCumulants.cpp -o $@ $(LDFLAGS)
