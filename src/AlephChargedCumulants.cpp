@@ -113,6 +113,7 @@ namespace
       double LabPtMin = 0.4;
       double ThrustPtMin = 0.4;
       double SubeventEtaBoundary = 0.5;
+      double TwoSubeventEtaBoundary = 0.0;
       std::vector<int> MultiplicityEdges;
    };
 
@@ -123,6 +124,10 @@ namespace
       TH1D *QuadCapableCount = nullptr;
       TH1D *HexCapableCount = nullptr;
       TH1D *OctCapableCount = nullptr;
+      TH1D *TwoSubPairCapableCount = nullptr;
+      TH1D *TwoSubQuadCapableCount = nullptr;
+      TH1D *TwoSubHexCapableCount = nullptr;
+      TH1D *TwoSubOctCapableCount = nullptr;
       TH1D *FullV224CapableCount = nullptr;
       TH1D *ThreeSubV224CapableCount = nullptr;
       TH1D *SumNum2 = nullptr;
@@ -133,6 +138,14 @@ namespace
       TH1D *SumDen6 = nullptr;
       TH1D *SumNum8 = nullptr;
       TH1D *SumDen8 = nullptr;
+      TH1D *SumNum2TwoSub = nullptr;
+      TH1D *SumDen2TwoSub = nullptr;
+      TH1D *SumNum4TwoSub = nullptr;
+      TH1D *SumDen4TwoSub = nullptr;
+      TH1D *SumNum6TwoSub = nullptr;
+      TH1D *SumDen6TwoSub = nullptr;
+      TH1D *SumNum8TwoSub = nullptr;
+      TH1D *SumDen8TwoSub = nullptr;
       TH1D *SumNumV224 = nullptr;
       TH1D *SumDenV224 = nullptr;
       TH1D *SumNumV224ThreeSub = nullptr;
@@ -572,6 +585,68 @@ namespace
       return result;
    }
 
+   using Complex = std::complex<double>;
+
+   std::array<Complex, MaxHalfCorrelation + 1> ElementarySymmetricProducts(
+      const std::vector<Complex> &values)
+   {
+      std::array<Complex, MaxHalfCorrelation + 1> products = {};
+      products[0] = Complex(1.0, 0.0);
+      for (const Complex &value : values)
+      {
+         for (int order = MaxHalfCorrelation; order >= 1; --order)
+            products[order] += products[order - 1] * value;
+      }
+      return products;
+   }
+
+   CumulantContributions ComputeTwoSubeventCumulantContributions(
+      const std::vector<TrackSummary> &tracks, int harmonic, double etaBoundary)
+   {
+      CumulantContributions result;
+      std::vector<Complex> first;
+      std::vector<Complex> second;
+      first.reserve(tracks.size());
+      second.reserve(tracks.size());
+
+      for (const TrackSummary &track : tracks)
+      {
+         const Complex q = std::polar(1.0, static_cast<double>(harmonic) * track.Phi);
+         if (track.Eta < -etaBoundary)
+            first.push_back(q);
+         else if (track.Eta > etaBoundary)
+            second.push_back(q);
+      }
+
+      result.Multiplicity = static_cast<int>(std::min(first.size(), second.size()));
+      const int maxHalf = std::min(MaxHalfCorrelation, result.Multiplicity);
+      if (maxHalf <= 0)
+         return result;
+
+      const auto firstProducts = ElementarySymmetricProducts(first);
+      const auto secondProducts = ElementarySymmetricProducts(second);
+      std::array<double, MaxHalfCorrelation + 1> numerators = {};
+      std::array<double, MaxHalfCorrelation + 1> denominators = {};
+
+      for (int half = 1; half <= maxHalf; ++half)
+      {
+         const double ordering = static_cast<double>(Factorials[half] * Factorials[half]);
+         numerators[half] = ordering * std::real(firstProducts[half] * std::conj(secondProducts[half]));
+         denominators[half] = FallingFactorial(static_cast<int>(first.size()), half) *
+            FallingFactorial(static_cast<int>(second.size()), half);
+      }
+
+      result.Num2 = numerators[1];
+      result.Den2 = denominators[1];
+      result.Num4 = numerators[2];
+      result.Den4 = denominators[2];
+      result.Num6 = numerators[3];
+      result.Den6 = denominators[3];
+      result.Num8 = numerators[4];
+      result.Den8 = denominators[4];
+      return result;
+   }
+
    CorrelatorContribution ComputeFullEventV224(const std::vector<TrackSummary> &tracks)
    {
       CorrelatorContribution result;
@@ -677,6 +752,50 @@ namespace
       return std::real(sum);
    }
 
+   double BruteForceTwoSubeventNumerator(const std::vector<TrackSummary> &tracks,
+      int harmonic, int half, double etaBoundary)
+   {
+      std::vector<double> first;
+      std::vector<double> second;
+      for (const TrackSummary &track : tracks)
+      {
+         if (track.Eta < -etaBoundary)
+            first.push_back(track.Phi);
+         else if (track.Eta > etaBoundary)
+            second.push_back(track.Phi);
+      }
+
+      if (static_cast<int>(first.size()) < half || static_cast<int>(second.size()) < half)
+         return 0.0;
+
+      auto orderedProducts = [harmonic, half](const std::vector<double> &phis, int sign)
+      {
+         Complex sum(0.0, 0.0);
+         std::vector<bool> used(phis.size(), false);
+         std::function<void(int, Complex)> recurse = [&](int depth, Complex value)
+         {
+            if (depth == half)
+            {
+               sum += value;
+               return;
+            }
+            for (int i = 0; i < static_cast<int>(phis.size()); ++i)
+            {
+               if (used[i])
+                  continue;
+               used[i] = true;
+               recurse(depth + 1, value * std::polar(1.0,
+                  static_cast<double>(sign * harmonic) * phis[i]));
+               used[i] = false;
+            }
+         };
+         recurse(0, Complex(1.0, 0.0));
+         return sum;
+      };
+
+      return std::real(orderedProducts(first, +1) * orderedProducts(second, -1));
+   }
+
    double BruteForceV224Numerator(const std::vector<TrackSummary> &tracks)
    {
       using Complex = std::complex<double>;
@@ -740,6 +859,40 @@ namespace
          }
       }
 
+      for (int harmonic : {1, 2, 3})
+      {
+         for (int multiplicity = 2; multiplicity <= 10; ++multiplicity)
+         {
+            std::vector<TrackSummary> tracks;
+            for (int i = 0; i < multiplicity; ++i)
+               tracks.push_back({-1.2 + 2.4 * (i + 0.5) / multiplicity,
+                  0.09 + 0.23 * i + 0.017 * i * i + 0.05 * harmonic});
+
+            const CumulantContributions production =
+               ComputeTwoSubeventCumulantContributions(tracks, harmonic, 0.0);
+            const std::array<double, MaxHalfCorrelation + 1> nums = {{
+               0.0, production.Num2, production.Num4, production.Num6, production.Num8}};
+            const std::array<double, MaxHalfCorrelation + 1> dens = {{
+               0.0, production.Den2, production.Den4, production.Den6, production.Den8}};
+
+            for (int half = 1; half <= std::min(MaxHalfCorrelation, multiplicity / 2); ++half)
+            {
+               const double brute = BruteForceTwoSubeventNumerator(tracks, harmonic, half, 0.0);
+               const double scale = std::max(1.0, dens[half]);
+               if (dens[half] > 0.0 && !NearlyEqual(nums[half], brute, scale))
+               {
+                  std::cerr << "Self-test failed for two-subevent harmonic=" << harmonic
+                     << " multiplicity=" << multiplicity
+                     << " half=" << half
+                     << " numerator=" << nums[half]
+                     << " brute=" << brute
+                     << " denominator=" << dens[half] << std::endl;
+                  return false;
+               }
+            }
+         }
+      }
+
       for (int multiplicity = 3; multiplicity <= 8; ++multiplicity)
       {
          std::vector<TrackSummary> tracks;
@@ -792,6 +945,14 @@ namespace
          "Six-particle-capable events, " + axis.Label + xTitle + "events", multBins);
       h.OctCapableCount = MakeHistogram("hOctCapableCount" + suffix,
          "Eight-particle-capable events, " + axis.Label + xTitle + "events", multBins);
+      h.TwoSubPairCapableCount = MakeHistogram("hTwoSubPairCapableCount" + suffix,
+         "Two-subevent pair-capable events, " + axis.Label + xTitle + "events", multBins);
+      h.TwoSubQuadCapableCount = MakeHistogram("hTwoSubQuadCapableCount" + suffix,
+         "Two-subevent four-particle-capable events, " + axis.Label + xTitle + "events", multBins);
+      h.TwoSubHexCapableCount = MakeHistogram("hTwoSubHexCapableCount" + suffix,
+         "Two-subevent six-particle-capable events, " + axis.Label + xTitle + "events", multBins);
+      h.TwoSubOctCapableCount = MakeHistogram("hTwoSubOctCapableCount" + suffix,
+         "Two-subevent eight-particle-capable events, " + axis.Label + xTitle + "events", multBins);
       h.FullV224CapableCount = MakeHistogram("hFullV224CapableCount" + suffix,
          "Full-event v224-capable events, " + axis.Label + xTitle + "events", multBins);
       h.ThreeSubV224CapableCount = MakeHistogram("hThreeSubV224CapableCount" + suffix,
@@ -805,6 +966,22 @@ namespace
       h.SumDen6 = MakeHistogram("hSumDen6" + suffix, "Sum denominator <6>, " + axis.Label + xTitle + "sum", multBins);
       h.SumNum8 = MakeHistogram("hSumNum8" + suffix, "Sum numerator <8>, " + axis.Label + xTitle + "sum", multBins);
       h.SumDen8 = MakeHistogram("hSumDen8" + suffix, "Sum denominator <8>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumNum2TwoSub = MakeHistogram("hSumNum2TwoSub" + suffix,
+         "Sum two-subevent numerator <2>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumDen2TwoSub = MakeHistogram("hSumDen2TwoSub" + suffix,
+         "Sum two-subevent denominator <2>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumNum4TwoSub = MakeHistogram("hSumNum4TwoSub" + suffix,
+         "Sum two-subevent numerator <4>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumDen4TwoSub = MakeHistogram("hSumDen4TwoSub" + suffix,
+         "Sum two-subevent denominator <4>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumNum6TwoSub = MakeHistogram("hSumNum6TwoSub" + suffix,
+         "Sum two-subevent numerator <6>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumDen6TwoSub = MakeHistogram("hSumDen6TwoSub" + suffix,
+         "Sum two-subevent denominator <6>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumNum8TwoSub = MakeHistogram("hSumNum8TwoSub" + suffix,
+         "Sum two-subevent numerator <8>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumDen8TwoSub = MakeHistogram("hSumDen8TwoSub" + suffix,
+         "Sum two-subevent denominator <8>, " + axis.Label + xTitle + "sum", multBins);
 
       h.SumNumV224 = MakeHistogram("hSumNumV224" + suffix,
          "Sum numerator <e^{i(2#phi_{1}+2#phi_{2}-4#phi_{3})}>, " + axis.Label + xTitle + "sum", multBins);
@@ -845,6 +1022,35 @@ namespace
       }
    }
 
+   void FillTwoSubeventCumulantHistograms(AxisHistograms &hist, int bin,
+      const CumulantContributions &contribution)
+   {
+      if (contribution.Den2 > 0.0)
+      {
+         hist.TwoSubPairCapableCount->AddBinContent(bin, 1.0);
+         hist.SumNum2TwoSub->AddBinContent(bin, contribution.Num2);
+         hist.SumDen2TwoSub->AddBinContent(bin, contribution.Den2);
+      }
+      if (contribution.Den4 > 0.0)
+      {
+         hist.TwoSubQuadCapableCount->AddBinContent(bin, 1.0);
+         hist.SumNum4TwoSub->AddBinContent(bin, contribution.Num4);
+         hist.SumDen4TwoSub->AddBinContent(bin, contribution.Den4);
+      }
+      if (contribution.Den6 > 0.0)
+      {
+         hist.TwoSubHexCapableCount->AddBinContent(bin, 1.0);
+         hist.SumNum6TwoSub->AddBinContent(bin, contribution.Num6);
+         hist.SumDen6TwoSub->AddBinContent(bin, contribution.Den6);
+      }
+      if (contribution.Den8 > 0.0)
+      {
+         hist.TwoSubOctCapableCount->AddBinContent(bin, 1.0);
+         hist.SumNum8TwoSub->AddBinContent(bin, contribution.Num8);
+         hist.SumDen8TwoSub->AddBinContent(bin, contribution.Den8);
+      }
+   }
+
    void FillV224Histograms(AxisHistograms &hist, int bin,
       const CorrelatorContribution &fullEvent,
       const CorrelatorContribution &threeSubevent)
@@ -870,6 +1076,10 @@ namespace
       hist.QuadCapableCount->Write();
       hist.HexCapableCount->Write();
       hist.OctCapableCount->Write();
+      hist.TwoSubPairCapableCount->Write();
+      hist.TwoSubQuadCapableCount->Write();
+      hist.TwoSubHexCapableCount->Write();
+      hist.TwoSubOctCapableCount->Write();
       hist.FullV224CapableCount->Write();
       hist.ThreeSubV224CapableCount->Write();
       hist.SumNum2->Write();
@@ -880,6 +1090,14 @@ namespace
       hist.SumDen6->Write();
       hist.SumNum8->Write();
       hist.SumDen8->Write();
+      hist.SumNum2TwoSub->Write();
+      hist.SumDen2TwoSub->Write();
+      hist.SumNum4TwoSub->Write();
+      hist.SumDen4TwoSub->Write();
+      hist.SumNum6TwoSub->Write();
+      hist.SumDen6TwoSub->Write();
+      hist.SumNum8TwoSub->Write();
+      hist.SumDen8TwoSub->Write();
       hist.SumNumV224->Write();
       hist.SumDenV224->Write();
       hist.SumNumV224ThreeSub->Write();
@@ -919,6 +1137,7 @@ namespace
       options.LabPtMin = cl.GetDouble("LabPtMin", 0.4);
       options.ThrustPtMin = cl.GetDouble("ThrustPtMin", 0.4);
       options.SubeventEtaBoundary = cl.GetDouble("SubeventEtaBoundary", 0.5);
+      options.TwoSubeventEtaBoundary = cl.GetDouble("TwoSubeventEtaBoundary", 0.0);
       if (cl.Has("MultiplicityBins"))
          options.MultiplicityEdges = cl.GetIntVector("MultiplicityBins", "");
       return options;
@@ -1027,6 +1246,10 @@ int main(int argc, char *argv[])
 
          const CumulantContributions beam = ComputeCumulantContributions(summary.BeamPhi, options.Harmonic);
          const CumulantContributions thrust = ComputeCumulantContributions(summary.ThrustPhi, options.Harmonic);
+         const CumulantContributions beamTwoSub = ComputeTwoSubeventCumulantContributions(
+            summary.BeamTracks, options.Harmonic, options.TwoSubeventEtaBoundary);
+         const CumulantContributions thrustTwoSub = ComputeTwoSubeventCumulantContributions(
+            summary.ThrustTracks, options.Harmonic, options.TwoSubeventEtaBoundary);
          const CorrelatorContribution beamV224 = ComputeFullEventV224(summary.BeamTracks);
          const CorrelatorContribution thrustV224 = ComputeFullEventV224(summary.ThrustTracks);
          const CorrelatorContribution beamV224ThreeSub =
@@ -1049,10 +1272,12 @@ int main(int argc, char *argv[])
 
             histograms[BeamAxisIndex].EventCount->AddBinContent(bin, 1.0);
             FillCumulantHistograms(histograms[BeamAxisIndex], bin, beam);
+            FillTwoSubeventCumulantHistograms(histograms[BeamAxisIndex], bin, beamTwoSub);
             FillV224Histograms(histograms[BeamAxisIndex], bin, beamV224, beamV224ThreeSub);
 
             histograms[ThrustAxisIndex].EventCount->AddBinContent(bin, 1.0);
             FillCumulantHistograms(histograms[ThrustAxisIndex], bin, thrust);
+            FillTwoSubeventCumulantHistograms(histograms[ThrustAxisIndex], bin, thrustTwoSub);
             FillV224Histograms(histograms[ThrustAxisIndex], bin, thrustV224, thrustV224ThreeSub);
          }
 
@@ -1079,6 +1304,7 @@ int main(int argc, char *argv[])
          ",ThrustPtMin=" + std::to_string(options.ThrustPtMin) +
          ",Harmonic=" + std::to_string(options.Harmonic) +
          ",SubeventEtaBoundary=" + std::to_string(options.SubeventEtaBoundary) +
+         ",TwoSubeventEtaBoundary=" + std::to_string(options.TwoSubeventEtaBoundary) +
          ",MultiplicityBins=" + JoinEdges(multBins) +
          ",StartEntry=" + std::to_string(options.StartEntry) +
          ",EndEntry=" + std::to_string(endEntry);
@@ -1086,7 +1312,7 @@ int main(int argc, char *argv[])
       metadata.Write();
 
       TNamed source("SourceNotes",
-         "Charged-particle selection follows StudyMult pwflag 0,1,2; cumulant sums are mergeable across chunks.");
+         "Charged-particle selection follows StudyMult pwflag 0,1,2; all-particle and two-subevent cumulant sums are mergeable across chunks.");
       source.Write();
 
       outputFile.Close();

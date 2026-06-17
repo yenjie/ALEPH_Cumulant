@@ -137,6 +137,29 @@ bin/compare_v2_multiplicity \
   --OutputPrefix output/lep1_1994_data_mc_charged_pt04_compare
 ```
 
+The two-subevent result uses `eta < 0` and `eta > 0` in each axis frame, samples `k` particles from each subevent for `v2{2k}`, and is produced with:
+
+```bash
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/alephMCRecoAfterCutPaths_1994_thrust_pt04_t.root \
+  output/lep1_1994_mc_charged_pt04_twosub 16 \
+  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
+  --TwoSubeventEtaBoundary 0.0 \
+  --MultiplicityBins 0,10,15,20,25,30,35,40,999
+
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root \
+  output/lep1_1994_data_charged_pt04_twosub 16 \
+  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
+  --TwoSubeventEtaBoundary 0.0 \
+  --MultiplicityBins 0,10,15,20,25,30,35,40,999
+
+bin/compare_two_subevent_v2_multiplicity \
+  --DataSummary output/lep1_1994_data_charged_pt04_twosub_summary.root \
+  --MCSummary output/lep1_1994_mc_charged_pt04_twosub_summary.root \
+  --OutputPrefix output/lep1_1994_data_mc_charged_pt04_twosub_compare
+```
+
 ## Local Provenance
 
 See `docs/local_sources.md` for the StudyMult and prototype files used to build this repository.

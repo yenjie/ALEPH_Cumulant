@@ -40,9 +40,9 @@ ordered, distinct-particle correlations through eighth order and propagates
 statistical uncertainties with delete-one-chunk jackknife resampling over
 sixteen event chunks. The present result is a detector-level charged-particle
 study; detector-response, acceptance, and model-dependent systematic
-uncertainties are not yet included. A matched 1994 reconstructed-MC comparison
-is included as a baseline closure-style check of the beam-axis and thrust-axis
-trends.
+uncertainties are not yet included. Matched 1994 reconstructed-MC comparisons
+are included as baseline closure-style checks of the beam-axis and thrust-axis
+trends, including a separate two-subevent cumulant construction.
 \end{abstract}
 
 \noindent\textbf{Keywords:} ALEPH, archived \(e^+e^-\) data, charged-particle
@@ -367,6 +367,78 @@ value under the standard cumulant sign convention.
   MC. Missing high-order points correspond to sign-invalid cumulants or bins
   without a valid real-valued \(\vn{2}{m}\).}
   \label{fig:v2-data-mc-thrust}
+\end{figure}
+
+\newpage
+\begin{figure}[htbp]
+  \begin{center}
+  \fbox{\begin{minipage}{0.92\textwidth}
+  \textbf{Two-subevent cumulant definition.}
+  For each axis frame, charged particles are split into subevent A with
+  \(\eta < -\eta_{\rm gap}\) and subevent B with
+  \(\eta > \eta_{\rm gap}\). The result shown here uses
+  \(\eta_{\rm gap}=0\). The \(2k\)-particle correlation samples
+  \(k\) distinct particles from A and \(k\) distinct particles from B,
+  \[
+    \langle 2k \rangle_{\mathrm{2sub}}
+    = \left\langle
+      e^{i n(\phi^A_1+\cdots+\phi^A_k
+      -\phi^B_1-\cdots-\phi^B_k)}
+    \right\rangle,
+  \]
+  with ordered tuple weights
+  \(M_A(M_A-1)\cdots(M_A-k+1)\)
+  \(M_B(M_B-1)\cdots(M_B-k+1)\). The same cumulant combinations used for
+  the all-particle result are then applied to
+  \(\langle2\rangle_{\mathrm{2sub}}\), \(\langle4\rangle_{\mathrm{2sub}}\),
+  \(\langle6\rangle_{\mathrm{2sub}}\), and \(\langle8\rangle_{\mathrm{2sub}}\).
+  \(\vn{2}{2k}_{\mathrm{2sub}}\) is plotted only when the corresponding
+  cumulant has the real-valued sign convention.
+  \end{minipage}}
+  \end{center}
+\end{figure}
+
+\subsection{Two-subevent matched data/MC comparison}
+\label{subsec:two-subevent-comparison}
+
+The matched 1994 data and reconstructed-MC samples were reprocessed with the
+same track selection, multiplicity bins, and sixteen-chunk jackknife procedure,
+adding the two-subevent cumulant sums described above. Figures~\ref{fig:v2-two-sub-data-mc-beam}
+and~\ref{fig:v2-two-sub-data-mc-thrust} show MC as histograms with statistical
+bands and data as points with jackknife uncertainties.
+
+For the beam axis, the two-subevent result is stable and the data/MC ratio is
+near unity over the populated range. The ratio is about 0.988--1.016 for
+\(\vn{2}{2}_{\mathrm{2sub}}\) through 20--25 charged tracks and remains within
+the larger statistical uncertainties in the high-multiplicity tail. The
+higher-order beam-axis cumulants show the same qualitative behavior, with
+increasing statistical spread above 30 charged tracks.
+
+For the thrust axis, \(\vn{2}{2}_{\mathrm{2sub}}\) is broadly reproduced by
+the MC in intermediate multiplicity bins, but the higher-order two-subevent
+cumulants are statistically fragile. Several bins are sign-invalid in either
+data or MC, and valid high-order points have large jackknife uncertainties.
+These thrust-axis higher-order points should therefore be treated as a diagnostic
+of the current sample size and subevent definition, not as a corrected physics
+comparison.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{v2_two_sub_data_mc_compare_beam.pdf}
+  \caption{Beam-axis two-subevent comparison of matched LEP1 1994 data and
+  reconstructed MC. MC is drawn as a histogram with statistical band, while data
+  are shown as points with delete-one-chunk jackknife uncertainties.}
+  \label{fig:v2-two-sub-data-mc-beam}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{v2_two_sub_data_mc_compare_thrust.pdf}
+  \caption{Thrust-axis two-subevent comparison of matched LEP1 1994 data and
+  reconstructed MC. Missing or zero high-order entries correspond to
+  sign-invalid cumulants or bins without a valid real-valued
+  \(\vn{2}{2k}_{\mathrm{2sub}}\).}
+  \label{fig:v2-two-sub-data-mc-thrust}
 \end{figure}
 
 \section{Current Limitations}
