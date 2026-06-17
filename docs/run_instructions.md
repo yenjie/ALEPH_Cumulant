@@ -32,7 +32,7 @@ Correlator self-test passed
 
 ## 2. Input Samples
 
-The production commands below use the matched LEP1 1994 reconstructed data and reconstructed MC samples:
+The production commands below use the matched LEP1 1994 reconstructed data and reconstructed MC samples. The checked sample sizes are listed in [`sample_audit_20260617.md`](sample_audit_20260617.md). This is a 1994-only production; the full 1991--1995 LEP1 data statistics require a combined compatible input or a year-by-year chunk production merged at the histogram-summary level.
 
 ```bash
 DATA=/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root

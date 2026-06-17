@@ -130,14 +130,26 @@ stored as zero in the exported CSV table.
 \section{Data Setup and Selections}
 \label{sec:data}
 
-The current production uses the local StudyMult-format ALEPH file
+The figures in this note currently use the matched LEP1 1994 reconstructed
+data sample
 \begin{center}
-\path{/data/yjlee/StudyMult/DataFiles/ROOTfiles/cleaned_ALEPH_Data-all.aleph.root}.
+\path{/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root}.
 \end{center}
-This file contains \(59{,}874\) selected hadronic events in the tree
-\texttt{t}. The input format is the StudyMult fixed-array layout with
-\texttt{nParticle}, \texttt{px}, \texttt{py}, \texttt{pz}, and
-\texttt{pwflag} branches.
+This file contains \(1{,}365{,}440\) entries in the tree \texttt{t}; after the
+charged-particle selection and multiplicity-bin requirement, \(1{,}321{,}026\)
+events enter the main cumulant histograms. The input format is the vector
+layout with \texttt{px}, \texttt{py}, \texttt{pz}, \texttt{pwflag}, and
+optional \texttt{passEventSelection} branches.
+
+This is not yet the full 1991--1995 LEP1 data set. The available local LEP1
+path lists contain 15, 31, 27, 171, and 31 input files for 1991, 1992, 1993,
+1994, and 1995, respectively. A combined vector-format input, or an equivalent
+year-by-year chunk production merged at the histogram level, is needed before
+the result can be quoted as using all LEP1 statistics. The older local
+StudyMult fixed-array file
+\path{/data/yjlee/StudyMult/DataFiles/ROOTfiles/cleaned_ALEPH_Data-all.aleph.root}
+contains \(59{,}874\) entries and corresponds to an earlier prototype
+production; those counts are not used for the current figures.
 
 Charged particles are selected using the StudyMult charged-particle convention
 \begin{equation}
@@ -162,14 +174,14 @@ detector-level cumulant analysis.}
 \toprule
 Multiplicity bin & Events \\
 \midrule
-\([0,10)\) & 7483 \\
-\([10,15)\) & 17665 \\
-\([15,20)\) & 16856 \\
-\([20,25)\) & 9452 \\
-\([25,30)\) & 4753 \\
-\([30,35)\) & 2287 \\
-\([35,40)\) & 955 \\
-\([40,\infty)\) & 423 \\
+\([0,10)\) & 91054 \\
+\([10,15)\) & 454384 \\
+\([15,20)\) & 497271 \\
+\([20,25)\) & 220815 \\
+\([25,30)\) & 50506 \\
+\([30,35)\) & 6527 \\
+\([35,40)\) & 449 \\
+\([40,\infty)\) & 20 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -314,10 +326,10 @@ For a like-for-like comparison, the corresponding 1994 data sample
 \path{/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root}
 \end{center}
 was processed with the same cumulant settings, multiplicity bins, and
-sixteen-chunk jackknife procedure. The processed input contains 771,597 MC
-entries and 1,365,440 data entries. These samples are separate from the
-all-StudyMult data-only production shown above, and are used only for the
-reconstructed-level data/MC comparison in this subsection.
+sixteen-chunk jackknife procedure. The processed inputs contain 771,597 MC
+entries and 1,365,440 data entries; after the charged-particle selection and
+multiplicity-bin requirement, 749,082 MC events and 1,321,026 data events enter
+the inclusive cumulant histograms.
 
 Figures~\ref{fig:v2-mc-beam} and~\ref{fig:v2-mc-thrust} show the standalone MC
 result for the beam and thrust axes. The beam-axis MC follows the same broad
@@ -549,13 +561,16 @@ as a corrected ALEPH measurement.
 
 A first ALEPH charged-particle cumulant workflow has been built from the local
 StudyMult code base and validated against exact brute-force ordered-particle
-sums. The current production processes \(59{,}874\) StudyMult events and
-extracts \(\vn{2}{2}\), \(\vn{2}{4}\), \(\vn{2}{6}\), and \(\vn{2}{8}\) versus
-charged-particle multiplicity for both the beam-axis and thrust-axis azimuthal
-definitions. Statistical uncertainties are propagated through the nonlinear
-cumulant definitions with a sixteen-chunk jackknife. The beam-axis and
-thrust-axis figures included in this note provide the current detector-level
-baseline for subsequent correction and systematic-uncertainty studies.
+sums. The current figures use the matched LEP1 1994 reconstructed data sample,
+with \(1{,}365{,}440\) input entries and \(1{,}321{,}026\) selected events in the
+analysis multiplicity bins; this is not yet the full 1991--1995 LEP1 data
+statistics. The analysis extracts \(\vn{2}{2}\), \(\vn{2}{4}\), \(\vn{2}{6}\),
+and \(\vn{2}{8}\) versus charged-particle multiplicity for both the beam-axis
+and thrust-axis azimuthal definitions. Statistical uncertainties are propagated
+through the nonlinear cumulant definitions with a sixteen-chunk jackknife. The
+beam-axis and thrust-axis figures included in this note provide the current
+detector-level baseline for subsequent correction, all-LEP1 production, and
+systematic-uncertainty studies.
 
 \bibliographystyle{unsrt}
 \bibliography{references}

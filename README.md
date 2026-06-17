@@ -25,6 +25,8 @@ For a complete GitHub-checkout workflow, including clone/build, smoke test, full
 
 GitHub and Overleaf project links are recorded in [`docs/github_overleaf_info.md`](docs/github_overleaf_info.md).
 
+Sample provenance and checked event counts are recorded in [`docs/sample_audit_20260617.md`](docs/sample_audit_20260617.md). The current figures use matched LEP1 1994 data/MC, not the full 1991--1995 LEP1 data statistics yet.
+
 ## Build
 
 ```bash
