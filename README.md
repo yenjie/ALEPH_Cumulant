@@ -23,6 +23,8 @@ Standalone ROOT/C++ analysis repository for charged-particle multi-particle cumu
 
 For a complete GitHub-checkout workflow, including clone/build, smoke test, full data/MC production, eta-gap and two-subevent jobs, plot generation, and analysis-note rebuild, see [`docs/run_instructions.md`](docs/run_instructions.md).
 
+GitHub and Overleaf project links are recorded in [`docs/github_overleaf_info.md`](docs/github_overleaf_info.md).
+
 ## Build
 
 ```bash
