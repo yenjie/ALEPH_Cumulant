@@ -104,6 +104,39 @@ make note
 
 The compiled note is `AnalysisNote/main.pdf`; the included v2-vs-multiplicity figures and CSV tables are copied into `AnalysisNote/figures/` for stable note provenance.
 
+The matched 1994 data/MC result in the note was produced with:
+
+```bash
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/alephMCRecoAfterCutPaths_1994_thrust_pt04_t.root \
+  output/lep1_1994_mc_charged_pt04 16 \
+  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
+  --MultiplicityBins 0,10,15,20,25,30,35,40,999
+
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root \
+  output/lep1_1994_data_charged_pt04 16 \
+  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
+  --MultiplicityBins 0,10,15,20,25,30,35,40,999
+```
+
+The standalone MC plots are produced with:
+
+```bash
+bin/plot_v2_multiplicity \
+  --Input output/lep1_1994_mc_charged_pt04_summary.root \
+  --OutputPrefix output/lep1_1994_mc_charged_pt04_v2
+```
+
+A matched data/MC comparison can be plotted with:
+
+```bash
+bin/compare_v2_multiplicity \
+  --DataSummary output/lep1_1994_data_charged_pt04_summary.root \
+  --MCSummary output/lep1_1994_mc_charged_pt04_summary.root \
+  --OutputPrefix output/lep1_1994_data_mc_charged_pt04_compare
+```
+
 ## Local Provenance
 
 See `docs/local_sources.md` for the StudyMult and prototype files used to build this repository.

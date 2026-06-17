@@ -40,7 +40,9 @@ ordered, distinct-particle correlations through eighth order and propagates
 statistical uncertainties with delete-one-chunk jackknife resampling over
 sixteen event chunks. The present result is a detector-level charged-particle
 study; detector-response, acceptance, and model-dependent systematic
-uncertainties are not yet included.
+uncertainties are not yet included. A matched 1994 reconstructed-MC comparison
+is included as a baseline closure-style check of the beam-axis and thrust-axis
+trends.
 \end{abstract}
 
 \noindent\textbf{Keywords:} ALEPH, archived \(e^+e^-\) data, charged-particle
@@ -294,6 +296,79 @@ Multiplicity & \(\vn{2}{2}\) & \(\vn{2}{4}\) & \(\vn{2}{6}\) & \(\vn{2}{8}\) \\
 \end{tabular}
 \end{table}
 
+
+\subsection{Matched 1994 reconstructed-MC comparison}
+\label{subsec:mc-comparison}
+
+A separate MC production was run on the matched LEP1 1994 reconstructed-MC
+sample
+\begin{center}
+\path{/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/alephMCRecoAfterCutPaths_1994_thrust_pt04_t.root}.
+\end{center}
+For a like-for-like comparison, the corresponding 1994 data sample
+\begin{center}
+\path{/data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root}
+\end{center}
+was processed with the same cumulant settings, multiplicity bins, and
+sixteen-chunk jackknife procedure. The processed input contains 771,597 MC
+entries and 1,365,440 data entries. These samples are separate from the
+all-StudyMult data-only production shown above, and are used only for the
+reconstructed-level data/MC comparison in this subsection.
+
+Figures~\ref{fig:v2-mc-beam} and~\ref{fig:v2-mc-thrust} show the standalone MC
+result for the beam and thrust axes. The beam-axis MC follows the same broad
+multiplicity dependence as the data-only result: the cumulant hierarchy is tight
+at low multiplicity and decreases with increasing multiplicity. In the thrust
+axis, the two-particle coefficient rises from low to intermediate multiplicity,
+while several low-multiplicity higher-order coefficients are sign-invalid and
+therefore not plotted.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{v2_multiplicity_mc_beam.pdf}
+  \caption{Matched LEP1 1994 reconstructed-MC \(\vn{2}{2}\), \(\vn{2}{4}\),
+  \(\vn{2}{6}\), and \(\vn{2}{8}\) versus selected charged-particle
+  multiplicity using the laboratory beam-axis azimuth.}
+  \label{fig:v2-mc-beam}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{v2_multiplicity_mc_thrust.pdf}
+  \caption{Matched LEP1 1994 reconstructed-MC \(\vn{2}{2}\), \(\vn{2}{4}\),
+  \(\vn{2}{6}\), and \(\vn{2}{8}\) versus selected charged-particle
+  multiplicity using azimuth around the event thrust axis.}
+  \label{fig:v2-mc-thrust}
+\end{figure}
+
+Figures~\ref{fig:v2-data-mc-beam} and~\ref{fig:v2-data-mc-thrust} compare the
+matched 1994 data and reconstructed MC directly. For the beam axis, the data/MC
+agreement is at the percent level over most of the populated multiplicity range;
+the largest deviations appear in the highest-multiplicity bin, where the
+statistical uncertainty is also largest. For the thrust axis, \(\vn{2}{2}\) is
+well reproduced through intermediate multiplicity. The higher-order thrust-axis
+coefficients are more sensitive to cumulant sign changes and limited statistics,
+so missing points indicate bins where either data or MC did not yield a real
+value under the standard cumulant sign convention.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{v2_data_mc_compare_beam.pdf}
+  \caption{Beam-axis comparison of matched LEP1 1994 data and reconstructed MC.
+  Each panel shows one cumulant order, with data and MC offset slightly in the
+  charged-multiplicity bin for readability.}
+  \label{fig:v2-data-mc-beam}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{v2_data_mc_compare_thrust.pdf}
+  \caption{Thrust-axis comparison of matched LEP1 1994 data and reconstructed
+  MC. Missing high-order points correspond to sign-invalid cumulants or bins
+  without a valid real-valued \(\vn{2}{m}\).}
+  \label{fig:v2-data-mc-thrust}
+\end{figure}
+
 \section{Current Limitations}
 \label{sec:limitations}
 
@@ -302,7 +377,8 @@ final corrected physics result. The main limitations are:
 \begin{itemize}
   \item no detector-response or acceptance correction is applied to the
   cumulants;
-  \item no generator-dependent systematic uncertainty is assigned yet;
+  \item the current reconstructed-MC comparison is a baseline check, not a
+  detector-response correction or generator systematic uncertainty;
   \item no variation of the track \(\pT\) threshold, charged-particle
   definition, thrust-axis construction, or event-selection definition is
   included yet;
