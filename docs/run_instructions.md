@@ -203,7 +203,7 @@ bin/compare_two_subevent_v2_multiplicity \
   --MCLabel 'ALEPH 1994 MC'
 ```
 
-The plotting programs write both `.pdf` and `.csv` files under `output/`.
+The plotting programs write both `.pdf` and `.csv` files under `output/`. `bin/compare_v22_eta_gap` also writes compact `*_datamc_[beam,thrust].pdf` Data/MC ratio plots for note subfigures.
 
 ## 8. Update and Build the Analysis Note
 
@@ -228,8 +228,10 @@ cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap_compare_thru
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap_compare_thrust.pdf AnalysisNote/figures/v2_eta_gap_data_mc_compare_thrust.pdf
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_beam.csv AnalysisNote/figures/v2_eta_gap_1p6_data_mc_compare_beam.csv
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_beam.pdf AnalysisNote/figures/v2_eta_gap_1p6_data_mc_compare_beam.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_datamc_beam.pdf AnalysisNote/figures/v2_eta_gap_1p6_data_mc_ratio_beam.pdf
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_thrust.csv AnalysisNote/figures/v2_eta_gap_1p6_data_mc_compare_thrust.csv
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_thrust.pdf AnalysisNote/figures/v2_eta_gap_1p6_data_mc_compare_thrust.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_datamc_thrust.pdf AnalysisNote/figures/v2_eta_gap_1p6_data_mc_ratio_thrust.pdf
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_twosub_compare_beam.csv AnalysisNote/figures/v2_two_sub_data_mc_compare_beam.csv
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_twosub_compare_beam.pdf AnalysisNote/figures/v2_two_sub_data_mc_compare_beam.pdf
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_twosub_compare_thrust.csv AnalysisNote/figures/v2_two_sub_data_mc_compare_thrust.csv
