@@ -19,6 +19,10 @@ Standalone ROOT/C++ analysis repository for charged-particle multi-particle cumu
 - Writes mergeable numerator and denominator histograms for chunked processing.
 - Writes jackknife statistical uncertainties on summary histograms when run from chunk files.
 
+## Detailed Run Instructions
+
+For a complete GitHub-checkout workflow, including clone/build, smoke test, full data/MC production, eta-gap and two-subevent jobs, plot generation, and analysis-note rebuild, see [`docs/run_instructions.md`](docs/run_instructions.md).
+
 ## Build
 
 ```bash
