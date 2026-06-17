@@ -238,8 +238,9 @@ namespace
 
       bool GetEntry(long long entry, EventData &event)
       {
-         Tree->GetEntry(entry);
          event = EventData();
+         if (Tree->GetEntry(entry) <= 0)
+            return false;
 
          if (HasPassEventSelection)
             event.PassEventSelection = PassEventSelection;
@@ -877,16 +878,30 @@ namespace
 
             for (int half = 1; half <= std::min(MaxHalfCorrelation, multiplicity / 2); ++half)
             {
+               int firstCount = 0;
+               int secondCount = 0;
+               for (const TrackSummary &track : tracks)
+               {
+                  if (track.Eta < 0.0)
+                     firstCount += 1;
+                  else if (track.Eta > 0.0)
+                     secondCount += 1;
+               }
+
                const double brute = BruteForceTwoSubeventNumerator(tracks, harmonic, half, 0.0);
-               const double scale = std::max(1.0, dens[half]);
-               if (dens[half] > 0.0 && !NearlyEqual(nums[half], brute, scale))
+               const double expectedDenominator = FallingFactorial(firstCount, half) *
+                  FallingFactorial(secondCount, half);
+               const double scale = std::max(1.0, expectedDenominator);
+               if (!NearlyEqual(dens[half], expectedDenominator, scale) ||
+                  (dens[half] > 0.0 && !NearlyEqual(nums[half], brute, scale)))
                {
                   std::cerr << "Self-test failed for two-subevent harmonic=" << harmonic
                      << " multiplicity=" << multiplicity
                      << " half=" << half
                      << " numerator=" << nums[half]
                      << " brute=" << brute
-                     << " denominator=" << dens[half] << std::endl;
+                     << " denominator=" << dens[half]
+                     << " expectedDenominator=" << expectedDenominator << std::endl;
                   return false;
                }
             }
