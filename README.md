@@ -53,6 +53,7 @@ Outputs:
 - `output/lep1_1994_charged_pt04_summary.root`
 
 The summary output contains central values and, for chunked runs, delete-one-chunk jackknife bin errors.
+For real-valued `v2{m}` outputs, bins with sign-invalid leave-one jackknife samples are suppressed instead of assigning conditional errors from only the valid samples.
 
 ## Manual Run
 
@@ -95,6 +96,7 @@ scripts/run_chunks.sh /path/to/input.root output/charged_pt04 16 --Tree t --Inpu
 - `--Harmonic 2`: harmonic for `<2k>` cumulant sums.
 - `--SubeventEtaBoundary 0.5`: three-subevent split in the selected coordinate system.
 - `--EtaGapMin 2.0`: minimum `|Delta eta|` for the eta-gap two-particle comparison. The default corresponds to `|Delta eta| > 2`.
+- Multiplicity binning is by lab-frame selected charged multiplicity for both beam-axis and thrust-axis cumulants; the thrust selected multiplicity is also stored as a diagnostic histogram.
 
 ## Analysis Note
 
@@ -139,7 +141,7 @@ bin/compare_v2_multiplicity \
   --OutputPrefix output/lep1_1994_data_mc_charged_pt04_compare
 ```
 
-The two-subevent result uses `eta < 0` and `eta > 0` in each axis frame, samples `k` particles from each subevent for `v2{2k}`, and is produced with:
+The two-subevent result uses `eta < 0` and `eta > 0` in each axis frame by default and samples `k` particles from each subevent for `v2{2k}`. With `--TwoSubeventEtaBoundary 0.0` this is a two-hemisphere split, not a finite eta-gap suppression. It is produced with:
 
 ```bash
 ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \

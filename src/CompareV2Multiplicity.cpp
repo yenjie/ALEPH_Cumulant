@@ -158,7 +158,7 @@ namespace
          pad->SetGridy(true);
 
          auto frame = std::make_unique<TH1D>(("frame_" + axis + "_" + quantity.HistName).c_str(),
-            (";charged multiplicity bin;" + quantity.Label).c_str(),
+            (";lab selected charged multiplicity bin;" + quantity.Label).c_str(),
             data->GetNbinsX(), 0.5, data->GetNbinsX() + 0.5);
          CopyBinLabels(*frame, *data);
          frame->SetMinimum(0.0);

@@ -114,7 +114,7 @@ namespace
       canvas.SetRightMargin(0.03);
       canvas.SetBottomMargin(0.15);
 
-      TH1D frame("frame", ("ALEPH charged particles, " + axis + " axis;charged multiplicity bin;v_{2}{2k}").c_str(),
+      TH1D frame("frame", ("ALEPH charged particles, " + axis + " axis;lab selected charged multiplicity bin;v_{2}{2k}").c_str(),
          reference->GetNbinsX(), 0.5, reference->GetNbinsX() + 0.5);
       frame.SetMinimum(0.0);
       frame.SetMaximum(yMax * 1.25);

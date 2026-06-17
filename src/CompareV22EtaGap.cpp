@@ -86,29 +86,6 @@ namespace
       return graph;
    }
 
-   std::unique_ptr<TGraphErrors> MakeRatioGraph(const TH1D &gap, const TH1D &inclusive,
-      int color, int marker)
-   {
-      auto graph = std::make_unique<TGraphErrors>();
-      graph->SetLineColor(color);
-      graph->SetMarkerColor(color);
-      graph->SetMarkerStyle(marker);
-      graph->SetMarkerSize(1.0);
-      graph->SetLineWidth(2);
-
-      int point = 0;
-      for (int bin = 1; bin <= gap.GetNbinsX(); ++bin)
-      {
-         const RatioResult ratio = Divide(gap, inclusive, bin);
-         if (!ratio.Valid)
-            continue;
-         graph->SetPoint(point, gap.GetBinCenter(bin), ratio.Value);
-         graph->SetPointError(point, 0.0, ratio.Error);
-         ++point;
-      }
-      return graph;
-   }
-
    std::unique_ptr<TH1D> MakeBand(const TH1D &source, const std::string &name, int color)
    {
       auto hist = std::unique_ptr<TH1D>(static_cast<TH1D *>(source.Clone(name.c_str())));
@@ -117,27 +94,6 @@ namespace
       hist->SetLineWidth(2);
       hist->SetFillColorAlpha(color, 0.25);
       hist->SetMarkerSize(0.0);
-      return hist;
-   }
-
-   std::unique_ptr<TH1D> MakeRatioBand(const TH1D &gap, const TH1D &inclusive,
-      const std::string &name, int color)
-   {
-      auto hist = std::unique_ptr<TH1D>(static_cast<TH1D *>(gap.Clone(name.c_str())));
-      hist->SetDirectory(nullptr);
-      hist->Reset("ICES");
-      hist->SetLineColor(color);
-      hist->SetLineWidth(2);
-      hist->SetFillColorAlpha(color, 0.25);
-      hist->SetMarkerSize(0.0);
-      for (int bin = 1; bin <= gap.GetNbinsX(); ++bin)
-      {
-         const RatioResult ratio = Divide(gap, inclusive, bin);
-         if (!ratio.Valid)
-            continue;
-         hist->SetBinContent(bin, ratio.Value);
-         hist->SetBinError(bin, ratio.Error);
-      }
       return hist;
    }
 
@@ -162,22 +118,6 @@ namespace
       return result > 0.0 ? result : 1.0;
    }
 
-   double MaxRatio(const TH1D &dataGap, const TH1D &dataInclusive,
-      const TH1D &mcGap, const TH1D &mcInclusive)
-   {
-      double result = 0.0;
-      for (int bin = 1; bin <= dataGap.GetNbinsX(); ++bin)
-      {
-         const RatioResult dataRatio = Divide(dataGap, dataInclusive, bin);
-         if (dataRatio.Valid)
-            result = std::max(result, dataRatio.Value + dataRatio.Error);
-         const RatioResult mcRatio = Divide(mcGap, mcInclusive, bin);
-         if (mcRatio.Valid)
-            result = std::max(result, mcRatio.Value + mcRatio.Error);
-      }
-      return result > 0.0 ? result : 1.0;
-   }
-
    void WriteComparisonTable(TFile &dataFile, TFile &mcFile, const std::string &axis,
       const std::string &outputName)
    {
@@ -185,6 +125,8 @@ namespace
       TH1D *dataGap = GetHist(dataFile, "hV2_2EtaGap_" + axis);
       TH1D *mcInclusive = GetHist(mcFile, "hV2_2_" + axis);
       TH1D *mcGap = GetHist(mcFile, "hV2_2EtaGap_" + axis);
+      TH1D *dataGapRatio = GetHist(dataFile, "hV2_2EtaGapOverInclusive_" + axis);
+      TH1D *mcGapRatio = GetHist(mcFile, "hV2_2EtaGapOverInclusive_" + axis);
 
       std::ofstream out(outputName);
       if (!out.is_open())
@@ -199,18 +141,20 @@ namespace
 
       for (int bin = 1; bin <= dataInclusive->GetNbinsX(); ++bin)
       {
-         const RatioResult dataGapRatio = Divide(*dataGap, *dataInclusive, bin);
-         const RatioResult mcGapRatio = Divide(*mcGap, *mcInclusive, bin);
+         const bool dataGapRatioValid = IsValidPoint(*dataGapRatio, bin);
+         const bool mcGapRatioValid = IsValidPoint(*mcGapRatio, bin);
          const RatioResult dataOverMcInclusive = Divide(*dataInclusive, *mcInclusive, bin);
          const RatioResult dataOverMcGap = Divide(*dataGap, *mcGap, bin);
 
          out << axis << "," << dataInclusive->GetXaxis()->GetBinLabel(bin)
              << "," << dataInclusive->GetBinContent(bin) << "," << dataInclusive->GetBinError(bin)
              << "," << dataGap->GetBinContent(bin) << "," << dataGap->GetBinError(bin)
-             << "," << dataGapRatio.Value << "," << dataGapRatio.Error
+             << "," << (dataGapRatioValid ? dataGapRatio->GetBinContent(bin) : 0.0)
+             << "," << (dataGapRatioValid ? dataGapRatio->GetBinError(bin) : 0.0)
              << "," << mcInclusive->GetBinContent(bin) << "," << mcInclusive->GetBinError(bin)
              << "," << mcGap->GetBinContent(bin) << "," << mcGap->GetBinError(bin)
-             << "," << mcGapRatio.Value << "," << mcGapRatio.Error
+             << "," << (mcGapRatioValid ? mcGapRatio->GetBinContent(bin) : 0.0)
+             << "," << (mcGapRatioValid ? mcGapRatio->GetBinError(bin) : 0.0)
              << "," << dataOverMcInclusive.Value << "," << dataOverMcGap.Value << "\n";
       }
    }
@@ -225,9 +169,13 @@ namespace
       TH1D *dataGap = GetHist(dataFile, "hV2_2EtaGap_" + axis);
       TH1D *mcInclusive = GetHist(mcFile, "hV2_2_" + axis);
       TH1D *mcGap = GetHist(mcFile, "hV2_2EtaGap_" + axis);
+      TH1D *dataGapRatio = GetHist(dataFile, "hV2_2EtaGapOverInclusive_" + axis);
+      TH1D *mcGapRatio = GetHist(mcFile, "hV2_2EtaGapOverInclusive_" + axis);
       if (dataInclusive->GetNbinsX() != dataGap->GetNbinsX() ||
          dataInclusive->GetNbinsX() != mcInclusive->GetNbinsX() ||
-         dataInclusive->GetNbinsX() != mcGap->GetNbinsX())
+         dataInclusive->GetNbinsX() != mcGap->GetNbinsX() ||
+         dataInclusive->GetNbinsX() != dataGapRatio->GetNbinsX() ||
+         dataInclusive->GetNbinsX() != mcGapRatio->GetNbinsX())
       {
          throw std::runtime_error("Mismatched binning for eta-gap comparison, " + axis);
       }
@@ -291,10 +239,10 @@ namespace
 
       lower.cd();
       TH1D ratioFrame(("ratio_frame_" + axis).c_str(),
-         ";charged multiplicity bin;gap / incl.", nBins, 0.0, static_cast<double>(nBins));
+         ";lab selected charged multiplicity bin;gap / incl.", nBins, 0.0, static_cast<double>(nBins));
       CopyBinLabels(ratioFrame, *dataInclusive);
       ratioFrame.SetMinimum(0.0);
-      ratioFrame.SetMaximum(1.25 * MaxRatio(*dataGap, *dataInclusive, *mcGap, *mcInclusive));
+      ratioFrame.SetMaximum(1.25 * MaxY({dataGapRatio, mcGapRatio}));
       ratioFrame.GetXaxis()->SetLabelSize(0.095);
       ratioFrame.GetXaxis()->SetTitleSize(0.110);
       ratioFrame.GetYaxis()->SetLabelSize(0.090);
@@ -303,8 +251,8 @@ namespace
       ratioFrame.GetYaxis()->SetNdivisions(505);
       ratioFrame.Draw("AXIS");
 
-      auto mcRatioBand = MakeRatioBand(*mcGap, *mcInclusive, "mc_gap_ratio_" + axis, kBlue + 1);
-      auto dataRatioGraph = MakeRatioGraph(*dataGap, *dataInclusive, kBlack, 20);
+      auto mcRatioBand = MakeBand(*mcGapRatio, "mc_gap_ratio_" + axis, kBlue + 1);
+      auto dataRatioGraph = MakeGraph(*dataGapRatio, kBlack, 20, 0.0);
       mcRatioBand->Draw("E2 SAME");
       mcRatioBand->Draw("HIST SAME");
       dataRatioGraph->Draw("P SAME");

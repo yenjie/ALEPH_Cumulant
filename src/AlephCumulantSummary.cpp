@@ -161,31 +161,31 @@ namespace
       const TH1D *sumDen8 = GetHistogram(input, "hSumDen8" + suffix);
 
       auto corr2 = CloneEmpty(*sumDen2, "hCorr2" + suffix,
-         "<2> correlation, " + axis.Label + ";charged multiplicity bin;<2>");
+         "<2> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<2>");
       auto corr4 = CloneEmpty(*sumDen2, "hCorr4" + suffix,
-         "<4> correlation, " + axis.Label + ";charged multiplicity bin;<4>");
+         "<4> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<4>");
       auto corr6 = CloneEmpty(*sumDen2, "hCorr6" + suffix,
-         "<6> correlation, " + axis.Label + ";charged multiplicity bin;<6>");
+         "<6> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<6>");
       auto corr8 = CloneEmpty(*sumDen2, "hCorr8" + suffix,
-         "<8> correlation, " + axis.Label + ";charged multiplicity bin;<8>");
+         "<8> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<8>");
 
       auto c2 = CloneEmpty(*sumDen2, "hC2_2" + suffix,
-         "c_{2}{2}, " + axis.Label + ";charged multiplicity bin;c_{2}{2}");
+         "c_{2}{2}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{2}");
       auto c4 = CloneEmpty(*sumDen2, "hC2_4" + suffix,
-         "c_{2}{4}, " + axis.Label + ";charged multiplicity bin;c_{2}{4}");
+         "c_{2}{4}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{4}");
       auto c6 = CloneEmpty(*sumDen2, "hC2_6" + suffix,
-         "c_{2}{6}, " + axis.Label + ";charged multiplicity bin;c_{2}{6}");
+         "c_{2}{6}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{6}");
       auto c8 = CloneEmpty(*sumDen2, "hC2_8" + suffix,
-         "c_{2}{8}, " + axis.Label + ";charged multiplicity bin;c_{2}{8}");
+         "c_{2}{8}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{8}");
 
       auto v22 = CloneEmpty(*sumDen2, "hV2_2" + suffix,
-         "v_{2}{2}, " + axis.Label + ";charged multiplicity bin;v_{2}{2}");
+         "v_{2}{2}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{2}");
       auto v24 = CloneEmpty(*sumDen2, "hV2_4" + suffix,
-         "v_{2}{4}, " + axis.Label + ";charged multiplicity bin;v_{2}{4}");
+         "v_{2}{4}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{4}");
       auto v26 = CloneEmpty(*sumDen2, "hV2_6" + suffix,
-         "v_{2}{6}, " + axis.Label + ";charged multiplicity bin;v_{2}{6}");
+         "v_{2}{6}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{6}");
       auto v28 = CloneEmpty(*sumDen2, "hV2_8" + suffix,
-         "v_{2}{8}, " + axis.Label + ";charged multiplicity bin;v_{2}{8}");
+         "v_{2}{8}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{8}");
 
       for (int bin = 1; bin <= sumDen2->GetNbinsX(); ++bin)
       {
@@ -255,22 +255,30 @@ namespace
       {
          auto corr2EtaGap = CloneEmpty(*sumDen2EtaGap, "hCorr2EtaGap" + suffix,
             "<2> correlation with |#Delta#eta| gap, " + axis.Label +
-            ";charged multiplicity bin;<2>_{|#Delta#eta| gap}");
+            ";lab selected charged multiplicity bin;<2>_{|#Delta#eta| gap}");
          auto v22EtaGap = CloneEmpty(*sumDen2EtaGap, "hV2_2EtaGap" + suffix,
             "v_{2}{2} with |#Delta#eta| gap, " + axis.Label +
-            ";charged multiplicity bin;v_{2}{2}_{|#Delta#eta| gap}");
+            ";lab selected charged multiplicity bin;v_{2}{2}_{|#Delta#eta| gap}");
+         auto v22EtaGapRatio = CloneEmpty(*sumDen2EtaGap, "hV2_2EtaGapOverInclusive" + suffix,
+            "v_{2}{2, |#Delta#eta| gap} / v_{2}{2}, " + axis.Label +
+            ";lab selected charged multiplicity bin;v_{2}{2}_{|#Delta#eta| gap}/v_{2}{2}");
          for (int bin = 1; bin <= sumDen2EtaGap->GetNbinsX(); ++bin)
          {
             if (!HasRatio(sumNum2EtaGap, sumDen2EtaGap, bin))
                continue;
 
+            const bool hasInclusive = HasRatio(sumNum2, sumDen2, bin);
+            const double twoInclusive = hasInclusive ? Ratio(sumNum2, sumDen2, bin) : 0.0;
             const double twoEtaGap = Ratio(sumNum2EtaGap, sumDen2EtaGap, bin);
             SetIfFinite(*corr2EtaGap, bin, twoEtaGap);
             if (twoEtaGap >= 0.0)
                SetIfFinite(*v22EtaGap, bin, std::sqrt(twoEtaGap));
+            if (hasInclusive && twoInclusive > 0.0 && twoEtaGap >= 0.0)
+               SetIfFinite(*v22EtaGapRatio, bin, std::sqrt(twoEtaGap / twoInclusive));
          }
          AddOutput(outputs, std::move(corr2EtaGap));
          AddOutput(outputs, std::move(v22EtaGap));
+         AddOutput(outputs, std::move(v22EtaGapRatio));
       }
 
       const TH1D *sumNumV224 = GetHistogram(input, "hSumNumV224" + suffix, false);
@@ -282,7 +290,7 @@ namespace
       {
          auto v224 = CloneEmpty(*sumDenV224, "hV224" + suffix,
             "<e^{i(2#phi_{1}+2#phi_{2}-4#phi_{3})}>, " + axis.Label +
-            ";charged multiplicity bin;v224");
+            ";lab selected charged multiplicity bin;v224");
          for (int bin = 1; bin <= sumDenV224->GetNbinsX(); ++bin)
          {
             if (HasRatio(sumNumV224, sumDenV224, bin))
@@ -295,7 +303,7 @@ namespace
       {
          auto v224ThreeSub = CloneEmpty(*sumDenV224ThreeSub, "hV224ThreeSub" + suffix,
             "Three-subevent <e^{i(2#phi_{1}+2#phi_{2}-4#phi_{3})}>, " + axis.Label +
-            ";charged multiplicity bin;v224");
+            ";lab selected charged multiplicity bin;v224");
          for (int bin = 1; bin <= sumDenV224ThreeSub->GetNbinsX(); ++bin)
          {
             if (HasRatio(sumNumV224ThreeSub, sumDenV224ThreeSub, bin))
@@ -322,31 +330,31 @@ namespace
          return;
 
       auto corr2 = CloneEmpty(*sumDen2, "hCorr2TwoSub" + suffix,
-         "Two-subevent <2> correlation, " + axis.Label + ";charged multiplicity bin;<2>_{2sub}");
+         "Two-subevent <2> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<2>_{2sub}");
       auto corr4 = CloneEmpty(*sumDen2, "hCorr4TwoSub" + suffix,
-         "Two-subevent <4> correlation, " + axis.Label + ";charged multiplicity bin;<4>_{2sub}");
+         "Two-subevent <4> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<4>_{2sub}");
       auto corr6 = CloneEmpty(*sumDen2, "hCorr6TwoSub" + suffix,
-         "Two-subevent <6> correlation, " + axis.Label + ";charged multiplicity bin;<6>_{2sub}");
+         "Two-subevent <6> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<6>_{2sub}");
       auto corr8 = CloneEmpty(*sumDen2, "hCorr8TwoSub" + suffix,
-         "Two-subevent <8> correlation, " + axis.Label + ";charged multiplicity bin;<8>_{2sub}");
+         "Two-subevent <8> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<8>_{2sub}");
 
       auto c2 = CloneEmpty(*sumDen2, "hC2TwoSub_2" + suffix,
-         "Two-subevent c_{2}{2}, " + axis.Label + ";charged multiplicity bin;c_{2}{2}_{2sub}");
+         "Two-subevent c_{2}{2}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{2}_{2sub}");
       auto c4 = CloneEmpty(*sumDen2, "hC2TwoSub_4" + suffix,
-         "Two-subevent c_{2}{4}, " + axis.Label + ";charged multiplicity bin;c_{2}{4}_{2sub}");
+         "Two-subevent c_{2}{4}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{4}_{2sub}");
       auto c6 = CloneEmpty(*sumDen2, "hC2TwoSub_6" + suffix,
-         "Two-subevent c_{2}{6}, " + axis.Label + ";charged multiplicity bin;c_{2}{6}_{2sub}");
+         "Two-subevent c_{2}{6}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{6}_{2sub}");
       auto c8 = CloneEmpty(*sumDen2, "hC2TwoSub_8" + suffix,
-         "Two-subevent c_{2}{8}, " + axis.Label + ";charged multiplicity bin;c_{2}{8}_{2sub}");
+         "Two-subevent c_{2}{8}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{8}_{2sub}");
 
       auto v22 = CloneEmpty(*sumDen2, "hV2TwoSub_2" + suffix,
-         "Two-subevent v_{2}{2}, " + axis.Label + ";charged multiplicity bin;v_{2}{2}_{2sub}");
+         "Two-subevent v_{2}{2}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{2}_{2sub}");
       auto v24 = CloneEmpty(*sumDen2, "hV2TwoSub_4" + suffix,
-         "Two-subevent v_{2}{4}, " + axis.Label + ";charged multiplicity bin;v_{2}{4}_{2sub}");
+         "Two-subevent v_{2}{4}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{4}_{2sub}");
       auto v26 = CloneEmpty(*sumDen2, "hV2TwoSub_6" + suffix,
-         "Two-subevent v_{2}{6}, " + axis.Label + ";charged multiplicity bin;v_{2}{6}_{2sub}");
+         "Two-subevent v_{2}{6}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{6}_{2sub}");
       auto v28 = CloneEmpty(*sumDen2, "hV2TwoSub_8" + suffix,
-         "Two-subevent v_{2}{8}, " + axis.Label + ";charged multiplicity bin;v_{2}{8}_{2sub}");
+         "Two-subevent v_{2}{8}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{8}_{2sub}");
 
       for (int bin = 1; bin <= sumDen2->GetNbinsX(); ++bin)
       {
@@ -450,13 +458,12 @@ namespace
       for (auto &centralHist : central)
       {
          const std::string centralName = centralHist->GetName();
-         const bool skipInvalidZero = centralName.rfind("hV2_", 0) == 0 ||
-            centralName.rfind("hV2TwoSub_", 0) == 0 ||
-            centralName.rfind("hV224", 0) == 0;
+         const bool requiresValidRoot = centralName.rfind("hV2_", 0) == 0 ||
+            centralName.rfind("hV2TwoSub_", 0) == 0;
 
          for (int bin = 1; bin <= centralHist->GetNbinsX(); ++bin)
          {
-            if (skipInvalidZero && centralHist->GetBinContent(bin) == 0.0)
+            if (requiresValidRoot && centralHist->GetBinContent(bin) == 0.0)
                continue;
 
             double mean = 0.0;
@@ -469,12 +476,18 @@ namespace
                const double value = sampleHist->GetBinContent(bin);
                if (!std::isfinite(value))
                   continue;
-               if (skipInvalidZero && value == 0.0)
+               if (requiresValidRoot && value == 0.0)
                   continue;
                mean += value;
                valid += 1;
             }
 
+            if (requiresValidRoot && valid != blockCount)
+            {
+               centralHist->SetBinContent(bin, 0.0);
+               centralHist->SetBinError(bin, 0.0);
+               continue;
+            }
             if (valid < 2)
                continue;
             mean /= static_cast<double>(valid);
@@ -488,7 +501,7 @@ namespace
                const double value = sampleHist->GetBinContent(bin);
                if (!std::isfinite(value))
                   continue;
-               if (skipInvalidZero && value == 0.0)
+               if (requiresValidRoot && value == 0.0)
                   continue;
                const double delta = value - mean;
                varianceSum += delta * delta;

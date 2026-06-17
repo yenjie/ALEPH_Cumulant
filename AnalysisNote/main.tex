@@ -151,6 +151,7 @@ charged-particle multiplicity bins used in this note are
   [0,10), [10,15), [15,20), [20,25), [25,30), [30,35), [35,40), [40,\infty).
 \]
 The corresponding event counts are shown in Table~\ref{tab:event-counts}.
+All beam-axis and thrust-axis cumulant figures are binned on this laboratory selected charged-particle multiplicity; the thrust-selected multiplicity is retained as a diagnostic but is not used as the horizontal-axis binning in the present production.
 
 \begin{table}[htbp]
 \centering
@@ -210,7 +211,10 @@ delete-one-chunk jackknife estimate
 \end{equation}
 where \(x_{(j)}\) is the result with chunk \(j\) removed. This propagates the
 nonlinear transformations from raw correlations to cumulants and then to
-\(\vn{2}{m}\). The procedure assumes the chunks are statistically independent;
+\(\vn{2}{m}\). If any leave-one sample has the wrong cumulant sign for a
+real-valued \(\vn{2}{m}\), the corresponding \(\vn{2}{m}\) point is suppressed
+rather than assigned a conditional error from only the sign-valid samples. The
+procedure assumes the chunks are statistically independent;
 if the input file ordering tracks detector running conditions, the jackknife
 may also contain a small run-block component.
 
@@ -356,7 +360,7 @@ value under the standard cumulant sign convention.
   \includegraphics[width=0.98\textwidth]{v2_data_mc_compare_beam.pdf}
   \caption{Beam-axis comparison of matched LEP1 1994 data and reconstructed MC.
   Each panel shows one cumulant order, with data and MC offset slightly in the
-  charged-multiplicity bin for readability.}
+  lab-selected charged-multiplicity bin for readability.}
   \label{fig:v2-data-mc-beam}
 \end{figure}
 
@@ -410,7 +414,9 @@ computed only in the summary step,
 when the correlation is non-negative. The inclusive \(\vn{2}{2}\) and the
 rapidity-gap \(\vn{2}{2,|\Delta\eta|>2}\) are both recomputed for each
 leave-one-chunk jackknife sample, so the plotted uncertainties include the
-nonlinear square-root transformation.
+nonlinear square-root transformation. The lower-panel gap/inclusive ratio is
+also formed in each leave-one sample and jackknifed as a ratio, preserving the
+statistical covariance between the inclusive and rapidity-gap measurements.
 
 Figures~\ref{fig:v2-eta-gap-data-mc-beam} and
 \ref{fig:v2-eta-gap-data-mc-thrust} compare the inclusive and rapidity-gap
@@ -455,7 +461,7 @@ that are reduced by the large \(|\Delta\eta|\) separation.
   For each axis frame, charged particles are split into subevent A with
   \(\eta < -\eta_{\rm gap}\) and subevent B with
   \(\eta > \eta_{\rm gap}\). The result shown here uses
-  \(\eta_{\rm gap}=0\). The \(2k\)-particle correlation samples
+  \(\eta_{\rm gap}=0\), i.e. a two-hemisphere split rather than a finite exclusion gap. The \(2k\)-particle correlation samples
   \(k\) distinct particles from A and \(k\) distinct particles from B,
   \[
     \langle 2k \rangle_{\mathrm{2sub}}

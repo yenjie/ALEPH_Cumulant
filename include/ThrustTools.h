@@ -33,28 +33,6 @@ namespace AlephCumulant
       if (totalMomentum <= 0.0)
          return TVector3(0.0, 0.0, 0.0);
 
-      if (momenta.size() <= 3)
-      {
-         TVector3 best;
-         double bestProjection = -1.0;
-         for (const TVector3 &candidate : momenta)
-         {
-            const TVector3 axis = SafeUnit(candidate);
-            if (axis.Mag2() <= 0.0)
-               continue;
-
-            double projection = 0.0;
-            for (const TVector3 &p : momenta)
-               projection += std::abs(p.Dot(axis));
-            if (projection > bestProjection)
-            {
-               bestProjection = projection;
-               best = axis;
-            }
-         }
-         return best;
-      }
-
       TVector3 bestAxis;
       double bestProjection = -1.0;
       const int count = static_cast<int>(momenta.size());
