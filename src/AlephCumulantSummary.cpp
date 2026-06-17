@@ -249,6 +249,30 @@ namespace
       AddOutput(outputs, std::move(v26));
       AddOutput(outputs, std::move(v28));
 
+      const TH1D *sumNum2EtaGap = GetHistogram(input, "hSumNum2EtaGap" + suffix, false);
+      const TH1D *sumDen2EtaGap = GetHistogram(input, "hSumDen2EtaGap" + suffix, false);
+      if (sumNum2EtaGap != nullptr && sumDen2EtaGap != nullptr)
+      {
+         auto corr2EtaGap = CloneEmpty(*sumDen2EtaGap, "hCorr2EtaGap" + suffix,
+            "<2> correlation with |#Delta#eta| gap, " + axis.Label +
+            ";charged multiplicity bin;<2>_{|#Delta#eta| gap}");
+         auto v22EtaGap = CloneEmpty(*sumDen2EtaGap, "hV2_2EtaGap" + suffix,
+            "v_{2}{2} with |#Delta#eta| gap, " + axis.Label +
+            ";charged multiplicity bin;v_{2}{2}_{|#Delta#eta| gap}");
+         for (int bin = 1; bin <= sumDen2EtaGap->GetNbinsX(); ++bin)
+         {
+            if (!HasRatio(sumNum2EtaGap, sumDen2EtaGap, bin))
+               continue;
+
+            const double twoEtaGap = Ratio(sumNum2EtaGap, sumDen2EtaGap, bin);
+            SetIfFinite(*corr2EtaGap, bin, twoEtaGap);
+            if (twoEtaGap >= 0.0)
+               SetIfFinite(*v22EtaGap, bin, std::sqrt(twoEtaGap));
+         }
+         AddOutput(outputs, std::move(corr2EtaGap));
+         AddOutput(outputs, std::move(v22EtaGap));
+      }
+
       const TH1D *sumNumV224 = GetHistogram(input, "hSumNumV224" + suffix, false);
       const TH1D *sumDenV224 = GetHistogram(input, "hSumDenV224" + suffix, false);
       const TH1D *sumNumV224ThreeSub = GetHistogram(input, "hSumNumV224ThreeSub" + suffix, false);

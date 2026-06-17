@@ -14,6 +14,7 @@ Standalone ROOT/C++ analysis repository for charged-particle multi-particle cumu
   - derived `c2{2}`, `c2{4}`, `c2{6}`, `c2{8}`
   - derived `v2{2}`, `v2{4}`, `v2{6}`, `v2{8}`
 - Computes full-event and three-subevent `v224 = <exp(i(2 phi1 + 2 phi2 - 4 phi3))>`.
+- Computes the eta-gap two-particle observable `v2{2, |Delta eta| > 2}` for comparison with inclusive `v2{2}`.
 - Runs both beam-axis azimuth and thrust-axis azimuth in one pass.
 - Writes mergeable numerator and denominator histograms for chunked processing.
 - Writes jackknife statistical uncertainties on summary histograms when run from chunk files.
@@ -93,6 +94,7 @@ scripts/run_chunks.sh /path/to/input.root output/charged_pt04 16 --Tree t --Inpu
 - `--ThrustChargedOnly 1`: compute the thrust axis from charged particles only. Default uses all particles for the thrust axis and charged particles for cumulants, matching the local prototypes.
 - `--Harmonic 2`: harmonic for `<2k>` cumulant sums.
 - `--SubeventEtaBoundary 0.5`: three-subevent split in the selected coordinate system.
+- `--EtaGapMin 2.0`: minimum `|Delta eta|` for the eta-gap two-particle comparison. The default corresponds to `|Delta eta| > 2`.
 
 ## Analysis Note
 
@@ -158,6 +160,29 @@ bin/compare_two_subevent_v2_multiplicity \
   --DataSummary output/lep1_1994_data_charged_pt04_twosub_summary.root \
   --MCSummary output/lep1_1994_mc_charged_pt04_twosub_summary.root \
   --OutputPrefix output/lep1_1994_data_mc_charged_pt04_twosub_compare
+```
+
+The inclusive `v2{2}` and eta-gap `v2{2, |Delta eta| > 2}` comparison is produced from the same matched samples with an explicit eta-gap pair count:
+
+```bash
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/alephMCRecoAfterCutPaths_1994_thrust_pt04_t.root \
+  output/lep1_1994_mc_charged_pt04_etagap 16 \
+  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
+  --EtaGapMin 2.0 \
+  --MultiplicityBins 0,10,15,20,25,30,35,40,999
+
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  /data/yjlee/ALEPH_Agentic_Event_Shape_Analysis/DataProcessing/temp/LEP1Data1994_recons_aftercut-MERGED_thrust_pt04_t.root \
+  output/lep1_1994_data_charged_pt04_etagap 16 \
+  --InputFormat vector --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 \
+  --EtaGapMin 2.0 \
+  --MultiplicityBins 0,10,15,20,25,30,35,40,999
+
+bin/compare_v22_eta_gap \
+  --DataSummary output/lep1_1994_data_charged_pt04_etagap_summary.root \
+  --MCSummary output/lep1_1994_mc_charged_pt04_etagap_summary.root \
+  --OutputPrefix output/lep1_1994_data_mc_charged_pt04_etagap_compare
 ```
 
 ## Local Provenance

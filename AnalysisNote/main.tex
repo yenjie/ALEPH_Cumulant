@@ -369,6 +369,84 @@ value under the standard cumulant sign convention.
   \label{fig:v2-data-mc-thrust}
 \end{figure}
 
+\subsection{Two-particle rapidity-gap comparison}
+\label{subsec:eta-gap-comparison}
+
+The inclusive two-particle result contains every ordered charged-particle pair
+in an event. To test the sensitivity to short-range and same-jet correlations,
+the matched 1994 data and reconstructed-MC samples were reprocessed with an
+additional two-particle rapidity-gap observable. The track selection,
+axis definitions, charged-multiplicity bins, and sixteen event chunks are the
+same as in the inclusive data/MC comparison. The only additional requirement is
+a strict pair cut
+\begin{equation}
+  |\eta_i-\eta_j| > 2.0,
+\end{equation}
+where \(\eta\) is evaluated in the same coordinate system as the azimuthal angle:
+laboratory pseudorapidity for the beam-axis result and pseudorapidity around the
+reconstructed thrust axis for the thrust-axis result. The horizontal axis remains
+the selected laboratory charged-particle multiplicity, matching the other
+figures in this note.
+
+For every event and multiplicity bin, the analyzer stores the mergeable sums
+\begin{align}
+  N_{2}^{\Delta\eta>2} &=
+  \sum_{\mathrm{events}} \sum_{i\ne j}
+  \Theta(|\eta_i-\eta_j|-2.0)\cos\left[2(\phi_i-\phi_j)\right], \\
+  D_{2}^{\Delta\eta>2} &=
+  \sum_{\mathrm{events}} \sum_{i\ne j}
+  \Theta(|\eta_i-\eta_j|-2.0),
+\end{align}
+with ordered-pair weights. Equivalently, the implementation loops over
+unordered pairs and adds both ordered partners through a factor of two in the
+numerator and denominator. The gap correlation and flow coefficient are then
+computed only in the summary step,
+\begin{equation}
+  \langle 2\rangle_{|\Delta\eta|>2} =
+  \frac{N_{2}^{\Delta\eta>2}}{D_{2}^{\Delta\eta>2}},\qquad
+  \vn{2}{2,|\Delta\eta|>2} =
+  \sqrt{\langle 2\rangle_{|\Delta\eta|>2}},
+\end{equation}
+when the correlation is non-negative. The inclusive \(\vn{2}{2}\) and the
+rapidity-gap \(\vn{2}{2,|\Delta\eta|>2}\) are both recomputed for each
+leave-one-chunk jackknife sample, so the plotted uncertainties include the
+nonlinear square-root transformation.
+
+Figures~\ref{fig:v2-eta-gap-data-mc-beam} and
+\ref{fig:v2-eta-gap-data-mc-thrust} compare the inclusive and rapidity-gap
+measurements. MC is drawn as histogram bands and data as points. In the beam
+axis, the rapidity-gap value is close to the inclusive value at low multiplicity
+and becomes smaller from roughly 15 charged tracks onward; the data gap/inclusive
+ratio falls to about 0.66 in the 30--35 bin, with the high-multiplicity tail
+limited by statistics. The reconstructed MC follows the same trend. In the
+thrust axis, the rapidity-gap suppression is stronger: the data gap/inclusive
+ratio decreases from about 0.74 in the 0--10 bin to about 0.44 around 30--35
+charged tracks, again with consistent MC behavior within the quoted statistical
+uncertainties. This pattern is consistent with a sizable contribution to the
+inclusive two-particle coefficient from short-range or jet-like correlations
+that are reduced by the large \(|\Delta\eta|\) separation.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{v2_eta_gap_data_mc_compare_beam.pdf}
+  \caption{Beam-axis comparison of inclusive \(\vn{2}{2}\) and
+  \(\vn{2}{2,|\Delta\eta|>2}\) for matched LEP1 1994 data and reconstructed
+  MC. MC is shown as histogram bands and data as points. The lower panel shows
+  the rapidity-gap value divided by the inclusive value.}
+  \label{fig:v2-eta-gap-data-mc-beam}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{v2_eta_gap_data_mc_compare_thrust.pdf}
+  \caption{Thrust-axis comparison of inclusive \(\vn{2}{2}\) and
+  \(\vn{2}{2,|\Delta\eta|>2}\) for matched LEP1 1994 data and reconstructed
+  MC. The rapidity gap is evaluated using pseudorapidity around the thrust axis;
+  the multiplicity bin remains the selected laboratory charged-particle
+  multiplicity.}
+  \label{fig:v2-eta-gap-data-mc-thrust}
+\end{figure}
+
 \newpage
 \begin{figure}[htbp]
   \begin{center}

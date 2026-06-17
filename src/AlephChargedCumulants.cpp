@@ -114,6 +114,7 @@ namespace
       double ThrustPtMin = 0.4;
       double SubeventEtaBoundary = 0.5;
       double TwoSubeventEtaBoundary = 0.0;
+      double EtaGapMin = 2.0;
       std::vector<int> MultiplicityEdges;
    };
 
@@ -124,6 +125,7 @@ namespace
       TH1D *QuadCapableCount = nullptr;
       TH1D *HexCapableCount = nullptr;
       TH1D *OctCapableCount = nullptr;
+      TH1D *EtaGapPairCapableCount = nullptr;
       TH1D *TwoSubPairCapableCount = nullptr;
       TH1D *TwoSubQuadCapableCount = nullptr;
       TH1D *TwoSubHexCapableCount = nullptr;
@@ -138,6 +140,8 @@ namespace
       TH1D *SumDen6 = nullptr;
       TH1D *SumNum8 = nullptr;
       TH1D *SumDen8 = nullptr;
+      TH1D *SumNum2EtaGap = nullptr;
+      TH1D *SumDen2EtaGap = nullptr;
       TH1D *SumNum2TwoSub = nullptr;
       TH1D *SumDen2TwoSub = nullptr;
       TH1D *SumNum4TwoSub = nullptr;
@@ -586,6 +590,31 @@ namespace
       return result;
    }
 
+   CorrelatorContribution ComputeEtaGapPairCorrelation(const std::vector<TrackSummary> &tracks,
+      int harmonic, double minAbsDeltaEta)
+   {
+      CorrelatorContribution result;
+      result.Multiplicity = static_cast<int>(tracks.size());
+      if (result.Multiplicity < 2)
+         return result;
+
+      for (int i = 0; i < result.Multiplicity; ++i)
+      {
+         for (int j = i + 1; j < result.Multiplicity; ++j)
+         {
+            if (std::abs(tracks[i].Eta - tracks[j].Eta) <= minAbsDeltaEta)
+               continue;
+
+            result.Num += 2.0 * std::cos(static_cast<double>(harmonic) *
+               (tracks[i].Phi - tracks[j].Phi));
+            result.Den += 2.0;
+         }
+      }
+
+      result.Valid = result.Den > 0.0;
+      return result;
+   }
+
    using Complex = std::complex<double>;
 
    std::array<Complex, MaxHalfCorrelation + 1> ElementarySymmetricProducts(
@@ -869,6 +898,35 @@ namespace
                tracks.push_back({-1.2 + 2.4 * (i + 0.5) / multiplicity,
                   0.09 + 0.23 * i + 0.017 * i * i + 0.05 * harmonic});
 
+            const CorrelatorContribution etaGap =
+               ComputeEtaGapPairCorrelation(tracks, harmonic, 0.7);
+            double bruteEtaGapNum = 0.0;
+            double bruteEtaGapDen = 0.0;
+            for (int i = 0; i < multiplicity; ++i)
+            {
+               for (int j = 0; j < multiplicity; ++j)
+               {
+                  if (i == j || std::abs(tracks[i].Eta - tracks[j].Eta) <= 0.7)
+                     continue;
+                  bruteEtaGapNum += std::cos(static_cast<double>(harmonic) *
+                     (tracks[i].Phi - tracks[j].Phi));
+                  bruteEtaGapDen += 1.0;
+               }
+            }
+            const double etaGapScale = std::max(1.0, bruteEtaGapDen);
+            if (!NearlyEqual(etaGap.Num, bruteEtaGapNum, etaGapScale) ||
+               !NearlyEqual(etaGap.Den, bruteEtaGapDen, etaGapScale) ||
+               etaGap.Valid != (bruteEtaGapDen > 0.0))
+            {
+               std::cerr << "Self-test failed for eta-gap pair harmonic=" << harmonic
+                  << " multiplicity=" << multiplicity
+                  << " numerator=" << etaGap.Num
+                  << " brute=" << bruteEtaGapNum
+                  << " denominator=" << etaGap.Den
+                  << " expectedDenominator=" << bruteEtaGapDen << std::endl;
+               return false;
+            }
+
             const CumulantContributions production =
                ComputeTwoSubeventCumulantContributions(tracks, harmonic, 0.0);
             const std::array<double, MaxHalfCorrelation + 1> nums = {{
@@ -960,6 +1018,8 @@ namespace
          "Six-particle-capable events, " + axis.Label + xTitle + "events", multBins);
       h.OctCapableCount = MakeHistogram("hOctCapableCount" + suffix,
          "Eight-particle-capable events, " + axis.Label + xTitle + "events", multBins);
+      h.EtaGapPairCapableCount = MakeHistogram("hEtaGapPairCapableCount" + suffix,
+         "Eta-gap pair-capable events, " + axis.Label + xTitle + "events", multBins);
       h.TwoSubPairCapableCount = MakeHistogram("hTwoSubPairCapableCount" + suffix,
          "Two-subevent pair-capable events, " + axis.Label + xTitle + "events", multBins);
       h.TwoSubQuadCapableCount = MakeHistogram("hTwoSubQuadCapableCount" + suffix,
@@ -981,6 +1041,10 @@ namespace
       h.SumDen6 = MakeHistogram("hSumDen6" + suffix, "Sum denominator <6>, " + axis.Label + xTitle + "sum", multBins);
       h.SumNum8 = MakeHistogram("hSumNum8" + suffix, "Sum numerator <8>, " + axis.Label + xTitle + "sum", multBins);
       h.SumDen8 = MakeHistogram("hSumDen8" + suffix, "Sum denominator <8>, " + axis.Label + xTitle + "sum", multBins);
+      h.SumNum2EtaGap = MakeHistogram("hSumNum2EtaGap" + suffix,
+         "Sum numerator <2> with |#Delta#eta| gap, " + axis.Label + xTitle + "sum", multBins);
+      h.SumDen2EtaGap = MakeHistogram("hSumDen2EtaGap" + suffix,
+         "Sum denominator <2> with |#Delta#eta| gap, " + axis.Label + xTitle + "sum", multBins);
       h.SumNum2TwoSub = MakeHistogram("hSumNum2TwoSub" + suffix,
          "Sum two-subevent numerator <2>, " + axis.Label + xTitle + "sum", multBins);
       h.SumDen2TwoSub = MakeHistogram("hSumDen2TwoSub" + suffix,
@@ -1034,6 +1098,17 @@ namespace
          hist.OctCapableCount->AddBinContent(bin, 1.0);
          hist.SumNum8->AddBinContent(bin, contribution.Num8);
          hist.SumDen8->AddBinContent(bin, contribution.Den8);
+      }
+   }
+
+   void FillEtaGapPairHistograms(AxisHistograms &hist, int bin,
+      const CorrelatorContribution &contribution)
+   {
+      if (contribution.Valid)
+      {
+         hist.EtaGapPairCapableCount->AddBinContent(bin, 1.0);
+         hist.SumNum2EtaGap->AddBinContent(bin, contribution.Num);
+         hist.SumDen2EtaGap->AddBinContent(bin, contribution.Den);
       }
    }
 
@@ -1091,6 +1166,7 @@ namespace
       hist.QuadCapableCount->Write();
       hist.HexCapableCount->Write();
       hist.OctCapableCount->Write();
+      hist.EtaGapPairCapableCount->Write();
       hist.TwoSubPairCapableCount->Write();
       hist.TwoSubQuadCapableCount->Write();
       hist.TwoSubHexCapableCount->Write();
@@ -1105,6 +1181,8 @@ namespace
       hist.SumDen6->Write();
       hist.SumNum8->Write();
       hist.SumDen8->Write();
+      hist.SumNum2EtaGap->Write();
+      hist.SumDen2EtaGap->Write();
       hist.SumNum2TwoSub->Write();
       hist.SumDen2TwoSub->Write();
       hist.SumNum4TwoSub->Write();
@@ -1153,6 +1231,7 @@ namespace
       options.ThrustPtMin = cl.GetDouble("ThrustPtMin", 0.4);
       options.SubeventEtaBoundary = cl.GetDouble("SubeventEtaBoundary", 0.5);
       options.TwoSubeventEtaBoundary = cl.GetDouble("TwoSubeventEtaBoundary", 0.0);
+      options.EtaGapMin = cl.GetDouble("EtaGapMin", 2.0);
       if (cl.Has("MultiplicityBins"))
          options.MultiplicityEdges = cl.GetIntVector("MultiplicityBins", "");
       return options;
@@ -1261,6 +1340,10 @@ int main(int argc, char *argv[])
 
          const CumulantContributions beam = ComputeCumulantContributions(summary.BeamPhi, options.Harmonic);
          const CumulantContributions thrust = ComputeCumulantContributions(summary.ThrustPhi, options.Harmonic);
+         const CorrelatorContribution beamEtaGap = ComputeEtaGapPairCorrelation(
+            summary.BeamTracks, options.Harmonic, options.EtaGapMin);
+         const CorrelatorContribution thrustEtaGap = ComputeEtaGapPairCorrelation(
+            summary.ThrustTracks, options.Harmonic, options.EtaGapMin);
          const CumulantContributions beamTwoSub = ComputeTwoSubeventCumulantContributions(
             summary.BeamTracks, options.Harmonic, options.TwoSubeventEtaBoundary);
          const CumulantContributions thrustTwoSub = ComputeTwoSubeventCumulantContributions(
@@ -1287,11 +1370,13 @@ int main(int argc, char *argv[])
 
             histograms[BeamAxisIndex].EventCount->AddBinContent(bin, 1.0);
             FillCumulantHistograms(histograms[BeamAxisIndex], bin, beam);
+            FillEtaGapPairHistograms(histograms[BeamAxisIndex], bin, beamEtaGap);
             FillTwoSubeventCumulantHistograms(histograms[BeamAxisIndex], bin, beamTwoSub);
             FillV224Histograms(histograms[BeamAxisIndex], bin, beamV224, beamV224ThreeSub);
 
             histograms[ThrustAxisIndex].EventCount->AddBinContent(bin, 1.0);
             FillCumulantHistograms(histograms[ThrustAxisIndex], bin, thrust);
+            FillEtaGapPairHistograms(histograms[ThrustAxisIndex], bin, thrustEtaGap);
             FillTwoSubeventCumulantHistograms(histograms[ThrustAxisIndex], bin, thrustTwoSub);
             FillV224Histograms(histograms[ThrustAxisIndex], bin, thrustV224, thrustV224ThreeSub);
          }
@@ -1320,6 +1405,7 @@ int main(int argc, char *argv[])
          ",Harmonic=" + std::to_string(options.Harmonic) +
          ",SubeventEtaBoundary=" + std::to_string(options.SubeventEtaBoundary) +
          ",TwoSubeventEtaBoundary=" + std::to_string(options.TwoSubeventEtaBoundary) +
+         ",EtaGapMin=" + std::to_string(options.EtaGapMin) +
          ",MultiplicityBins=" + JoinEdges(multBins) +
          ",StartEntry=" + std::to_string(options.StartEntry) +
          ",EndEntry=" + std::to_string(endEntry);
@@ -1327,7 +1413,7 @@ int main(int argc, char *argv[])
       metadata.Write();
 
       TNamed source("SourceNotes",
-         "Charged-particle selection follows StudyMult pwflag 0,1,2; all-particle and two-subevent cumulant sums are mergeable across chunks.");
+         "Charged-particle selection follows StudyMult pwflag 0,1,2; all-particle, eta-gap pair, and two-subevent cumulant sums are mergeable across chunks.");
       source.Write();
 
       outputFile.Close();
