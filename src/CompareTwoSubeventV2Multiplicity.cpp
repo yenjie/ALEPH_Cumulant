@@ -75,7 +75,7 @@ namespace
       {
          if (!IsValidPoint(hist, bin))
             continue;
-         graph->SetPoint(point, bin, hist.GetBinContent(bin));
+         graph->SetPoint(point, hist.GetBinCenter(bin), hist.GetBinContent(bin));
          graph->SetPointError(point, 0.0, hist.GetBinError(bin));
          ++point;
       }
@@ -180,7 +180,7 @@ namespace
 
          auto frame = std::make_unique<TH1D>(("frame_two_sub_" + axis + "_" + quantity.HistName).c_str(),
             (";lab selected charged multiplicity bin;two-subevent " + quantity.Label).c_str(),
-            data->GetNbinsX(), 0.5, data->GetNbinsX() + 0.5);
+            data->GetNbinsX(), data->GetXaxis()->GetXmin(), data->GetXaxis()->GetXmax());
          CopyBinLabels(*frame, *data);
          frame->SetMinimum(0.0);
          frame->SetMaximum(MaxY(*data, *mc) * 1.32);
