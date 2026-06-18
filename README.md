@@ -103,6 +103,8 @@ scripts/run_chunks.sh /path/to/input.root output/charged_pt04 16 --Tree t --Inpu
 - `--ThrustChargedOnly 1`: compute the thrust axis from charged particles only. Default uses all particles for the thrust axis and charged particles for cumulants, matching the local prototypes.
 - `--Harmonic 2`: harmonic for `<2k>` cumulant sums.
 - `--SubeventEtaBoundary 0.5`: three-subevent split in the selected coordinate system.
+- `--LabPtMin 0.4`, `--ThrustPtMin 0.4`: lower charged-particle transverse-momentum cuts for the beam-axis and thrust-axis selections.
+- `--LabPtMax -1`, `--ThrustPtMax -1`: optional upper transverse-momentum cuts. Negative values keep the default no-upper-cut behavior; `--LabPtMin 1 --LabPtMax 3 --ThrustPtMin 1 --ThrustPtMax 3` produces the `1 < pT < 3 GeV` cross-check.
 - `--EtaGapMin 2.0`: minimum `|Delta eta|` for the eta-gap two-particle comparison. The default corresponds to `|Delta eta| > 2`.
 - Multiplicity binning is by lab-frame selected charged multiplicity for both beam-axis and thrust-axis cumulants; the thrust selected multiplicity is also stored as a diagnostic histogram.
 
@@ -125,7 +127,7 @@ MC:   /mnt/data3/data3/yjlee/StudyMultSamples/LEP1MCMerged.root
 
 Both samples are read as StudyMult array trees with `--InputFormat array --Tree t`. The data sample contains 3,050,610 entries from 1992--1995; no converted 1991 ROOT file was found in the checked StudyMult sample directories. The MC sample contains 771,597 entries and is used as the 1994 baseline comparison.
 
-The full reproducible workflow is in [`docs/run_instructions.md`](docs/run_instructions.md). It covers the inclusive cumulants, MC-only plots, data/MC comparisons, `|Delta eta| > 2.0`, the added `|Delta eta| > 1.6` rapidity-gap comparison, and the two-subevent production.
+The full reproducible workflow is in [`docs/run_instructions.md`](docs/run_instructions.md). It covers the inclusive cumulants, MC-only plots, data/MC comparisons, `|Delta eta| > 2.0`, the added `|Delta eta| > 1.6` rapidity-gap comparison, the `1 < pT < 3 GeV` track-kinematic cross-check, and the two-subevent production.
 
 ## Local Provenance
 

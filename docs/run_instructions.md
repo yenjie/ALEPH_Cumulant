@@ -40,6 +40,8 @@ MC=/mnt/data3/data3/yjlee/StudyMultSamples/LEP1MCMerged.root
 BINS=0,10,15,20,25,30,35,40,999
 DATA_ARGS="--InputFormat array --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 --MultiplicityBins ${BINS}"
 MC_ARGS="--InputFormat array --Tree t --LabPtMin 0.4 --ThrustPtMin 0.4 --MultiplicityBins ${BINS}"
+PT13_DATA_ARGS="--InputFormat array --Tree t --LabPtMin 1 --LabPtMax 3 --ThrustPtMin 1 --ThrustPtMax 3 --MultiplicityBins ${BINS}"
+PT13_MC_ARGS="--InputFormat array --Tree t --LabPtMin 1 --LabPtMax 3 --ThrustPtMin 1 --ThrustPtMax 3 --MultiplicityBins ${BINS}"
 ```
 
 Checked entry counts:
@@ -127,7 +129,41 @@ ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
 
 The summary writes `hV2_2EtaGapOverInclusive_{beam,thrust}`. This ratio is formed in each leave-one-chunk sample and then jackknifed, so the gap/inclusive uncertainty preserves the same-sample covariance.
 
-## 6. Two-Subevent Production
+## 6. Track-pT Restricted Cross-Check
+
+The track-kinematic cross-check repeats the inclusive and rapidity-gap productions with selected charged particles satisfying `1 <= pT < 3 GeV`. The note labels this as `1 < pT < 3 GeV`; the implementation uses a lower-inclusive and upper-exclusive cut. The beam-axis cut uses laboratory transverse momentum, while the thrust-axis cut uses transverse momentum relative to the reconstructed thrust axis. A negative `--LabPtMax` or `--ThrustPtMax` keeps the default no-upper-cut behavior.
+
+```bash
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  "$DATA" \
+  output/lep1_1992_1995_data_charged_pt1to3 \
+  16 \
+  $PT13_DATA_ARGS
+
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  "$MC" \
+  output/lep1_1994_mc_merged_charged_pt1to3 \
+  16 \
+  $PT13_MC_ARGS
+
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  "$DATA" \
+  output/lep1_1992_1995_data_charged_pt1to3_etagap1p6 \
+  16 \
+  $PT13_DATA_ARGS \
+  --EtaGapMin 1.6
+
+ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
+  "$MC" \
+  output/lep1_1994_mc_merged_charged_pt1to3_etagap1p6 \
+  16 \
+  $PT13_MC_ARGS \
+  --EtaGapMin 1.6
+```
+
+The default `|Delta eta| > 2.0` rapidity-gap observable is already filled in the inclusive `pt1to3` production because `--EtaGapMin` defaults to `2.0`. The explicit `etagap1p6` reruns above are needed only for the looser gap threshold.
+
+## 7. Two-Subevent Production
 
 The two-subevent cumulant samples `k` particles from subevent A and `k` particles from subevent B for `v2{2k}`. With `--TwoSubeventEtaBoundary 0.0`, the split is `eta < 0` and `eta > 0`, i.e. a two-hemisphere split, not a finite eta-gap suppression.
 
@@ -147,7 +183,7 @@ ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
   --TwoSubeventEtaBoundary 0.0
 ```
 
-## 7. Make Plots and CSV Tables
+## 8. Make Plots and CSV Tables
 
 Standalone data and MC plots:
 
@@ -192,6 +228,46 @@ bin/compare_v22_eta_gap \
   --GapLabel '|#Delta#eta|>1.6'
 ```
 
+
+Track-pT restricted comparisons:
+
+```bash
+bin/plot_v2_multiplicity \
+  --Input output/lep1_1992_1995_data_charged_pt1to3_summary.root \
+  --OutputPrefix output/lep1_1992_1995_data_charged_pt1to3_v2 \
+  --PlotTitlePrefix 'ALEPH 1992-1995 data, 1 < p_{T} < 3 GeV'
+
+bin/plot_v2_multiplicity \
+  --Input output/lep1_1994_mc_merged_charged_pt1to3_summary.root \
+  --OutputPrefix output/lep1_1994_mc_merged_charged_pt1to3_v2 \
+  --PlotTitlePrefix 'ALEPH 1994 MC, 1 < p_{T} < 3 GeV'
+
+bin/compare_v2_multiplicity \
+  --DataSummary output/lep1_1992_1995_data_charged_pt1to3_summary.root \
+  --MCSummary output/lep1_1994_mc_merged_charged_pt1to3_summary.root \
+  --OutputPrefix output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_compare \
+  --DataLabel 'ALEPH 1992-1995 data' \
+  --MCLabel 'ALEPH 1994 MC'
+
+bin/compare_v22_eta_gap \
+  --DataSummary output/lep1_1992_1995_data_charged_pt1to3_summary.root \
+  --MCSummary output/lep1_1994_mc_merged_charged_pt1to3_summary.root \
+  --OutputPrefix output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap_compare \
+  --DataLabel 'ALEPH 1992-1995 data' \
+  --MCLabel 'ALEPH 1994 MC' \
+  --GapLabel '|#Delta#eta|>2.0' \
+  --TrackLabel 'charged particles, 1 < p_{T} < 3 GeV'
+
+bin/compare_v22_eta_gap \
+  --DataSummary output/lep1_1992_1995_data_charged_pt1to3_etagap1p6_summary.root \
+  --MCSummary output/lep1_1994_mc_merged_charged_pt1to3_etagap1p6_summary.root \
+  --OutputPrefix output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap1p6_compare \
+  --DataLabel 'ALEPH 1992-1995 data' \
+  --MCLabel 'ALEPH 1994 MC' \
+  --GapLabel '|#Delta#eta|>1.6' \
+  --TrackLabel 'charged particles, 1 < p_{T} < 3 GeV'
+```
+
 Two-subevent comparison:
 
 ```bash
@@ -205,7 +281,7 @@ bin/compare_two_subevent_v2_multiplicity \
 
 The plotting programs write both `.pdf` and `.csv` files under `output/`. `bin/compare_v22_eta_gap` also writes compact `*_datamc_[beam,thrust].pdf` Data/MC ratio plots for note subfigures.
 
-## 8. Update and Build the Analysis Note
+## 9. Update and Build the Analysis Note
 
 The note uses stable copies of the plot PDFs and CSVs under `AnalysisNote/figures/`. After regenerating plots, copy the outputs used by the note:
 
@@ -232,6 +308,22 @@ cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_d
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_thrust.csv AnalysisNote/figures/v2_eta_gap_1p6_data_mc_compare_thrust.csv
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_thrust.pdf AnalysisNote/figures/v2_eta_gap_1p6_data_mc_compare_thrust.pdf
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_etagap1p6_compare_datamc_thrust.pdf AnalysisNote/figures/v2_eta_gap_1p6_data_mc_ratio_thrust.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_compare_beam.csv AnalysisNote/figures/v2_pt1to3_data_mc_compare_beam.csv
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_compare_beam.pdf AnalysisNote/figures/v2_pt1to3_data_mc_compare_beam.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_compare_thrust.csv AnalysisNote/figures/v2_pt1to3_data_mc_compare_thrust.csv
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_compare_thrust.pdf AnalysisNote/figures/v2_pt1to3_data_mc_compare_thrust.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap_compare_beam.csv AnalysisNote/figures/v2_pt1to3_eta_gap_data_mc_compare_beam.csv
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap_compare_beam.pdf AnalysisNote/figures/v2_pt1to3_eta_gap_data_mc_compare_beam.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap_compare_datamc_beam.pdf AnalysisNote/figures/v2_pt1to3_eta_gap_data_mc_ratio_beam.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap_compare_thrust.csv AnalysisNote/figures/v2_pt1to3_eta_gap_data_mc_compare_thrust.csv
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap_compare_thrust.pdf AnalysisNote/figures/v2_pt1to3_eta_gap_data_mc_compare_thrust.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap_compare_datamc_thrust.pdf AnalysisNote/figures/v2_pt1to3_eta_gap_data_mc_ratio_thrust.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap1p6_compare_beam.csv AnalysisNote/figures/v2_pt1to3_eta_gap_1p6_data_mc_compare_beam.csv
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap1p6_compare_beam.pdf AnalysisNote/figures/v2_pt1to3_eta_gap_1p6_data_mc_compare_beam.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap1p6_compare_datamc_beam.pdf AnalysisNote/figures/v2_pt1to3_eta_gap_1p6_data_mc_ratio_beam.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap1p6_compare_thrust.csv AnalysisNote/figures/v2_pt1to3_eta_gap_1p6_data_mc_compare_thrust.csv
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap1p6_compare_thrust.pdf AnalysisNote/figures/v2_pt1to3_eta_gap_1p6_data_mc_compare_thrust.pdf
+cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt1to3_etagap1p6_compare_datamc_thrust.pdf AnalysisNote/figures/v2_pt1to3_eta_gap_1p6_data_mc_ratio_thrust.pdf
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_twosub_compare_beam.csv AnalysisNote/figures/v2_two_sub_data_mc_compare_beam.csv
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_twosub_compare_beam.pdf AnalysisNote/figures/v2_two_sub_data_mc_compare_beam.pdf
 cp output/lep1_1992_1995_data_vs_1994_mc_merged_charged_pt04_twosub_compare_thrust.csv AnalysisNote/figures/v2_two_sub_data_mc_compare_thrust.csv
@@ -246,7 +338,7 @@ make note
 
 The built note is `AnalysisNote/main.pdf`.
 
-## 9. Important Analysis Conventions
+## 10. Important Analysis Conventions
 
 - Statistical errors on summary histograms are delete-one-chunk jackknife errors when the summary is built from chunk files.
 - For real-valued `v2{m}` histograms, if any leave-one chunk has the wrong cumulant sign, the plotted point is suppressed rather than assigned an error from only the sign-valid samples.
@@ -254,7 +346,7 @@ The built note is `AnalysisNote/main.pdf`.
 - The eta-gap observable uses pseudorapidity relative to the selected axis. Beam-axis and thrust-axis eta gaps are separate observables.
 - The current results are detector-level charged-particle angular-correlation cumulants. Physics interpretation as collective flow requires additional correction, closure, and systematic studies.
 
-## 10. Clean Rebuild
+## 11. Clean Rebuild
 
 To remove compiled binaries and rebuild:
 

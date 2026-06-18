@@ -111,7 +111,9 @@ namespace
       bool UseWideTailBinning = false;
       bool SelfTest = false;
       double LabPtMin = 0.4;
+      double LabPtMax = -1.0;
       double ThrustPtMin = 0.4;
+      double ThrustPtMax = -1.0;
       double SubeventEtaBoundary = 0.5;
       double TwoSubeventEtaBoundary = 0.0;
       double EtaGapMin = 2.0;
@@ -442,6 +444,11 @@ namespace
       return bins;
    }
 
+   bool PassPtSelection(double pt, double minPt, double maxPt)
+   {
+      return std::isfinite(pt) && pt >= minPt && (maxPt < 0.0 || pt < maxPt);
+   }
+
    bool BuildEventSummary(const EventData &event, const AnalysisOptions &options, EventSummary &summary)
    {
       summary = EventSummary();
@@ -483,7 +490,7 @@ namespace
             continue;
 
          const double labPt = momentum.Pt();
-         if (std::isfinite(labPt) && labPt >= options.LabPtMin)
+         if (PassPtSelection(labPt, options.LabPtMin, options.LabPtMax))
          {
             summary.BeamPhi.push_back(momentum.Phi());
             summary.BeamTracks.push_back({momentum.Eta(), momentum.Phi()});
@@ -492,7 +499,7 @@ namespace
          if (hasThrustAxis)
          {
             const double thrustPt = AlephCumulant::PtFromAxis(thrustAxis, momentum);
-            if (std::isfinite(thrustPt) && thrustPt >= options.ThrustPtMin)
+            if (PassPtSelection(thrustPt, options.ThrustPtMin, options.ThrustPtMax))
             {
                const double eta = AlephCumulant::EtaFromAxis(thrustAxis, momentum);
                const double phi = AlephCumulant::PhiFromAxis(thrustAxis, momentum);
@@ -1228,7 +1235,9 @@ namespace
       options.UseWideTailBinning = cl.GetBool("UseWideTailBinning", false);
       options.SelfTest = cl.GetBool("SelfTest", false);
       options.LabPtMin = cl.GetDouble("LabPtMin", 0.4);
+      options.LabPtMax = cl.GetDouble("LabPtMax", -1.0);
       options.ThrustPtMin = cl.GetDouble("ThrustPtMin", 0.4);
+      options.ThrustPtMax = cl.GetDouble("ThrustPtMax", -1.0);
       options.SubeventEtaBoundary = cl.GetDouble("SubeventEtaBoundary", 0.5);
       options.TwoSubeventEtaBoundary = cl.GetDouble("TwoSubeventEtaBoundary", 0.0);
       options.EtaGapMin = cl.GetDouble("EtaGapMin", 2.0);
@@ -1401,7 +1410,9 @@ int main(int argc, char *argv[])
          ",RequireHighPurity=" + std::string(options.RequireHighPurity ? "1" : "0") +
          ",ThrustChargedOnly=" + std::string(options.ThrustChargedOnly ? "1" : "0") +
          ",LabPtMin=" + std::to_string(options.LabPtMin) +
+         ",LabPtMax=" + std::to_string(options.LabPtMax) +
          ",ThrustPtMin=" + std::to_string(options.ThrustPtMin) +
+         ",ThrustPtMax=" + std::to_string(options.ThrustPtMax) +
          ",Harmonic=" + std::to_string(options.Harmonic) +
          ",SubeventEtaBoundary=" + std::to_string(options.SubeventEtaBoundary) +
          ",TwoSubeventEtaBoundary=" + std::to_string(options.TwoSubeventEtaBoundary) +

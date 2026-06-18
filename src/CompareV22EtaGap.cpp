@@ -207,7 +207,7 @@ namespace
 
    void PlotAxis(TFile &dataFile, TFile &mcFile, const std::string &axis,
       const std::string &outputPrefix, const std::string &dataLabel,
-      const std::string &mcLabel, const std::string &gapLabel)
+      const std::string &mcLabel, const std::string &gapLabel, const std::string &trackLabel)
    {
       gStyle->SetOptStat(0);
       gStyle->SetEndErrorSize(3);
@@ -272,7 +272,7 @@ namespace
       label.SetNDC();
       label.SetTextSize(0.054);
       label.DrawLatex(0.13, 0.86, (axis + " axis").c_str());
-      label.DrawLatex(0.13, 0.80, "charged particles, p_{T} > 0.4 GeV");
+      label.DrawLatex(0.13, 0.80, trackLabel.c_str());
 
       TLegend legend(0.58, 0.62, 0.94, 0.90);
       legend.SetBorderSize(0);
@@ -396,6 +396,7 @@ int main(int argc, char *argv[])
       const std::string dataLabel = cl.Get("DataLabel", "ALEPH 1994 data");
       const std::string mcLabel = cl.Get("MCLabel", "ALEPH 1994 MC");
       const std::string gapLabel = cl.Get("GapLabel", "|#Delta#eta|>2");
+      const std::string trackLabel = cl.Get("TrackLabel", "charged particles, p_{T} > 0.4 GeV");
 
       TFile dataFile(dataName.c_str(), "READ");
       if (dataFile.IsZombie())
@@ -407,7 +408,7 @@ int main(int argc, char *argv[])
       for (const std::string &axis : {std::string("beam"), std::string("thrust")})
       {
          WriteComparisonTable(dataFile, mcFile, axis, outputPrefix + "_" + axis + ".csv");
-         PlotAxis(dataFile, mcFile, axis, outputPrefix, dataLabel, mcLabel, gapLabel);
+         PlotAxis(dataFile, mcFile, axis, outputPrefix, dataLabel, mcLabel, gapLabel, trackLabel);
          PlotDataMcRatioAxis(dataFile, mcFile, axis, outputPrefix, gapLabel);
       }
 
