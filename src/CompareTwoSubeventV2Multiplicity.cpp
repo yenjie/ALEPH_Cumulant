@@ -109,6 +109,7 @@ namespace
       frame.GetXaxis()->SetLabelSize(0.055);
       frame.GetYaxis()->SetLabelSize(0.055);
       frame.GetXaxis()->SetTitleSize(0.060);
+      frame.GetXaxis()->SetTitleOffset(1.50);
       frame.GetYaxis()->SetTitleSize(0.060);
       frame.GetYaxis()->SetTitleOffset(0.78);
    }
@@ -175,11 +176,11 @@ namespace
          pad->SetLeftMargin(0.12);
          pad->SetRightMargin(0.04);
          pad->SetTopMargin(0.10);
-         pad->SetBottomMargin(0.18);
+         pad->SetBottomMargin(0.22);
          pad->SetGridy(true);
 
          auto frame = std::make_unique<TH1D>(("frame_two_sub_" + axis + "_" + quantity.HistName).c_str(),
-            (";lab selected charged multiplicity bin;two-subevent " + quantity.Label).c_str(),
+            (";N_{trk}^{offline};two-subevent " + quantity.Label).c_str(),
             data->GetNbinsX(), data->GetXaxis()->GetXmin(), data->GetXaxis()->GetXmax());
          CopyBinLabels(*frame, *data);
          frame->SetMinimum(0.0);

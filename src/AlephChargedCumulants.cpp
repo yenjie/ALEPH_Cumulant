@@ -1006,7 +1006,7 @@ namespace
    {
       AxisHistograms h;
       const std::string suffix = "_" + axis.Name;
-      const std::string xTitle = ";lab selected charged multiplicity bin;";
+      const std::string xTitle = ";N_{trk}^{offline};";
 
       h.EventCount = MakeHistogram("hEventCount" + suffix,
          "Selected events, " + axis.Label + xTitle + "events", multBins);

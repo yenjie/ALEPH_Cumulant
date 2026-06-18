@@ -161,31 +161,31 @@ namespace
       const TH1D *sumDen8 = GetHistogram(input, "hSumDen8" + suffix);
 
       auto corr2 = CloneEmpty(*sumDen2, "hCorr2" + suffix,
-         "<2> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<2>");
+         "<2> correlation, " + axis.Label + ";N_{trk}^{offline};<2>");
       auto corr4 = CloneEmpty(*sumDen2, "hCorr4" + suffix,
-         "<4> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<4>");
+         "<4> correlation, " + axis.Label + ";N_{trk}^{offline};<4>");
       auto corr6 = CloneEmpty(*sumDen2, "hCorr6" + suffix,
-         "<6> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<6>");
+         "<6> correlation, " + axis.Label + ";N_{trk}^{offline};<6>");
       auto corr8 = CloneEmpty(*sumDen2, "hCorr8" + suffix,
-         "<8> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<8>");
+         "<8> correlation, " + axis.Label + ";N_{trk}^{offline};<8>");
 
       auto c2 = CloneEmpty(*sumDen2, "hC2_2" + suffix,
-         "c_{2}{2}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{2}");
+         "c_{2}{2}, " + axis.Label + ";N_{trk}^{offline};c_{2}{2}");
       auto c4 = CloneEmpty(*sumDen2, "hC2_4" + suffix,
-         "c_{2}{4}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{4}");
+         "c_{2}{4}, " + axis.Label + ";N_{trk}^{offline};c_{2}{4}");
       auto c6 = CloneEmpty(*sumDen2, "hC2_6" + suffix,
-         "c_{2}{6}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{6}");
+         "c_{2}{6}, " + axis.Label + ";N_{trk}^{offline};c_{2}{6}");
       auto c8 = CloneEmpty(*sumDen2, "hC2_8" + suffix,
-         "c_{2}{8}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{8}");
+         "c_{2}{8}, " + axis.Label + ";N_{trk}^{offline};c_{2}{8}");
 
       auto v22 = CloneEmpty(*sumDen2, "hV2_2" + suffix,
-         "v_{2}{2}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{2}");
+         "v_{2}{2}, " + axis.Label + ";N_{trk}^{offline};v_{2}{2}");
       auto v24 = CloneEmpty(*sumDen2, "hV2_4" + suffix,
-         "v_{2}{4}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{4}");
+         "v_{2}{4}, " + axis.Label + ";N_{trk}^{offline};v_{2}{4}");
       auto v26 = CloneEmpty(*sumDen2, "hV2_6" + suffix,
-         "v_{2}{6}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{6}");
+         "v_{2}{6}, " + axis.Label + ";N_{trk}^{offline};v_{2}{6}");
       auto v28 = CloneEmpty(*sumDen2, "hV2_8" + suffix,
-         "v_{2}{8}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{8}");
+         "v_{2}{8}, " + axis.Label + ";N_{trk}^{offline};v_{2}{8}");
 
       for (int bin = 1; bin <= sumDen2->GetNbinsX(); ++bin)
       {
@@ -255,13 +255,13 @@ namespace
       {
          auto corr2EtaGap = CloneEmpty(*sumDen2EtaGap, "hCorr2EtaGap" + suffix,
             "<2> correlation with |#Delta#eta| gap, " + axis.Label +
-            ";lab selected charged multiplicity bin;<2>_{|#Delta#eta| gap}");
+            ";N_{trk}^{offline};<2>_{|#Delta#eta| gap}");
          auto v22EtaGap = CloneEmpty(*sumDen2EtaGap, "hV2_2EtaGap" + suffix,
             "v_{2}{2} with |#Delta#eta| gap, " + axis.Label +
-            ";lab selected charged multiplicity bin;v_{2}{2}_{|#Delta#eta| gap}");
+            ";N_{trk}^{offline};v_{2}{2}_{|#Delta#eta| gap}");
          auto v22EtaGapRatio = CloneEmpty(*sumDen2EtaGap, "hV2_2EtaGapOverInclusive" + suffix,
             "v_{2}{2, |#Delta#eta| gap} / v_{2}{2}, " + axis.Label +
-            ";lab selected charged multiplicity bin;v_{2}{2}_{|#Delta#eta| gap}/v_{2}{2}");
+            ";N_{trk}^{offline};v_{2}{2}_{|#Delta#eta| gap}/v_{2}{2}");
          for (int bin = 1; bin <= sumDen2EtaGap->GetNbinsX(); ++bin)
          {
             if (!HasRatio(sumNum2EtaGap, sumDen2EtaGap, bin))
@@ -290,7 +290,7 @@ namespace
       {
          auto v224 = CloneEmpty(*sumDenV224, "hV224" + suffix,
             "<e^{i(2#phi_{1}+2#phi_{2}-4#phi_{3})}>, " + axis.Label +
-            ";lab selected charged multiplicity bin;v224");
+            ";N_{trk}^{offline};v224");
          for (int bin = 1; bin <= sumDenV224->GetNbinsX(); ++bin)
          {
             if (HasRatio(sumNumV224, sumDenV224, bin))
@@ -303,7 +303,7 @@ namespace
       {
          auto v224ThreeSub = CloneEmpty(*sumDenV224ThreeSub, "hV224ThreeSub" + suffix,
             "Three-subevent <e^{i(2#phi_{1}+2#phi_{2}-4#phi_{3})}>, " + axis.Label +
-            ";lab selected charged multiplicity bin;v224");
+            ";N_{trk}^{offline};v224");
          for (int bin = 1; bin <= sumDenV224ThreeSub->GetNbinsX(); ++bin)
          {
             if (HasRatio(sumNumV224ThreeSub, sumDenV224ThreeSub, bin))
@@ -330,31 +330,31 @@ namespace
          return;
 
       auto corr2 = CloneEmpty(*sumDen2, "hCorr2TwoSub" + suffix,
-         "Two-subevent <2> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<2>_{2sub}");
+         "Two-subevent <2> correlation, " + axis.Label + ";N_{trk}^{offline};<2>_{2sub}");
       auto corr4 = CloneEmpty(*sumDen2, "hCorr4TwoSub" + suffix,
-         "Two-subevent <4> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<4>_{2sub}");
+         "Two-subevent <4> correlation, " + axis.Label + ";N_{trk}^{offline};<4>_{2sub}");
       auto corr6 = CloneEmpty(*sumDen2, "hCorr6TwoSub" + suffix,
-         "Two-subevent <6> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<6>_{2sub}");
+         "Two-subevent <6> correlation, " + axis.Label + ";N_{trk}^{offline};<6>_{2sub}");
       auto corr8 = CloneEmpty(*sumDen2, "hCorr8TwoSub" + suffix,
-         "Two-subevent <8> correlation, " + axis.Label + ";lab selected charged multiplicity bin;<8>_{2sub}");
+         "Two-subevent <8> correlation, " + axis.Label + ";N_{trk}^{offline};<8>_{2sub}");
 
       auto c2 = CloneEmpty(*sumDen2, "hC2TwoSub_2" + suffix,
-         "Two-subevent c_{2}{2}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{2}_{2sub}");
+         "Two-subevent c_{2}{2}, " + axis.Label + ";N_{trk}^{offline};c_{2}{2}_{2sub}");
       auto c4 = CloneEmpty(*sumDen2, "hC2TwoSub_4" + suffix,
-         "Two-subevent c_{2}{4}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{4}_{2sub}");
+         "Two-subevent c_{2}{4}, " + axis.Label + ";N_{trk}^{offline};c_{2}{4}_{2sub}");
       auto c6 = CloneEmpty(*sumDen2, "hC2TwoSub_6" + suffix,
-         "Two-subevent c_{2}{6}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{6}_{2sub}");
+         "Two-subevent c_{2}{6}, " + axis.Label + ";N_{trk}^{offline};c_{2}{6}_{2sub}");
       auto c8 = CloneEmpty(*sumDen2, "hC2TwoSub_8" + suffix,
-         "Two-subevent c_{2}{8}, " + axis.Label + ";lab selected charged multiplicity bin;c_{2}{8}_{2sub}");
+         "Two-subevent c_{2}{8}, " + axis.Label + ";N_{trk}^{offline};c_{2}{8}_{2sub}");
 
       auto v22 = CloneEmpty(*sumDen2, "hV2TwoSub_2" + suffix,
-         "Two-subevent v_{2}{2}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{2}_{2sub}");
+         "Two-subevent v_{2}{2}, " + axis.Label + ";N_{trk}^{offline};v_{2}{2}_{2sub}");
       auto v24 = CloneEmpty(*sumDen2, "hV2TwoSub_4" + suffix,
-         "Two-subevent v_{2}{4}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{4}_{2sub}");
+         "Two-subevent v_{2}{4}, " + axis.Label + ";N_{trk}^{offline};v_{2}{4}_{2sub}");
       auto v26 = CloneEmpty(*sumDen2, "hV2TwoSub_6" + suffix,
-         "Two-subevent v_{2}{6}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{6}_{2sub}");
+         "Two-subevent v_{2}{6}, " + axis.Label + ";N_{trk}^{offline};v_{2}{6}_{2sub}");
       auto v28 = CloneEmpty(*sumDen2, "hV2TwoSub_8" + suffix,
-         "Two-subevent v_{2}{8}, " + axis.Label + ";lab selected charged multiplicity bin;v_{2}{8}_{2sub}");
+         "Two-subevent v_{2}{8}, " + axis.Label + ";N_{trk}^{offline};v_{2}{8}_{2sub}");
 
       for (int bin = 1; bin <= sumDen2->GetNbinsX(); ++bin)
       {

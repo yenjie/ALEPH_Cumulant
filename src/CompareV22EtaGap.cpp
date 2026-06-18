@@ -123,6 +123,7 @@ namespace
       for (int bin = 1; bin <= reference.GetNbinsX(); ++bin)
          frame.GetXaxis()->SetBinLabel(bin, reference.GetXaxis()->GetBinLabel(bin));
       frame.GetXaxis()->LabelsOption("v");
+      frame.GetXaxis()->SetTitleOffset(1.35);
    }
 
    double MaxY(const std::vector<const TH1D *> &hists)
@@ -238,7 +239,7 @@ namespace
       lower.SetLeftMargin(0.10);
       lower.SetRightMargin(0.04);
       lower.SetTopMargin(0.03);
-      lower.SetBottomMargin(0.33);
+      lower.SetBottomMargin(0.39);
       lower.SetGridy(true);
       upper.Draw();
       lower.Draw();
@@ -285,12 +286,13 @@ namespace
 
       lower.cd();
       TH1D ratioFrame(("ratio_frame_" + axis).c_str(),
-         ";lab selected charged multiplicity bin;gap / incl.", nBins, 0.0, static_cast<double>(nBins));
+         ";N_{trk}^{offline};gap / incl.", nBins, 0.0, static_cast<double>(nBins));
       CopyBinLabels(ratioFrame, *dataInclusive);
       ratioFrame.SetMinimum(0.0);
       ratioFrame.SetMaximum(1.25 * MaxY({dataGapRatio, mcGapRatio}));
       ratioFrame.GetXaxis()->SetLabelSize(0.095);
-      ratioFrame.GetXaxis()->SetTitleSize(0.110);
+      ratioFrame.GetXaxis()->SetTitleSize(0.105);
+      ratioFrame.GetXaxis()->SetTitleOffset(1.25);
       ratioFrame.GetYaxis()->SetLabelSize(0.090);
       ratioFrame.GetYaxis()->SetTitleSize(0.095);
       ratioFrame.GetYaxis()->SetTitleOffset(0.40);
@@ -334,11 +336,11 @@ namespace
       canvas.SetLeftMargin(0.10);
       canvas.SetRightMargin(0.04);
       canvas.SetTopMargin(0.10);
-      canvas.SetBottomMargin(0.25);
+      canvas.SetBottomMargin(0.31);
       canvas.SetGridy(true);
 
       TH1D frame(("datamc_frame_" + axis).c_str(),
-         ";lab selected charged multiplicity bin;Data / MC", nBins, 0.0, static_cast<double>(nBins));
+         ";N_{trk}^{offline};Data / MC", nBins, 0.0, static_cast<double>(nBins));
       CopyBinLabels(frame, *dataInclusive);
       const double yMin = std::max(0.0, std::min(0.85, MinY({inclusiveRatio.get(), gapRatio.get()}) * 0.94));
       const double yMax = std::max(1.15, MaxY({inclusiveRatio.get(), gapRatio.get()}) * 1.06);
@@ -346,6 +348,7 @@ namespace
       frame.SetMaximum(yMax);
       frame.GetXaxis()->SetLabelSize(0.070);
       frame.GetXaxis()->SetTitleSize(0.075);
+      frame.GetXaxis()->SetTitleOffset(1.25);
       frame.GetYaxis()->SetLabelSize(0.070);
       frame.GetYaxis()->SetTitleSize(0.080);
       frame.GetYaxis()->SetTitleOffset(0.55);

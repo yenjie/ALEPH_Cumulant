@@ -7,7 +7,7 @@ This file records where the ALEPH cumulant analysis code and note are maintained
 - Web URL: https://github.com/yenjie/ALEPH_Cumulant
 - SSH URL: `git@github.com:yenjie/ALEPH_Cumulant.git`
 - Main branch: `main`
-- Latest recorded code update: 2026-06-17, status report slides added for current merged LEP1 cumulant results
+- Latest recorded code update: 2026-06-17, figure x-axis labels changed to `N_{trk}^{offline}` with larger title offsets
 
 Clone with SSH:
 
@@ -31,7 +31,7 @@ The detailed run instructions are in `docs/run_instructions.md`.
 - Git URL: `https://git@git.overleaf.com/6a320514b63e8500bc0db2d7`
 - SSH Git URL, if port 22 is available: `git@git.overleaf.com:6a320514b63e8500bc0db2d7`
 - Main branch: `main`
-- Latest recorded note update: 2026-06-17, status report slides added for current merged LEP1 cumulant results
+- Latest recorded note update: 2026-06-17, figure x-axis labels changed to `N_{trk}^{offline}` with larger title offsets
 
 The Overleaf project contains the analysis note source, status report slides, selected figure PDFs/CSVs, and review markdown files. Token values are not stored in this repository.
 
