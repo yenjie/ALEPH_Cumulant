@@ -150,6 +150,72 @@
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}
+\slidehead{Cumulant Definitions}
+\begin{itemize}\setlength\itemsep{0.45em}
+  \item Within each \(N_{trk}^{offline}\) bin, event sums are combined into weighted correlators before forming cumulants:
+\end{itemize}
+\vspace{-0.6em}
+{\small
+\[
+\langle\!\langle 2k\rangle\!\rangle =
+\frac{\sum_{\mathrm{events}} \mathrm{Num}_{2k}}{\sum_{\mathrm{events}} \mathrm{Den}_{2k}},\qquad
+\mathrm{Num}_{2k}=\mathrm{Re}\sum_{\mathrm{distinct}} e^{2i(\phi_1+\cdots+\phi_k-\phi_{k+1}-\cdots-\phi_{2k})} .
+\]
+}
+\vspace{-0.5em}
+{\footnotesize
+\[
+\begin{aligned}
+c_2\{2\} &= \langle\!\langle 2\rangle\!\rangle,\\
+c_2\{4\} &= \langle\!\langle 4\rangle\!\rangle - 2\langle\!\langle 2\rangle\!\rangle^2,\\
+c_2\{6\} &= \langle\!\langle 6\rangle\!\rangle
+  -9\langle\!\langle 4\rangle\!\rangle\langle\!\langle 2\rangle\!\rangle
+  +12\langle\!\langle 2\rangle\!\rangle^3,\\
+c_2\{8\} &= \langle\!\langle 8\rangle\!\rangle
+  -16\langle\!\langle 6\rangle\!\rangle\langle\!\langle 2\rangle\!\rangle
+  -18\langle\!\langle 4\rangle\!\rangle^2\\
+&\quad +144\langle\!\langle 4\rangle\!\rangle\langle\!\langle 2\rangle\!\rangle^2
+  -144\langle\!\langle 2\rangle\!\rangle^4 .
+\end{aligned}
+\]
+}
+\vspace{-0.4em}
+{\scriptsize Inclusive denominators are \(N(N-1)\cdots(N-2k+1)\); two-subevent denominators are \(N_A(N_A-1)\cdots(N_A-k+1)\,N_B(N_B-1)\cdots(N_B-k+1)\).}
+\end{frame}
+
+\begin{frame}
+\slidehead{Extracting \(v_2\{2k\}\)}
+\begin{columns}[T,totalwidth=0.96\textwidth]
+\begin{column}{0.48\textwidth}
+\[
+\begin{aligned}
+v_2\{2\} &= \sqrt{c_2\{2\}},\\
+v_2\{4\} &= \left(-c_2\{4\}\right)^{1/4},\\
+v_2\{6\} &= \left(c_2\{6\}/4\right)^{1/6},\\
+v_2\{8\} &= \left(-c_2\{8\}/33\right)^{1/8}.
+\end{aligned}
+\]
+\vspace{0.2em}
+Valid real roots require
+\[
+\begin{aligned}
+c_2\{2\}&\ge 0, & c_2\{4\}&<0,\\
+c_2\{6\}&> 0, & c_2\{8\}&<0 .
+\end{aligned}
+\]
+\end{column}
+\begin{column}{0.46\textwidth}
+\begin{itemize}\setlength\itemsep{0.55em}
+  \item The two-subevent version uses the same cumulant algebra, but each \(\langle\!\langle 2k\rangle\!\rangle\) samples \(k\) tracks from \(\eta<-\eta_{\mathrm{gap}}\) and \(k\) tracks from \(\eta>\eta_{\mathrm{gap}}\).
+  \item Statistical errors are evaluated with 16 delete-one-chunk jackknife samples after recomputing the nonlinear \(c_2\{2k\}\rightarrow v_2\{2k\}\) transformation.
+  \item A \(v_2\{2k\}\) bin is not drawn if the central value or any jackknife sample fails the required real-root sign.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
 \begin{frame}
 \slidehead{Inclusive Result: Beam Axis}
 \begin{center}
