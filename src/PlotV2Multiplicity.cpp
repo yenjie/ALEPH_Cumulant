@@ -25,12 +25,15 @@ namespace
       int Marker;
    };
 
-   const std::vector<Quantity> Quantities = {
-      {"hV2_2", "v_{2}{2}", kBlack, 20},
-      {"hV2_4", "v_{2}{4}", kRed + 1, 21},
-      {"hV2_6", "v_{2}{6}", kBlue + 1, 22},
-      {"hV2_8", "v_{2}{8}", kGreen + 2, 23},
-   };
+   std::vector<Quantity> MakeQuantities(const std::string &histPrefix)
+   {
+      return {
+         {histPrefix + "2", "v_{2}{2}", kBlack, 20},
+         {histPrefix + "4", "v_{2}{4}", kRed + 1, 21},
+         {histPrefix + "6", "v_{2}{6}", kBlue + 1, 22},
+         {histPrefix + "8", "v_{2}{8}", kGreen + 2, 23},
+      };
+   }
 
    TH1D *GetHist(TFile &file, const std::string &name)
    {
@@ -66,18 +69,19 @@ namespace
       return graph;
    }
 
-   void WriteTable(TFile &file, const std::string &axis, const std::string &outputName)
+   void WriteTable(TFile &file, const std::string &axis, const std::string &outputName,
+      const std::vector<Quantity> &quantities)
    {
       std::ofstream out(outputName);
       if (!out.is_open())
          throw std::runtime_error("Failed to create " + outputName);
 
       std::vector<TH1D *> hists;
-      for (const Quantity &quantity : Quantities)
+      for (const Quantity &quantity : quantities)
          hists.push_back(GetHist(file, quantity.HistName + "_" + axis));
 
       out << "axis,multiplicity_bin";
-      for (const Quantity &quantity : Quantities)
+      for (const Quantity &quantity : quantities)
          out << "," << quantity.HistName << "," << quantity.HistName << "_err";
       out << "\n";
 
@@ -91,15 +95,17 @@ namespace
       }
    }
 
-   void PlotAxis(TFile &file, const std::string &axis, const std::string &outputPrefix)
+   void PlotAxis(TFile &file, const std::string &axis, const std::string &outputPrefix,
+      const std::vector<Quantity> &quantities, const std::string &yTitle,
+      const std::string &plotTitlePrefix)
    {
       gStyle->SetOptStat(0);
       gStyle->SetEndErrorSize(4);
 
-      TH1D *reference = GetHist(file, "hV2_2_" + axis);
+      TH1D *reference = GetHist(file, quantities.front().HistName + "_" + axis);
       std::vector<std::unique_ptr<TGraphErrors>> graphs;
       double yMax = 0.0;
-      for (const Quantity &quantity : Quantities)
+      for (const Quantity &quantity : quantities)
       {
          TH1D *hist = GetHist(file, quantity.HistName + "_" + axis);
          for (int bin = 1; bin <= hist->GetNbinsX(); ++bin)
@@ -114,7 +120,7 @@ namespace
       canvas.SetRightMargin(0.03);
       canvas.SetBottomMargin(0.28);
 
-      TH1D frame("frame", ("ALEPH charged particles, " + axis + " axis;N_{trk}^{offline};v_{2}{2k}").c_str(),
+      TH1D frame("frame", (plotTitlePrefix + ", " + axis + " axis;N_{trk}^{offline};" + yTitle).c_str(),
          reference->GetNbinsX(), 0.5, reference->GetNbinsX() + 0.5);
       frame.SetMinimum(0.0);
       frame.SetMaximum(yMax * 1.25);
@@ -130,7 +136,7 @@ namespace
       for (std::size_t i = 0; i < graphs.size(); ++i)
       {
          graphs[i]->Draw("P SAME");
-         legend.AddEntry(graphs[i].get(), Quantities[i].Label.c_str(), "pe");
+         legend.AddEntry(graphs[i].get(), quantities[i].Label.c_str(), "pe");
       }
       legend.Draw();
 
@@ -146,6 +152,10 @@ int main(int argc, char *argv[])
       CommandLine cl(argc, argv);
       const std::string inputName = cl.Get("Input", "output/studymult_charged_pt04_summary.root");
       const std::string outputPrefix = cl.Get("OutputPrefix", "output/studymult_charged_pt04_v2");
+      const std::string histPrefix = cl.Get("HistPrefix", "hV2_");
+      const std::string yTitle = cl.Get("YTitle", "v_{2}{2k}");
+      const std::string plotTitlePrefix = cl.Get("PlotTitlePrefix", "ALEPH charged particles");
+      const std::vector<Quantity> quantities = MakeQuantities(histPrefix);
 
       TFile file(inputName.c_str(), "READ");
       if (file.IsZombie())
@@ -156,8 +166,8 @@ int main(int argc, char *argv[])
 
       for (const std::string &axis : {std::string("beam"), std::string("thrust")})
       {
-         WriteTable(file, axis, outputPrefix + "_" + axis + ".csv");
-         PlotAxis(file, axis, outputPrefix);
+         WriteTable(file, axis, outputPrefix + "_" + axis + ".csv", quantities);
+         PlotAxis(file, axis, outputPrefix, quantities, yTitle, plotTitlePrefix);
       }
 
       std::cout << "Wrote " << outputPrefix << "_[beam,thrust].[csv,png,pdf]" << std::endl;

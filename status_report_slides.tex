@@ -101,7 +101,7 @@
   \item Built a standalone ROOT/C++ cumulant workflow using charged particles in archived ALEPH LEP1 data.
   \item Current data input is the merged LEP1 1992--1995 StudyMult sample with \textbf{3,050,610 events}.
   \item Results are detector-level and available for beam-axis and thrust-axis azimuths.
-  \item Outputs now include inclusive, rapidity-gap, two-subevent, and MC-comparison plots.
+  \item Outputs now include inclusive, MC-only, rapidity-gap, two-subevent, and MC-comparison plots.
 \end{itemize}
 \vspace{0.6em}
 \statusbox{mitred}{\textbf{Important caveat:} no converted 1991 ROOT sample was found in the checked merged StudyMult directories, so the current data result is 1992--1995 rather than complete 1991--1995 LEP1.}
@@ -165,6 +165,23 @@
 \end{center}
 \figcaptiontext{Same selected charged-particle multiplicity bins, with azimuth evaluated around the event thrust axis.}
 \end{frame}
+
+\begin{frame}
+\slidehead{MC-Only Inclusive: Beam Axis}
+\begin{center}
+  \includegraphics[width=0.92\textwidth,height=0.74\textheight,keepaspectratio]{v2_multiplicity_mc_beam.pdf}
+\end{center}
+\figcaptiontext{1994 reconstructed MC baseline; same charged-particle selection and lab multiplicity bins.}
+\end{frame}
+
+\begin{frame}
+\slidehead{MC-Only Inclusive: Thrust Axis}
+\begin{center}
+  \includegraphics[width=0.92\textwidth,height=0.74\textheight,keepaspectratio]{v2_multiplicity_mc_thrust.pdf}
+\end{center}
+\figcaptiontext{1994 reconstructed MC baseline with azimuth and pseudorapidity evaluated around the event thrust axis.}
+\end{frame}
+
 
 \begin{frame}
 \slidehead{Data/MC Comparison: Beam Axis}
@@ -233,6 +250,23 @@
 \end{center}
 \figcaptiontext{Two-subevent result samples \(k\) particles from each side for \(v_2\{2k\}\), with the default split at \(\eta=0\).}
 \end{frame}
+
+\begin{frame}
+\slidehead{Two-Subevent MC Only: Beam Axis}
+\begin{center}
+  \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_mc_beam.pdf}
+\end{center}
+\figcaptiontext{1994 reconstructed MC baseline; two-subevent cumulants only, with the default split at \(\eta=0\).}
+\end{frame}
+
+\begin{frame}
+\slidehead{Two-Subevent MC Only: Thrust Axis}
+\begin{center}
+  \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_mc_thrust.pdf}
+\end{center}
+\figcaptiontext{MC-only view of the sign-instability seen in the thrust-axis two-subevent higher-order cumulants.}
+\end{frame}
+
 
 \begin{frame}
 \slidehead{What We Learn So Far}
