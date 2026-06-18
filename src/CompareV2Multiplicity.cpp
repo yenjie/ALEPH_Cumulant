@@ -91,7 +91,7 @@ namespace
       frame.GetXaxis()->SetLabelSize(0.055);
       frame.GetYaxis()->SetLabelSize(0.055);
       frame.GetXaxis()->SetTitleSize(0.060);
-      frame.GetXaxis()->SetTitleOffset(1.50);
+      frame.GetXaxis()->SetTitleOffset(2.25);
       frame.GetYaxis()->SetTitleSize(0.060);
       frame.GetYaxis()->SetTitleOffset(0.78);
    }
@@ -155,7 +155,7 @@ namespace
          pad->SetLeftMargin(0.12);
          pad->SetRightMargin(0.04);
          pad->SetTopMargin(0.10);
-         pad->SetBottomMargin(0.22);
+         pad->SetBottomMargin(0.30);
          pad->SetGridy(true);
 
          auto frame = std::make_unique<TH1D>(("frame_" + axis + "_" + quantity.HistName).c_str(),

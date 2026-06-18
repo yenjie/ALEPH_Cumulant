@@ -123,7 +123,7 @@ namespace
       for (int bin = 1; bin <= reference.GetNbinsX(); ++bin)
          frame.GetXaxis()->SetBinLabel(bin, reference.GetXaxis()->GetBinLabel(bin));
       frame.GetXaxis()->LabelsOption("v");
-      frame.GetXaxis()->SetTitleOffset(1.35);
+      frame.GetXaxis()->SetTitleOffset(2.05);
    }
 
    double MaxY(const std::vector<const TH1D *> &hists)
@@ -239,7 +239,7 @@ namespace
       lower.SetLeftMargin(0.10);
       lower.SetRightMargin(0.04);
       lower.SetTopMargin(0.03);
-      lower.SetBottomMargin(0.39);
+      lower.SetBottomMargin(0.50);
       lower.SetGridy(true);
       upper.Draw();
       lower.Draw();
@@ -292,7 +292,7 @@ namespace
       ratioFrame.SetMaximum(1.25 * MaxY({dataGapRatio, mcGapRatio}));
       ratioFrame.GetXaxis()->SetLabelSize(0.095);
       ratioFrame.GetXaxis()->SetTitleSize(0.105);
-      ratioFrame.GetXaxis()->SetTitleOffset(1.25);
+      ratioFrame.GetXaxis()->SetTitleOffset(2.05);
       ratioFrame.GetYaxis()->SetLabelSize(0.090);
       ratioFrame.GetYaxis()->SetTitleSize(0.095);
       ratioFrame.GetYaxis()->SetTitleOffset(0.40);
@@ -336,7 +336,7 @@ namespace
       canvas.SetLeftMargin(0.10);
       canvas.SetRightMargin(0.04);
       canvas.SetTopMargin(0.10);
-      canvas.SetBottomMargin(0.31);
+      canvas.SetBottomMargin(0.42);
       canvas.SetGridy(true);
 
       TH1D frame(("datamc_frame_" + axis).c_str(),
@@ -348,7 +348,7 @@ namespace
       frame.SetMaximum(yMax);
       frame.GetXaxis()->SetLabelSize(0.070);
       frame.GetXaxis()->SetTitleSize(0.075);
-      frame.GetXaxis()->SetTitleOffset(1.25);
+      frame.GetXaxis()->SetTitleOffset(2.05);
       frame.GetYaxis()->SetLabelSize(0.070);
       frame.GetYaxis()->SetTitleSize(0.080);
       frame.GetYaxis()->SetTitleOffset(0.55);
