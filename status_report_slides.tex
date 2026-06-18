@@ -1,0 +1,260 @@
+
+\documentclass[aspectratio=169,10pt]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage{helvet}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{hyperref}
+
+\renewcommand{\familydefault}{\sfdefault}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\raise0.2ex\hbox{\scriptsize$\bullet$}}
+\setbeamertemplate{itemize subitem}{\raise0.2ex\hbox{\tiny$\bullet$}}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{author}{size=\large}
+\setbeamerfont{date}{size=\normalsize}
+\setlength{\parskip}{0.35em}
+
+\definecolor{mitred}{RGB}{163,31,52}
+\definecolor{darkgray}{RGB}{60,60,60}
+\definecolor{lightgray}{RGB}{230,230,230}
+\definecolor{statusblue}{RGB}{35,70,120}
+
+\newcommand{\ShortTitle}{ALEPH cumulant status}
+\newcommand{\SpeakerName}{Yen-Jie Lee (MIT)}
+\newcommand{\FigurePath}{figures/}
+\IfFileExists{AnalysisNote/figures/v2_multiplicity_beam.pdf}{\renewcommand{\FigurePath}{AnalysisNote/figures/}}{}
+\graphicspath{{\FigurePath}}
+
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.6ex,dp=1.1ex,leftskip=1.0em]{author in head/foot}%
+      \scriptsize\SpeakerName
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.42\paperwidth,ht=2.6ex,dp=1.1ex,center]{title in head/foot}%
+      \scriptsize\ShortTitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.24\paperwidth,ht=2.6ex,dp=1.1ex,rightskip=1.0em plus 1fil]{date in head/foot}%
+      \scriptsize\hfill\insertframenumber
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+\newcommand{\slidehead}[1]{%
+  \begin{center}\vspace{-0.2em}{\Large\bfseries #1}\end{center}\vspace{0.3em}
+}
+\newcommand{\statusbox}[2]{%
+  \begin{tikzpicture}
+    \node[draw=#1, line width=0.8pt, rounded corners=1.5pt, inner sep=5pt, text width=0.92\linewidth, align=left] {#2};
+  \end{tikzpicture}
+}
+\newcommand{\figcaptiontext}[1]{\vspace{-0.3em}{\scriptsize\color{darkgray}#1}}
+
+\title{ALEPH Charged-Particle Cumulants\\Status Report}
+\author{Yen-Jie Lee}
+\date{June 2026}
+
+\begin{document}
+
+{
+\setbeamertemplate{footline}{%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.34\paperwidth,ht=2.6ex,dp=1.1ex,leftskip=1.0em]{author in head/foot}%
+      \scriptsize\SpeakerName
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.42\paperwidth,ht=2.6ex,dp=1.1ex,center]{title in head/foot}%
+      \scriptsize\ShortTitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.24\paperwidth,ht=2.6ex,dp=1.1ex,rightskip=1.0em plus 1fil]{date in head/foot}%
+      \scriptsize\hfill\insertframenumber
+    \end{beamercolorbox}%
+  }}
+\begin{frame}[plain]
+  \vspace{0.12\textheight}
+  \begin{center}
+    {\LARGE\bfseries ALEPH Charged-Particle Cumulants}\par
+    \vspace{1.0em}
+    {\Large Status Report}\par
+    \vspace{2.5em}
+    {\large Yen-Jie Lee}\par
+    \vspace{0.9em}
+    {\normalsize Electron-Positron Alliance / MIT HIG}\par
+    \vspace{1.1em}
+    {\normalsize June 2026}
+  \end{center}
+\end{frame}
+}
+
+\begin{frame}
+\slidehead{Current Status}
+\begin{itemize}\setlength\itemsep{0.7em}
+  \item Built a standalone ROOT/C++ cumulant workflow using charged particles in archived ALEPH LEP1 data.
+  \item Current data input is the merged LEP1 1992--1995 StudyMult sample with \textbf{3,050,610 events}.
+  \item Results are detector-level and available for beam-axis and thrust-axis azimuths.
+  \item Outputs now include inclusive, rapidity-gap, two-subevent, and MC-comparison plots.
+\end{itemize}
+\vspace{0.6em}
+\statusbox{mitred}{\textbf{Important caveat:} no converted 1991 ROOT sample was found in the checked merged StudyMult directories, so the current data result is 1992--1995 rather than complete 1991--1995 LEP1.}
+\end{frame}
+
+\begin{frame}
+\slidehead{Samples and Selection}
+\begin{columns}[T,totalwidth=0.96\textwidth]
+\begin{column}{0.50\textwidth}
+\textbf{Data}
+\begin{itemize}\setlength\itemsep{0.35em}
+  \item \texttt{LEP1Merged\_20200611.root}
+  \item Tree: \texttt{t}, StudyMult fixed-array format
+  \item 1992: 551,474 events
+  \item 1993: 538,601 events
+  \item 1994: 1,365,440 events
+  \item 1995: 595,095 events
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{MC baseline}
+\begin{itemize}\setlength\itemsep{0.35em}
+  \item \texttt{LEP1MCMerged.root}
+  \item 771,597 reconstructed entries
+  \item 1994-only baseline comparison
+\end{itemize}
+\vspace{0.5em}
+\textbf{Track/event settings}
+\begin{itemize}\setlength\itemsep{0.35em}
+  \item StudyMult charged flags: \texttt{pwflag = 0,1,2}
+  \item charged-particle threshold: \(p_T>0.4\) GeV
+  \item multiplicity bins: \([0,10),\ldots,[40,\infty)\)
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\slidehead{Analysis Workflow}
+\begin{itemize}\setlength\itemsep{0.65em}
+  \item Q-cumulants are accumulated for harmonic \(n=2\): \(\langle 2\rangle\), \(\langle 4\rangle\), \(\langle 6\rangle\), \(\langle 8\rangle\).
+  \item Derived observables: \(v_2\{2\}\), \(v_2\{4\}\), \(v_2\{6\}\), \(v_2\{8\}\).
+  \item Each production is split into 16 chunks; statistical errors use delete-one-chunk jackknife after recomputing the nonlinear cumulant values.
+  \item Internal self-test compares ordered-correlator implementation with brute-force distinct-particle sums.
+  \item Current plots compare data points to the 1994 MC baseline, with MC drawn as histograms or bands where applicable.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\slidehead{Inclusive Result: Beam Axis}
+\begin{center}
+  \includegraphics[width=0.92\textwidth,height=0.74\textheight,keepaspectratio]{v2_multiplicity_beam.pdf}
+\end{center}
+\figcaptiontext{Merged LEP1 1992--1995 data; detector-level charged particles with \(p_T>0.4\) GeV.}
+\end{frame}
+
+\begin{frame}
+\slidehead{Inclusive Result: Thrust Axis}
+\begin{center}
+  \includegraphics[width=0.92\textwidth,height=0.74\textheight,keepaspectratio]{v2_multiplicity_thrust.pdf}
+\end{center}
+\figcaptiontext{Same selected charged-particle multiplicity bins, with azimuth evaluated around the event thrust axis.}
+\end{frame}
+
+\begin{frame}
+\slidehead{Data/MC Comparison: Beam Axis}
+\begin{center}
+  \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_data_mc_compare_beam.pdf}
+\end{center}
+\figcaptiontext{Data: LEP1 1992--1995; MC: 1994 reconstructed baseline.}
+\end{frame}
+
+\begin{frame}
+\slidehead{Data/MC Comparison: Thrust Axis}
+\begin{center}
+  \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_data_mc_compare_thrust.pdf}
+\end{center}
+\figcaptiontext{Data: LEP1 1992--1995; MC: 1994 reconstructed baseline.}
+\end{frame}
+
+\begin{frame}
+\slidehead{Rapidity Gap: \(|\Delta\eta|>1.6\), Beam Axis}
+\begin{columns}[T,totalwidth=0.98\textwidth]
+\begin{column}{0.63\textwidth}
+  \includegraphics[width=\linewidth,height=0.70\textheight,keepaspectratio]{v2_eta_gap_1p6_data_mc_compare_beam.pdf}
+\end{column}
+\begin{column}{0.35\textwidth}
+  \includegraphics[width=\linewidth,height=0.36\textheight,keepaspectratio]{v2_eta_gap_1p6_data_mc_ratio_beam.pdf}
+  \vspace{0.5em}
+  \begin{itemize}\setlength\itemsep{0.45em}
+    \item Looser than the \(|\Delta\eta|>2.0\) study.
+    \item Ratio panel tracks data/MC for inclusive and gap observables.
+    \item Largest uncertainty remains in the high-multiplicity tail.
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\slidehead{Rapidity Gap: \(|\Delta\eta|>1.6\), Thrust Axis}
+\begin{columns}[T,totalwidth=0.98\textwidth]
+\begin{column}{0.63\textwidth}
+  \includegraphics[width=\linewidth,height=0.70\textheight,keepaspectratio]{v2_eta_gap_1p6_data_mc_compare_thrust.pdf}
+\end{column}
+\begin{column}{0.35\textwidth}
+  \includegraphics[width=\linewidth,height=0.36\textheight,keepaspectratio]{v2_eta_gap_1p6_data_mc_ratio_thrust.pdf}
+  \vspace{0.5em}
+  \begin{itemize}\setlength\itemsep{0.45em}
+    \item Gap is evaluated in pseudorapidity around the thrust axis.
+    \item Suppression is stronger than in the beam-axis view.
+    \item Data and MC follow the same broad multiplicity trend.
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\slidehead{Two-Subevent Cumulants: Beam Axis}
+\begin{center}
+  \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_data_mc_compare_beam.pdf}
+\end{center}
+\figcaptiontext{Two-subevent result samples \(k\) particles from each side for \(v_2\{2k\}\), with the default split at \(\eta=0\).}
+\end{frame}
+
+\begin{frame}
+\slidehead{Two-Subevent Cumulants: Thrust Axis}
+\begin{center}
+  \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_data_mc_compare_thrust.pdf}
+\end{center}
+\figcaptiontext{Two-subevent result samples \(k\) particles from each side for \(v_2\{2k\}\), with the default split at \(\eta=0\).}
+\end{frame}
+
+\begin{frame}
+\slidehead{What We Learn So Far}
+\begin{itemize}\setlength\itemsep{0.75em}
+  \item Beam-axis \(v_2\{m\}\) values are large and decrease with multiplicity; high-order cumulants are stable in the populated bins.
+  \item Thrust-axis values are smaller and high-order cumulants become sign-invalid in several low-multiplicity bins.
+  \item Rapidity-gap selections reduce the inclusive two-particle coefficient, consistent with sizable short-range or jet-like contributions.
+  \item The 1994 MC baseline broadly follows the data trends, but this is not yet a detector-corrected or systematic-uncertainty result.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\slidehead{Next Steps}
+\begin{itemize}\setlength\itemsep{0.65em}
+  \item Locate or produce a converted 1991 ROOT sample to complete the full LEP1 data set.
+  \item Add correction and systematic studies: tracking, event selection, axis definition, MC model dependence, and multiplicity migration.
+  \item Stress-test rapidity-gap and two-subevent definitions against alternate split/gap choices.
+  \item Expand MC comparisons beyond the current 1994 baseline where available.
+  \item Keep the analysis note and reproducible run instructions synchronized with each production.
+\end{itemize}
+\vspace{0.5em}
+\statusbox{statusblue}{\textbf{Current deliverable:} GitHub and Overleaf contain the merged-data figures, CSV tables, note, and reproducible commands for the current detector-level status.}
+\end{frame}
+
+\end{document}
