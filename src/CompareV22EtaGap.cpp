@@ -72,7 +72,7 @@ namespace
       graph->SetLineColor(color);
       graph->SetMarkerColor(color);
       graph->SetMarkerStyle(marker);
-      graph->SetMarkerSize(1.0);
+      graph->SetMarkerSize(1.12);
       graph->SetLineWidth(2);
 
       int point = 0;
@@ -123,7 +123,7 @@ namespace
       for (int bin = 1; bin <= reference.GetNbinsX(); ++bin)
          frame.GetXaxis()->SetBinLabel(bin, reference.GetXaxis()->GetBinLabel(bin));
       frame.GetXaxis()->LabelsOption("v");
-      frame.GetXaxis()->SetTitleOffset(2.05);
+      frame.GetXaxis()->SetTitleOffset(2.20);
    }
 
    double MaxY(const std::vector<const TH1D *> &hists)
@@ -231,15 +231,15 @@ namespace
          ("v2{2} eta-gap comparison " + axis).c_str(), 1150, 900);
       TPad upper(("upper_" + axis).c_str(), "", 0.0, 0.32, 1.0, 1.0);
       TPad lower(("lower_" + axis).c_str(), "", 0.0, 0.0, 1.0, 0.32);
-      upper.SetLeftMargin(0.10);
+      upper.SetLeftMargin(0.12);
       upper.SetRightMargin(0.04);
       upper.SetTopMargin(0.08);
       upper.SetBottomMargin(0.02);
       upper.SetGridy(true);
-      lower.SetLeftMargin(0.10);
+      lower.SetLeftMargin(0.12);
       lower.SetRightMargin(0.04);
       lower.SetTopMargin(0.03);
-      lower.SetBottomMargin(0.50);
+      lower.SetBottomMargin(0.54);
       lower.SetGridy(true);
       upper.Draw();
       lower.Draw();
@@ -251,9 +251,9 @@ namespace
       frame.SetMinimum(0.0);
       frame.SetMaximum(1.25 * MaxY({dataInclusive, dataGap, mcInclusive, mcGap}));
       frame.GetXaxis()->SetLabelSize(0.0);
-      frame.GetYaxis()->SetLabelSize(0.045);
-      frame.GetYaxis()->SetTitleSize(0.052);
-      frame.GetYaxis()->SetTitleOffset(0.78);
+      frame.GetYaxis()->SetLabelSize(0.058);
+      frame.GetYaxis()->SetTitleSize(0.066);
+      frame.GetYaxis()->SetTitleOffset(0.82);
       frame.Draw("AXIS");
 
       auto mcInclusiveBand = MakeBand(*mcInclusive, "mc_inclusive_" + axis, kRed + 1);
@@ -270,13 +270,14 @@ namespace
 
       TLatex label;
       label.SetNDC();
-      label.SetTextSize(0.046);
+      label.SetTextSize(0.054);
       label.DrawLatex(0.13, 0.86, (axis + " axis").c_str());
       label.DrawLatex(0.13, 0.80, "charged particles, p_{T} > 0.4 GeV");
 
       TLegend legend(0.58, 0.62, 0.94, 0.90);
       legend.SetBorderSize(0);
       legend.SetFillStyle(0);
+      legend.SetTextSize(0.052);
       legend.AddEntry(dataInclusiveGraph.get(), (dataLabel + " inclusive").c_str(), "pe");
       legend.AddEntry(dataGapGraph.get(), (dataLabel + " " + gapLabel).c_str(), "pe");
       legend.AddEntry(mcInclusiveBand.get(), (mcLabel + " inclusive").c_str(), "lf");
@@ -290,12 +291,12 @@ namespace
       CopyBinLabels(ratioFrame, *dataInclusive);
       ratioFrame.SetMinimum(0.0);
       ratioFrame.SetMaximum(1.25 * MaxY({dataGapRatio, mcGapRatio}));
-      ratioFrame.GetXaxis()->SetLabelSize(0.095);
-      ratioFrame.GetXaxis()->SetTitleSize(0.105);
-      ratioFrame.GetXaxis()->SetTitleOffset(2.05);
-      ratioFrame.GetYaxis()->SetLabelSize(0.090);
-      ratioFrame.GetYaxis()->SetTitleSize(0.095);
-      ratioFrame.GetYaxis()->SetTitleOffset(0.40);
+      ratioFrame.GetXaxis()->SetLabelSize(0.108);
+      ratioFrame.GetXaxis()->SetTitleSize(0.118);
+      ratioFrame.GetXaxis()->SetTitleOffset(2.15);
+      ratioFrame.GetYaxis()->SetLabelSize(0.102);
+      ratioFrame.GetYaxis()->SetTitleSize(0.108);
+      ratioFrame.GetYaxis()->SetTitleOffset(0.42);
       ratioFrame.GetYaxis()->SetNdivisions(505);
       ratioFrame.Draw("AXIS");
 
@@ -333,10 +334,10 @@ namespace
       const int nBins = dataInclusive->GetNbinsX();
       TCanvas canvas(("c_v22_etagap_datamc_" + axis).c_str(),
          ("v2{2} eta-gap data/MC " + axis).c_str(), 1150, 520);
-      canvas.SetLeftMargin(0.10);
+      canvas.SetLeftMargin(0.12);
       canvas.SetRightMargin(0.04);
       canvas.SetTopMargin(0.10);
-      canvas.SetBottomMargin(0.42);
+      canvas.SetBottomMargin(0.46);
       canvas.SetGridy(true);
 
       TH1D frame(("datamc_frame_" + axis).c_str(),
@@ -346,12 +347,12 @@ namespace
       const double yMax = std::max(1.15, MaxY({inclusiveRatio.get(), gapRatio.get()}) * 1.06);
       frame.SetMinimum(yMin);
       frame.SetMaximum(yMax);
-      frame.GetXaxis()->SetLabelSize(0.070);
-      frame.GetXaxis()->SetTitleSize(0.075);
-      frame.GetXaxis()->SetTitleOffset(2.05);
-      frame.GetYaxis()->SetLabelSize(0.070);
-      frame.GetYaxis()->SetTitleSize(0.080);
-      frame.GetYaxis()->SetTitleOffset(0.55);
+      frame.GetXaxis()->SetLabelSize(0.082);
+      frame.GetXaxis()->SetTitleSize(0.090);
+      frame.GetXaxis()->SetTitleOffset(2.20);
+      frame.GetYaxis()->SetLabelSize(0.082);
+      frame.GetYaxis()->SetTitleSize(0.092);
+      frame.GetYaxis()->SetTitleOffset(0.62);
       frame.GetYaxis()->SetNdivisions(505);
       frame.Draw("AXIS");
 
@@ -368,12 +369,13 @@ namespace
 
       TLatex label;
       label.SetNDC();
-      label.SetTextSize(0.060);
+      label.SetTextSize(0.070);
       label.DrawLatex(0.13, 0.83, (axis + " axis").c_str());
 
       TLegend legend(0.60, 0.70, 0.94, 0.88);
       legend.SetBorderSize(0);
       legend.SetFillStyle(0);
+      legend.SetTextSize(0.066);
       legend.AddEntry(inclusiveGraph.get(), "inclusive", "pe");
       legend.AddEntry(gapGraph.get(), gapLabel.c_str(), "pe");
       legend.Draw();

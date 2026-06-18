@@ -67,7 +67,7 @@ namespace
       graph->SetLineColor(kBlack);
       graph->SetMarkerColor(kBlack);
       graph->SetMarkerStyle(20);
-      graph->SetMarkerSize(0.95);
+      graph->SetMarkerSize(1.10);
       graph->SetLineWidth(2);
 
       int point = 0;
@@ -106,12 +106,12 @@ namespace
       for (int bin = 1; bin <= reference.GetNbinsX(); ++bin)
          frame.GetXaxis()->SetBinLabel(bin, reference.GetXaxis()->GetBinLabel(bin));
       frame.GetXaxis()->LabelsOption("v");
-      frame.GetXaxis()->SetLabelSize(0.055);
-      frame.GetYaxis()->SetLabelSize(0.055);
-      frame.GetXaxis()->SetTitleSize(0.060);
-      frame.GetXaxis()->SetTitleOffset(2.25);
-      frame.GetYaxis()->SetTitleSize(0.060);
-      frame.GetYaxis()->SetTitleOffset(0.78);
+      frame.GetXaxis()->SetLabelSize(0.067);
+      frame.GetYaxis()->SetLabelSize(0.067);
+      frame.GetXaxis()->SetTitleSize(0.074);
+      frame.GetXaxis()->SetTitleOffset(2.35);
+      frame.GetYaxis()->SetTitleSize(0.074);
+      frame.GetYaxis()->SetTitleOffset(0.92);
    }
 
    void WriteComparisonTable(TFile &dataFile, TFile &mcFile, const std::string &axis,
@@ -173,10 +173,10 @@ namespace
 
          canvas.cd(i + 1);
          TPad *pad = static_cast<TPad *>(gPad);
-         pad->SetLeftMargin(0.12);
+         pad->SetLeftMargin(0.15);
          pad->SetRightMargin(0.04);
          pad->SetTopMargin(0.10);
-         pad->SetBottomMargin(0.30);
+         pad->SetBottomMargin(0.34);
          pad->SetGridy(true);
 
          auto frame = std::make_unique<TH1D>(("frame_two_sub_" + axis + "_" + quantity.HistName).c_str(),
@@ -201,7 +201,7 @@ namespace
 
          TLatex label;
          label.SetNDC();
-         label.SetTextSize(0.052);
+         label.SetTextSize(0.062);
          label.DrawLatex(0.16, 0.84, (axis + " axis, two-subevent " + quantity.Label).c_str());
 
          if (i == 0)
@@ -209,6 +209,7 @@ namespace
             auto legend = std::make_unique<TLegend>(0.56, 0.70, 0.93, 0.88);
             legend->SetBorderSize(0);
             legend->SetFillStyle(0);
+            legend->SetTextSize(0.062);
             legend->AddEntry(mcHistPtr, mcLabel.c_str(), "lf");
             legend->AddEntry(dataGraphPtr, dataLabel.c_str(), "pe");
             legend->Draw();

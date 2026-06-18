@@ -116,9 +116,9 @@ namespace
          yMax = 1.0;
 
       TCanvas canvas(("c_" + axis).c_str(), ("v2 vs multiplicity " + axis).c_str(), 1000, 720);
-      canvas.SetLeftMargin(0.11);
+      canvas.SetLeftMargin(0.13);
       canvas.SetRightMargin(0.03);
-      canvas.SetBottomMargin(0.28);
+      canvas.SetBottomMargin(0.32);
 
       TH1D frame("frame", (plotTitlePrefix + ", " + axis + " axis;N_{trk}^{offline};" + yTitle).c_str(),
          reference->GetNbinsX(), 0.5, reference->GetNbinsX() + 0.5);
@@ -127,12 +127,18 @@ namespace
       for (int bin = 1; bin <= reference->GetNbinsX(); ++bin)
          frame.GetXaxis()->SetBinLabel(bin, reference->GetXaxis()->GetBinLabel(bin));
       frame.GetXaxis()->LabelsOption("v");
-      frame.GetXaxis()->SetTitleOffset(2.25);
+      frame.GetXaxis()->SetLabelSize(0.060);
+      frame.GetYaxis()->SetLabelSize(0.060);
+      frame.GetXaxis()->SetTitleSize(0.070);
+      frame.GetXaxis()->SetTitleOffset(2.35);
+      frame.GetYaxis()->SetTitleSize(0.070);
+      frame.GetYaxis()->SetTitleOffset(0.88);
       frame.Draw("AXIS");
 
       TLegend legend(0.66, 0.68, 0.94, 0.90);
       legend.SetBorderSize(0);
       legend.SetFillStyle(0);
+      legend.SetTextSize(0.055);
       for (std::size_t i = 0; i < graphs.size(); ++i)
       {
          graphs[i]->Draw("P SAME");
