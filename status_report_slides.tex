@@ -98,10 +98,10 @@
 \begin{frame}
 \slidehead{Current Status}
 \begin{itemize}\setlength\itemsep{0.7em}
-  \item Built a standalone ROOT/C++ cumulant workflow using charged particles in archived ALEPH LEP1 data.
+  \item Standalone ROOT/C++ cumulant analysis using charged particles in archived ALEPH LEP1 data.
   \item Current data input is the merged LEP1 1992--1995 StudyMult sample with \textbf{3,050,610 events}.
-  \item Results are detector-level and available for beam-axis and thrust-axis azimuths.
-  \item Outputs now include inclusive, MC-only, rapidity-gap, two-subevent, and MC-comparison plots.
+  \item Main data/MC results are detector-level; MC-only generator-level reference plots are included.
+  \item Outputs include inclusive, MC-only, generator-level MC-only, rapidity-gap, two-subevent, and MC-comparison plots.
 \end{itemize}
 \vspace{0.6em}
 \statusbox{mitred}{\textbf{Important caveat:} no converted 1991 ROOT sample was found in the checked merged StudyMult directories, so the current data result is 1992--1995 rather than complete 1991--1995 LEP1.}
@@ -122,17 +122,17 @@
 \end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
-\textbf{MC baseline}
+\textbf{MC samples}
 \begin{itemize}\setlength\itemsep{0.35em}
-  \item \texttt{LEP1MCMerged.root}
-  \item 771,597 reconstructed entries
-  \item 1994-only baseline comparison
+  \item Reco: \texttt{LEP1MCMerged.root:t}, 771,597 entries
+  \item Gen reference: \texttt{LEP1MCMerged.root:tgen}, 771,597 entries
+  \item Reco MC is the 1994 baseline comparison
 \end{itemize}
 \vspace{0.5em}
 \textbf{Track/event settings}
 \begin{itemize}\setlength\itemsep{0.35em}
   \item StudyMult charged flags: \texttt{pwflag = 0,1,2}
-  \item charged-particle threshold: \(p_T>0.4\) GeV
+  \item \(p_T>0.4\) GeV; thrust plots use thrust-axis \(p_T\)
   \item multiplicity bins: \([0,10),\ldots,[40,\infty)\)
 \end{itemize}
 \end{column}
@@ -146,7 +146,7 @@
   \item Derived observables: \(v_2\{2\}\), \(v_2\{4\}\), \(v_2\{6\}\), \(v_2\{8\}\).
   \item Each production is split into 16 chunks; statistical errors use delete-one-chunk jackknife after recomputing the nonlinear cumulant values.
   \item Internal self-test compares ordered-correlator implementation with brute-force distinct-particle sums.
-  \item Current plots compare data points to the 1994 MC baseline, with MC drawn as histograms or bands where applicable.
+  \item Comparison plots use 1992--1995 data and the 1994 reconstructed-MC baseline; MC-only reco and gen-level plots are shown separately.
 \end{itemize}
 \end{frame}
 
@@ -208,7 +208,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \end{column}
 \begin{column}{0.46\textwidth}
 \begin{itemize}\setlength\itemsep{0.55em}
-  \item The two-subevent version uses the same cumulant algebra, but each \(\langle\!\langle 2k\rangle\!\rangle\) samples \(k\) tracks from \(\eta>0\) and \(k\) tracks from \(\eta<0\).
+  \item The two-subevent version uses the same cumulant algebra, but each \(\langle\!\langle 2k\rangle\!\rangle\) samples \(k\) tracks from \(\eta>0\) and \(k\) tracks from \(\eta<0\), where \(\eta\) is defined relative to the plotted axis.
   \item Statistical errors are evaluated with 16 delete-one-chunk jackknife samples after recomputing the nonlinear \(c_2\{2k\}\rightarrow v_2\{2k\}\) transformation.
   \item A \(v_2\{2k\}\) bin is not drawn if the central value or any jackknife sample fails the required real-root sign.
 \end{itemize}
@@ -229,7 +229,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.92\textwidth,height=0.74\textheight,keepaspectratio]{v2_multiplicity_thrust.pdf}
 \end{center}
-\figcaptiontext{Same selected charged-particle multiplicity bins, with azimuth evaluated around the event thrust axis.}
+\figcaptiontext{Same lab-frame selected charged-particle multiplicity bins, with azimuth evaluated around the event thrust axis.}
 \end{frame}
 
 \begin{frame}
@@ -245,7 +245,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.92\textwidth,height=0.74\textheight,keepaspectratio]{v2_multiplicity_mc_thrust.pdf}
 \end{center}
-\figcaptiontext{1994 reconstructed MC baseline with azimuth and pseudorapidity evaluated around the event thrust axis.}
+\figcaptiontext{1994 reconstructed MC baseline with azimuth and pseudorapidity evaluated around the event thrust axis; bins use lab selected multiplicity.}
 \end{frame}
 
 \begin{frame}
@@ -253,7 +253,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.92\textwidth,height=0.74\textheight,keepaspectratio]{v2_multiplicity_mc_gen_beam.pdf}
 \end{center}
-\figcaptiontext{Generator-level charged particles from the \(tgen\) tree of \texttt{LEP1MCMerged.root}; same \(p_T>0.4\) GeV selection and \(N_{trk}^{offline}\) binning.}
+\figcaptiontext{Generator-level charged particles from \texttt{LEP1MCMerged.root:tgen}; \(p_T>0.4\) GeV and the same multiplicity bin edges as detector-level plots.}
 \end{frame}
 
 \begin{frame}
@@ -261,7 +261,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.92\textwidth,height=0.74\textheight,keepaspectratio]{v2_multiplicity_mc_gen_thrust.pdf}
 \end{center}
-\figcaptiontext{Generator-level MC baseline with azimuth and pseudorapidity evaluated around the event thrust axis.}
+\figcaptiontext{Generator-level \texttt{tgen} MC with azimuth and pseudorapidity evaluated around the event thrust axis; bins use selected gen-level charged multiplicity.}
 \end{frame}
 
 
@@ -322,7 +322,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_data_mc_compare_beam.pdf}
 \end{center}
-\figcaptiontext{Two-subevent result samples \(k\) particles from \(\eta>0\) and \(k\) particles from \(\eta<0\) for \(v_2\{2k\}\).}
+\figcaptiontext{Two-subevent result samples \(k\) particles from beam-axis \(\eta>0\) and \(k\) particles from beam-axis \(\eta<0\) for \(v_2\{2k\}\).}
 \end{frame}
 
 \begin{frame}
@@ -330,7 +330,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_data_mc_compare_thrust.pdf}
 \end{center}
-\figcaptiontext{Two-subevent result samples \(k\) particles from \(\eta>0\) and \(k\) particles from \(\eta<0\) for \(v_2\{2k\}\).}
+\figcaptiontext{Two-subevent result samples \(k\) particles from thrust-axis \(\eta>0\) and \(k\) particles from thrust-axis \(\eta<0\) for \(v_2\{2k\}\).}
 \end{frame}
 
 \begin{frame}
@@ -338,7 +338,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_mc_beam.pdf}
 \end{center}
-\figcaptiontext{1994 reconstructed MC baseline; two-subevent cumulants only, using \(\eta>0\) and \(\eta<0\) subevents.}
+\figcaptiontext{1994 reconstructed MC baseline; two-subevent cumulants only, using beam-axis \(\eta>0\) and \(\eta<0\) subevents.}
 \end{frame}
 
 \begin{frame}
@@ -346,7 +346,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_mc_thrust.pdf}
 \end{center}
-\figcaptiontext{MC-only view of the sign-instability seen in the thrust-axis two-subevent higher-order cumulants, using thrust-axis \(\eta>0\) and \(\eta<0\) subevents.}
+\figcaptiontext{1994 reconstructed MC baseline; thrust-axis two-subevent cumulants use thrust-axis \(\eta>0\) and \(\eta<0\) subevents.}
 \end{frame}
 
 \begin{frame}
@@ -354,7 +354,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_mc_gen_beam.pdf}
 \end{center}
-\figcaptiontext{Generator-level MC-only two-subevent cumulants from the \(tgen\) tree, with \(k\) particles sampled from \(\eta>0\) and \(k\) from \(\eta<0\).}
+\figcaptiontext{Generator-level \texttt{tgen} two-subevent cumulants, with \(k\) particles sampled from beam-axis \(\eta>0\) and \(k\) from \(\eta<0\).}
 \end{frame}
 
 \begin{frame}
@@ -362,7 +362,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{center}
   \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_two_sub_mc_gen_thrust.pdf}
 \end{center}
-\figcaptiontext{Generator-level MC-only two-subevent cumulants with the event thrust axis defining \(\eta>0\) and \(\eta<0\) subevents.}
+\figcaptiontext{Generator-level \texttt{tgen} two-subevent cumulants with the event thrust axis defining \(\eta>0\) and \(\eta<0\) subevents.}
 \end{frame}
 
 
@@ -385,7 +385,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
   \item Keep the analysis note and reproducible run instructions synchronized with each production.
 \end{itemize}
 \vspace{0.5em}
-\statusbox{statusblue}{\textbf{Current deliverable:} GitHub and Overleaf contain the merged-data figures, CSV tables, note, and reproducible commands for the current detector-level status.}
+\statusbox{statusblue}{\textbf{Current deliverable:} GitHub and Overleaf contain the merged-data figures, CSV tables, note, and status slides for detector-level data/MC and generator-level MC references.}
 \end{frame}
 
 \end{document}
