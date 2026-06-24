@@ -19,8 +19,8 @@ FIGURES = \
 	figures/nonflow_mc_closure_gap_c22_thrust.pdf \
 	figures/nonflow_mc_closure_selection_c22_beam.pdf \
 	figures/nonflow_mc_closure_selection_c22_thrust.pdf \
-	figures/pythia_zpole_1M_noshoving_vs_shoving_pt04_compare_beam.pdf \
-	figures/pythia_zpole_1M_noshoving_vs_shoving_pt04_compare_thrust.pdf \
+	figures/pythia_zpole_3M_noshoving_vs_shoving_pt04_compare_beam.pdf \
+	figures/pythia_zpole_3M_noshoving_vs_shoving_pt04_compare_thrust.pdf \
 	figures/v2_eta_gap_data_mc_compare_beam.pdf \
 	figures/v2_eta_gap_data_mc_compare_thrust.pdf \
 	figures/v2_eta_gap_1p6_data_mc_compare_beam.pdf \
