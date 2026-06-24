@@ -57,10 +57,16 @@ namespace
    struct EventData
    {
       bool PassEventSelection = true;
+      bool HasCharge = false;
+      bool HasThrust = false;
+      bool HasSphericity = false;
+      double Thrust = 0.0;
+      double Sphericity = 0.0;
       std::vector<float> Px;
       std::vector<float> Py;
       std::vector<float> Pz;
       std::vector<short> Pwflag;
+      std::vector<short> Charge;
       std::vector<bool> HighPurity;
    };
 
@@ -110,6 +116,7 @@ namespace
       bool ThrustChargedOnly = false;
       bool UseWideTailBinning = false;
       bool SelfTest = false;
+      std::string ChargeSelection = "all";
       double LabPtMin = 0.4;
       double LabPtMax = -1.0;
       double ThrustPtMin = 0.4;
@@ -117,6 +124,10 @@ namespace
       double SubeventEtaBoundary = 0.5;
       double TwoSubeventEtaBoundary = 0.0;
       double EtaGapMin = 2.0;
+      double ThrustMin = -1.0;
+      double ThrustMax = -1.0;
+      double SphericityMin = -1.0;
+      double SphericityMax = -1.0;
       std::vector<int> MultiplicityEdges;
    };
 
@@ -274,6 +285,9 @@ namespace
 
          HasPassEventSelection = BranchExists(Tree, "passEventSelection");
          HasHighPurity = BranchExists(Tree, "highPurity");
+         HasCharge = BranchExists(Tree, "charge");
+         HasThrust = BranchExists(Tree, "Thrust");
+         HasSphericity = BranchExists(Tree, "Sphericity");
 
          if (RequireHighPurity && !HasHighPurity)
             throw std::runtime_error("--RequireHighPurity was requested, but branch \"highPurity\" is missing");
@@ -291,16 +305,25 @@ namespace
             EnableBranch(Tree, "py");
             EnableBranch(Tree, "pz");
             EnableBranch(Tree, "pwflag");
+            EnableBranch(Tree, "charge");
             EnableBranch(Tree, "highPurity");
+            EnableBranch(Tree, "Thrust");
+            EnableBranch(Tree, "Sphericity");
 
             Tree->SetBranchAddress("px", &VectorPx);
             Tree->SetBranchAddress("py", &VectorPy);
             Tree->SetBranchAddress("pz", &VectorPz);
             Tree->SetBranchAddress("pwflag", &VectorPwflag);
+            if (HasCharge)
+               Tree->SetBranchAddress("charge", &VectorCharge);
             if (HasPassEventSelection)
                Tree->SetBranchAddress("passEventSelection", &PassEventSelection);
             if (HasHighPurity)
                Tree->SetBranchAddress("highPurity", &VectorHighPurity);
+            if (HasThrust)
+               Tree->SetBranchAddress("Thrust", &ThrustValue);
+            if (HasSphericity)
+               Tree->SetBranchAddress("Sphericity", &SphericityValue);
             return;
          }
 
@@ -317,7 +340,10 @@ namespace
          EnableBranch(Tree, "py");
          EnableBranch(Tree, "pz");
          EnableBranch(Tree, "pwflag");
+         EnableBranch(Tree, "charge");
          EnableBranch(Tree, "highPurity");
+         EnableBranch(Tree, "Thrust");
+         EnableBranch(Tree, "Sphericity");
 
          Tree->SetBranchAddress("nParticle", &ArrayNParticle);
          Tree->SetBranchAddress("px", ArrayPx);
@@ -328,10 +354,16 @@ namespace
             Tree->SetBranchAddress("pwflag", ArrayPwflagFloat);
          else
             Tree->SetBranchAddress("pwflag", ArrayPwflagShort);
+         if (HasCharge)
+            Tree->SetBranchAddress("charge", ArrayCharge);
          if (HasPassEventSelection)
             Tree->SetBranchAddress("passEventSelection", &PassEventSelection);
          if (HasHighPurity)
             Tree->SetBranchAddress("highPurity", ArrayHighPurity);
+         if (HasThrust)
+            Tree->SetBranchAddress("Thrust", &ThrustValue);
+         if (HasSphericity)
+            Tree->SetBranchAddress("Sphericity", &SphericityValue);
       }
 
       bool FillVectorEvent(EventData &event)
@@ -348,9 +380,17 @@ namespace
          event.Py = *VectorPy;
          event.Pz = *VectorPz;
          event.Pwflag = *VectorPwflag;
+         event.Charge.assign(event.Px.size(), 0);
+         event.HasCharge = HasCharge && VectorCharge != nullptr && VectorCharge->size() == event.Px.size();
+         if (event.HasCharge)
+            event.Charge.assign(VectorCharge->begin(), VectorCharge->end());
          event.HighPurity.assign(event.Px.size(), true);
          if (HasHighPurity && VectorHighPurity != nullptr && VectorHighPurity->size() == event.Px.size())
             event.HighPurity.assign(VectorHighPurity->begin(), VectorHighPurity->end());
+         event.HasThrust = HasThrust;
+         event.Thrust = ThrustValue;
+         event.HasSphericity = HasSphericity;
+         event.Sphericity = SphericityValue;
          return true;
       }
 
@@ -364,7 +404,13 @@ namespace
          event.Py.reserve(count);
          event.Pz.reserve(count);
          event.Pwflag.reserve(count);
+         event.Charge.reserve(count);
          event.HighPurity.reserve(count);
+         event.HasCharge = HasCharge;
+         event.HasThrust = HasThrust;
+         event.Thrust = ThrustValue;
+         event.HasSphericity = HasSphericity;
+         event.Sphericity = SphericityValue;
 
          for (int i = 0; i < count; ++i)
          {
@@ -375,6 +421,7 @@ namespace
                ? static_cast<short>(std::lround(ArrayPwflagFloat[i]))
                : ArrayPwflagShort[i];
             event.Pwflag.push_back(pwflag);
+            event.Charge.push_back(HasCharge ? ArrayCharge[i] : 0);
             event.HighPurity.push_back(HasHighPurity ? static_cast<bool>(ArrayHighPurity[i]) : true);
          }
          return true;
@@ -386,13 +433,19 @@ namespace
       bool RequireHighPurity = false;
       bool HasPassEventSelection = false;
       bool HasHighPurity = false;
+      bool HasCharge = false;
+      bool HasThrust = false;
+      bool HasSphericity = false;
 
       Bool_t PassEventSelection = true;
+      Float_t ThrustValue = 0.0;
+      Float_t SphericityValue = 0.0;
 
       std::vector<float> *VectorPx = nullptr;
       std::vector<float> *VectorPy = nullptr;
       std::vector<float> *VectorPz = nullptr;
       std::vector<short> *VectorPwflag = nullptr;
+      std::vector<short> *VectorCharge = nullptr;
       std::vector<bool> *VectorHighPurity = nullptr;
 
       Int_t ArrayNParticle = 0;
@@ -401,6 +454,7 @@ namespace
       Float_t ArrayPz[MaxArrayParticles] = {};
       Short_t ArrayPwflagShort[MaxArrayParticles] = {};
       Float_t ArrayPwflagFloat[MaxArrayParticles] = {};
+      Short_t ArrayCharge[MaxArrayParticles] = {};
       bool ArrayPwflagIsFloat = false;
       Bool_t ArrayHighPurity[MaxArrayParticles] = {};
    };
@@ -449,17 +503,56 @@ namespace
       return std::isfinite(pt) && pt >= minPt && (maxPt < 0.0 || pt < maxPt);
    }
 
+   bool RangeCutRequested(double minValue, double maxValue)
+   {
+      return minValue >= 0.0 || maxValue >= 0.0;
+   }
+
+   bool PassOptionalRange(double value, double minValue, double maxValue)
+   {
+      if (!RangeCutRequested(minValue, maxValue))
+         return true;
+      return std::isfinite(value) && (minValue < 0.0 || value >= minValue) &&
+         (maxValue < 0.0 || value < maxValue);
+   }
+
+   bool PassChargeSelection(short charge, const std::string &selection)
+   {
+      if (selection == "all")
+         return true;
+      if (selection == "positive")
+         return charge > 0;
+      if (selection == "negative")
+         return charge < 0;
+      if (selection == "nonzero")
+         return charge != 0;
+      throw std::runtime_error("Unknown charge selection " + selection);
+   }
+
    bool BuildEventSummary(const EventData &event, const AnalysisOptions &options, EventSummary &summary)
    {
       summary = EventSummary();
 
       if (options.UsePassEventSelection && !event.PassEventSelection)
          return false;
-      if (event.Px.size() != event.Py.size() || event.Px.size() != event.Pz.size() ||
-         event.Px.size() != event.Pwflag.size() || event.Px.size() != event.HighPurity.size())
+      if (RangeCutRequested(options.ThrustMin, options.ThrustMax) &&
+         (!event.HasThrust || !PassOptionalRange(event.Thrust, options.ThrustMin, options.ThrustMax)))
       {
          return false;
       }
+      if (RangeCutRequested(options.SphericityMin, options.SphericityMax) &&
+         (!event.HasSphericity || !PassOptionalRange(event.Sphericity, options.SphericityMin, options.SphericityMax)))
+      {
+         return false;
+      }
+      if (event.Px.size() != event.Py.size() || event.Px.size() != event.Pz.size() ||
+         event.Px.size() != event.Pwflag.size() || event.Px.size() != event.HighPurity.size() ||
+         event.Px.size() != event.Charge.size())
+      {
+         return false;
+      }
+      if (options.ChargeSelection != "all" && !event.HasCharge)
+         return false;
 
       std::vector<TVector3> thrustInput;
       thrustInput.reserve(event.Px.size());
@@ -468,6 +561,8 @@ namespace
          if (options.ThrustChargedOnly && !AlephCumulant::IsChargedPwflag(event.Pwflag[i]))
             continue;
          if (options.RequireHighPurity && !event.HighPurity[i])
+            continue;
+         if (!PassChargeSelection(event.Charge[i], options.ChargeSelection))
             continue;
 
          const TVector3 momentum(event.Px[i], event.Py[i], event.Pz[i]);
@@ -483,6 +578,8 @@ namespace
          if (!AlephCumulant::IsChargedPwflag(event.Pwflag[i]))
             continue;
          if (options.RequireHighPurity && !event.HighPurity[i])
+            continue;
+         if (!PassChargeSelection(event.Charge[i], options.ChargeSelection))
             continue;
 
          const TVector3 momentum(event.Px[i], event.Py[i], event.Pz[i]);
@@ -1234,6 +1331,13 @@ namespace
       options.ThrustChargedOnly = cl.GetBool("ThrustChargedOnly", false);
       options.UseWideTailBinning = cl.GetBool("UseWideTailBinning", false);
       options.SelfTest = cl.GetBool("SelfTest", false);
+      options.ChargeSelection = cl.Get("ChargeSelection", "all");
+      if (options.ChargeSelection != "all" && options.ChargeSelection != "positive" &&
+         options.ChargeSelection != "negative" && options.ChargeSelection != "nonzero")
+      {
+         throw std::runtime_error("Unknown --ChargeSelection=" + options.ChargeSelection +
+            " (expected all, positive, negative, or nonzero)");
+      }
       options.LabPtMin = cl.GetDouble("LabPtMin", 0.4);
       options.LabPtMax = cl.GetDouble("LabPtMax", -1.0);
       options.ThrustPtMin = cl.GetDouble("ThrustPtMin", 0.4);
@@ -1241,6 +1345,10 @@ namespace
       options.SubeventEtaBoundary = cl.GetDouble("SubeventEtaBoundary", 0.5);
       options.TwoSubeventEtaBoundary = cl.GetDouble("TwoSubeventEtaBoundary", 0.0);
       options.EtaGapMin = cl.GetDouble("EtaGapMin", 2.0);
+      options.ThrustMin = cl.GetDouble("ThrustMin", -1.0);
+      options.ThrustMax = cl.GetDouble("ThrustMax", -1.0);
+      options.SphericityMin = cl.GetDouble("SphericityMin", -1.0);
+      options.SphericityMax = cl.GetDouble("SphericityMax", -1.0);
       if (cl.Has("MultiplicityBins"))
          options.MultiplicityEdges = cl.GetIntVector("MultiplicityBins", "");
       return options;
@@ -1409,6 +1517,7 @@ int main(int argc, char *argv[])
          ",UsePassEventSelection=" + std::string(options.UsePassEventSelection ? "1" : "0") +
          ",RequireHighPurity=" + std::string(options.RequireHighPurity ? "1" : "0") +
          ",ThrustChargedOnly=" + std::string(options.ThrustChargedOnly ? "1" : "0") +
+         ",ChargeSelection=" + options.ChargeSelection +
          ",LabPtMin=" + std::to_string(options.LabPtMin) +
          ",LabPtMax=" + std::to_string(options.LabPtMax) +
          ",ThrustPtMin=" + std::to_string(options.ThrustPtMin) +
@@ -1417,6 +1526,10 @@ int main(int argc, char *argv[])
          ",SubeventEtaBoundary=" + std::to_string(options.SubeventEtaBoundary) +
          ",TwoSubeventEtaBoundary=" + std::to_string(options.TwoSubeventEtaBoundary) +
          ",EtaGapMin=" + std::to_string(options.EtaGapMin) +
+         ",ThrustMin=" + std::to_string(options.ThrustMin) +
+         ",ThrustMax=" + std::to_string(options.ThrustMax) +
+         ",SphericityMin=" + std::to_string(options.SphericityMin) +
+         ",SphericityMax=" + std::to_string(options.SphericityMax) +
          ",MultiplicityBins=" + JoinEdges(multBins) +
          ",StartEntry=" + std::to_string(options.StartEntry) +
          ",EndEntry=" + std::to_string(endEntry);

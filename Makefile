@@ -8,7 +8,7 @@ LDFLAGS ?= $(ROOTLIBS)
 
 .PHONY: all check note clean
 
-all: bin/aleph_charged_cumulants bin/merge_correlation_chunks bin/aleph_cumulant_summary bin/plot_v2_multiplicity bin/compare_v2_multiplicity bin/compare_v2_data_samples bin/compare_two_subevent_v2_multiplicity bin/compare_v22_eta_gap
+all: bin/aleph_charged_cumulants bin/merge_correlation_chunks bin/aleph_cumulant_summary bin/plot_v2_multiplicity bin/compare_v2_multiplicity bin/compare_v2_data_samples bin/nonflow_closure_study bin/compare_two_subevent_v2_multiplicity bin/compare_v22_eta_gap
 
 check: all
 	bin/aleph_charged_cumulants --SelfTest 1
@@ -34,6 +34,9 @@ bin/compare_v2_multiplicity: src/CompareV2Multiplicity.cpp include/CommandLine.h
 bin/compare_v2_data_samples: src/CompareV2DataSamples.cpp include/CommandLine.h | bin
 	$(CXX) $(CXXFLAGS) src/CompareV2DataSamples.cpp -o $@ $(LDFLAGS)
 
+bin/nonflow_closure_study: src/NonflowClosureStudy.cpp include/CommandLine.h | bin
+	$(CXX) $(CXXFLAGS) src/NonflowClosureStudy.cpp -o $@ $(LDFLAGS)
+
 bin/compare_two_subevent_v2_multiplicity: src/CompareTwoSubeventV2Multiplicity.cpp include/CommandLine.h | bin
 	$(CXX) $(CXXFLAGS) src/CompareTwoSubeventV2Multiplicity.cpp -o $@ $(LDFLAGS)
 
@@ -44,5 +47,5 @@ bin:
 	mkdir -p bin
 
 clean:
-	rm -f bin/aleph_charged_cumulants bin/merge_correlation_chunks bin/aleph_cumulant_summary bin/plot_v2_multiplicity bin/compare_v2_multiplicity bin/compare_v2_data_samples bin/compare_two_subevent_v2_multiplicity bin/compare_v22_eta_gap
+	rm -f bin/aleph_charged_cumulants bin/merge_correlation_chunks bin/aleph_cumulant_summary bin/plot_v2_multiplicity bin/compare_v2_multiplicity bin/compare_v2_data_samples bin/nonflow_closure_study bin/compare_two_subevent_v2_multiplicity bin/compare_v22_eta_gap
 

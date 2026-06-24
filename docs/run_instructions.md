@@ -370,3 +370,27 @@ make check
 ```
 
 Generated ROOT files, logs, chunk directories, and binaries are ignored by git. The tracked reproducibility artifacts are the source code, scripts, README, detailed instructions, analysis note source, and selected note figures/CSVs.
+
+
+## 12. LEP1 MC Nonflow-Suppression Closure Study
+
+The full first-pass MC nonflow-suppression matrix is documented in
+`docs/nonflow_suppression_study_20260624.md` and can be reproduced with:
+
+```bash
+scripts/run_nonflow_suppression_mc.sh
+bin/nonflow_closure_study --OutputPrefix output/nonflow_mc_closure
+scripts/nonflow_subtraction_diagnostics.py
+```
+
+Additional analyzer switches used by this study:
+
+- `--ChargeSelection all|positive|negative|nonzero`: keep all selected charged
+  tracks, only positive tracks, only negative tracks, or nonzero-charge tracks.
+- `--ThrustMin`, `--ThrustMax`: optional event-level cuts on the StudyMult
+  `Thrust` branch. A negative value disables the corresponding bound.
+- `--SphericityMin`, `--SphericityMax`: optional event-level cuts on the
+  StudyMult `Sphericity` branch. A negative value disables the bound.
+- `--TwoSubeventEtaBoundary b`: for two-subevent cumulants, uses
+  `eta < -b` and `eta > b`; the excluded central interval gives a subevent
+  separation of `2b`.
