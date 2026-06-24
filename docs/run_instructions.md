@@ -197,6 +197,19 @@ bin/plot_v2_multiplicity \
   --OutputPrefix output/lep1_1994_mc_merged_charged_pt04_v2
 ```
 
+
+LEP1/LEP2 data comparison. This draws LEP1 as open circles and LEP2 as filled
+circles, and writes both beam-axis and thrust-axis outputs:
+
+```bash
+bin/compare_v2_data_samples \
+  --ReferenceSummary output/lep1_1992_1995_data_charged_pt04_summary.root \
+  --ComparisonSummary output/lep2_1995_2000_data_charged_pt04_summary.root \
+  --OutputPrefix output/lep1_1992_1995_data_vs_lep2_1995_2000_data_charged_pt04_compare \
+  --ReferenceLabel 'LEP1 1992--1995 data' \
+  --ComparisonLabel 'LEP2 merged data'
+```
+
 Data/MC comparison:
 
 ```bash
