@@ -15,6 +15,10 @@ FIGURES = \
 	figures/v2_multiplicity_mc_thrust.pdf \
 	figures/v2_data_mc_compare_beam.pdf \
 	figures/v2_data_mc_compare_thrust.pdf \
+	figures/nonflow_mc_closure_gap_c22_beam.pdf \
+	figures/nonflow_mc_closure_gap_c22_thrust.pdf \
+	figures/nonflow_mc_closure_selection_c22_beam.pdf \
+	figures/nonflow_mc_closure_selection_c22_thrust.pdf \
 	figures/v2_eta_gap_data_mc_compare_beam.pdf \
 	figures/v2_eta_gap_data_mc_compare_thrust.pdf \
 	figures/v2_eta_gap_1p6_data_mc_compare_beam.pdf \

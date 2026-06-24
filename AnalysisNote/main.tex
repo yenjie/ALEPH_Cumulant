@@ -451,6 +451,101 @@ value under the standard cumulant sign convention.
   \label{fig:v2-data-mc-thrust}
 \end{figure}
 
+
+\subsection{LEP1 MC nonflow-suppression closure}
+\label{subsec:mc-nonflow-closure}
+
+The reconstructed-MC comparison above shows that the nominal cumulants contain a
+large non-collective component. To test whether standard nonflow-suppression
+handles can make the LEP1 MC close to zero, the 1994 reconstructed-MC sample was
+reprocessed with a set of selections motivated by small-system flow analyses:
+large two-particle rapidity gaps, two-subevent cumulants, soft-track selections,
+charge-sign selections, and anti-jetty event-shape cuts. The rapidity-gap and
+subevent scans follow the logic of long-range two-particle and subevent-cumulant
+methods used in small collision systems~\cite{CMS:2016fnw,Jia:2017Subevent,ATLAS:2017Subevent}.
+
+The closure test is performed on the signed two-particle cumulant or signed
+rapidity-gap correlator, not only on \(\vn{2}{2}\). This is necessary because
+\(\vn{2}{2}=\sqrt{\cn{2}{2}}\) is positive definite whenever \(\cn{2}{2}>0\),
+so a positive \(\vn{2}{2}\) alone cannot establish whether the underlying MC
+correlator is compatible with zero. The first-pass MC production used the same
+multiplicity bins and sixteen-chunk jackknife procedure as the nominal MC
+comparison. For positive two-subevent boundary \(b\), the two subevents are
+\(\eta<-b\) and \(\eta>b\), so the central excluded region corresponds to a
+subevent separation of \(2b\).
+
+The best-performing methods in this scan are summarized in
+Table~\ref{tab:mc-nonflow-best}. The strongest reduction is obtained from the
+largest rapidity-gap requirement, \(|\Delta\eta|>3.0\), especially when the
+azimuth and pseudorapidity are defined around the event thrust axis. However,
+none of the tested methods makes the signed MC correlator statistically
+consistent with zero in all multiplicity bins. Simple harmonic-level
+low-multiplicity and \(1/N\)-scaling subtractions were also tested as diagnostics;
+the fitted nonzero intercepts, \(0.4550\pm0.0006\) for the beam axis and
+\(0.1884\pm0.0006\) for the thrust axis, show that an integrated harmonic
+subtraction is not sufficient.
+
+\begin{table}[htbp]
+\centering
+\caption{Best first-pass LEP1 reconstructed-MC nonflow-suppression closure
+results. The ranking uses the RMS of the signed \(\cn{2}{2}\) or signed
+rapidity-gap correlator over valid multiplicity bins. A zero-compatible bin is
+one with absolute signed-correlator significance below two.}
+\label{tab:mc-nonflow-best}
+\begin{tabular}{llccc}
+\toprule
+Axis & Best tested method & RMS signed observable & Mean \(\vn{2}{2}\) & Zero-compatible bins \\
+\midrule
+Beam & \(|\Delta\eta|>3.0\) & 0.128 & 0.383 & 2/7 \\
+Beam & \(0.4<\pT<1\) GeV & 0.171 & 0.420 & 1/5 \\
+Thrust & \(|\Delta\eta|>3.0\) & 0.0359 & 0.180 & 1/8 \\
+Thrust & \(0.4<\pT<2\) GeV & 0.137 & 0.368 & 0/7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figures~\ref{fig:mc-nonflow-gap-c22} and~\ref{fig:mc-nonflow-selection-c22}
+show the signed closure observables for the gap/subevent and track/event-shape
+families. The large-gap thrust-axis result is the closest to zero among the
+methods tested so far, but several multiplicity bins remain significantly
+positive. The next required closure checks are a genuine three-subevent
+\(\cn{2}{4}\) implementation and full \(\Delta\phi\) template or
+\(\Delta\eta\)-binned correlation outputs; the current integrated cumulant
+outputs cannot reproduce the published template-subtraction procedures exactly.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{nonflow_mc_closure_gap_c22_beam.pdf}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{nonflow_mc_closure_gap_c22_thrust.pdf}
+  \end{minipage}
+  \caption{LEP1 reconstructed-MC signed two-particle closure observables for
+  rapidity-gap and two-subevent nonflow-suppression scans. Left: beam axis.
+  Right: thrust axis. The dashed line marks zero.}
+  \label{fig:mc-nonflow-gap-c22}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{nonflow_mc_closure_selection_c22_beam.pdf}
+  \end{minipage}
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{nonflow_mc_closure_selection_c22_thrust.pdf}
+  \end{minipage}
+  \caption{LEP1 reconstructed-MC signed two-particle closure observables for
+  track-selection and event-shape nonflow-suppression scans. Left: beam axis.
+  Right: thrust axis. The dashed line marks zero.}
+  \label{fig:mc-nonflow-selection-c22}
+\end{figure}
+
+
 \subsection{Two-particle rapidity-gap comparison}
 \label{subsec:eta-gap-comparison}
 
