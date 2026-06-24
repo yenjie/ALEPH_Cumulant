@@ -136,8 +136,8 @@ stored as zero in the exported CSV table.
 \section{Data Setup and Selections}
 \label{sec:data}
 
-The figures in this note currently use the merged LEP1 1992--1995 reconstructed
-data sample
+The baseline LEP1 figures in this note use the merged LEP1 1992--1995
+reconstructed data sample
 \begin{center}
 \path{/mnt/data3/data3/yjlee/StudyMultSamples/ALEPH/LEP1/LEP1Merged_20200611.root}.
 \end{center}
@@ -311,6 +311,49 @@ Multiplicity & \(\vn{2}{2}\) & \(\vn{2}{4}\) & \(\vn{2}{6}\) & \(\vn{2}{8}\) \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+
+\subsection{LEP2 merged-sample data cross-check}
+\label{subsec:lep2-data-cross-check}
+
+The same nominal detector-level cumulant workflow was also run on the requested
+LEP2 merged sample,
+\begin{center}
+\path{/mnt/data3/data3/yjlee/StudyMultSamples/ALEPH/LEP2/20180713/LEP2_merged.root}.
+\end{center}
+The input tree \texttt{t} contains 409,270 entries, with year counts 1,983
+(1995), 30,914 (1996), 61,076 (1997), 89,685 (1998), 111,493 (1999), and
+114,119 (2000). The file-level \texttt{isMC} branch is false for all entries in
+this merged file, so it is treated here as the requested LEP2 data sample. No
+additional center-of-mass-energy selection is applied in this first pass; the
+\texttt{Energy} branch spans approximately 91--209 GeV. The charged-particle
+selection, multiplicity bins, beam-axis and thrust-axis definitions, and
+sixteen-chunk jackknife procedure match the LEP1 nominal production.
+
+Figures~\ref{fig:v2-lep2-data-beam} and~\ref{fig:v2-lep2-data-thrust} show the
+LEP2 merged-sample result. The lower LEP2 statistics relative to the LEP1 merged
+sample lead to visibly larger jackknife uncertainties, especially in the
+highest multiplicity bins and for higher-order cumulants. The result is kept as
+a detector-level cross-check until the LEP2 sample composition and energy-window
+choices are finalized.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{v2_lep2_data_multiplicity_beam.pdf}
+  \caption{Detector-level charged-particle \(\vn{2}{2}\), \(\vn{2}{4}\),
+  \(\vn{2}{6}\), and \(\vn{2}{8}\) in the requested LEP2 merged sample using
+  the laboratory beam-axis azimuth.}
+  \label{fig:v2-lep2-data-beam}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{v2_lep2_data_multiplicity_thrust.pdf}
+  \caption{Detector-level charged-particle \(\vn{2}{2}\), \(\vn{2}{4}\),
+  \(\vn{2}{6}\), and \(\vn{2}{8}\) in the requested LEP2 merged sample using
+  azimuth around the event thrust axis.}
+  \label{fig:v2-lep2-data-thrust}
+\end{figure}
 
 
 \subsection{Matched 1994 reconstructed-MC comparison}
@@ -678,6 +721,8 @@ final corrected physics result. The main limitations are:
   \item only one track-\(\pT\) window variation, \(1<\pT<3\) GeV, is included
   so far; broader charged-particle definition, thrust-axis construction, and
   event-selection variations are still needed;
+  \item the LEP2 merged-sample cross-check currently uses the requested full
+  \texttt{LEP2\_merged.root} file without an additional energy-window selection;
   \item high-order cumulants in the highest-multiplicity bins are statistically
   fragile and can become sign-invalid.
 \end{itemize}
@@ -696,7 +741,9 @@ bins. The analysis extracts \(\vn{2}{2}\), \(\vn{2}{4}\), \(\vn{2}{6}\), and
 thrust-axis azimuthal definitions, and compares inclusive \(\vn{2}{2}\) with
 rapidity-gap selections \(|\Delta\eta|>2.0\) and \(|\Delta\eta|>1.6\).
 An additional detector-level cross-check repeats the inclusive and
-rapidity-gap measurements for charged particles with \(1<\pT<3\) GeV.
+rapidity-gap measurements for charged particles with \(1<\pT<3\) GeV. A first
+LEP2 merged-sample data cross-check has also been produced from the requested
+\texttt{LEP2\_merged.root} input file.
 Statistical uncertainties are propagated through the nonlinear cumulant
 definitions with a sixteen-chunk jackknife. The beam-axis and thrust-axis
 figures included in this note provide the current detector-level baseline for

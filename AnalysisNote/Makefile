@@ -7,6 +7,8 @@ all: $(TEX).pdf
 FIGURES = \
 	figures/v2_multiplicity_beam.pdf \
 	figures/v2_multiplicity_thrust.pdf \
+	figures/v2_lep2_data_multiplicity_thrust.pdf \
+	figures/v2_lep2_data_multiplicity_beam.pdf \
 	figures/v2_multiplicity_mc_beam.pdf \
 	figures/v2_multiplicity_mc_thrust.pdf \
 	figures/v2_data_mc_compare_beam.pdf \
