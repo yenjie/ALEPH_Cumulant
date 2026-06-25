@@ -547,19 +547,24 @@ outputs cannot reproduce the published template-subtraction procedures exactly.
 
 
 
+
 \subsection{Generator-level Pythia shoving comparison}
 \label{subsec:pythia-shoving}
 
 To isolate whether the string-shoving model can modify the cumulant observables,
 two generator-level Pythia 8.306 samples were produced from the local Gleipnir
-shoving branch. Both samples contain three million accepted hadronic
-\(\ee\to\gamma^*/Z\to q\bar{q}\) events at \(\sqrt{s}=91.1876\) GeV, use the
-same random seed and the same visible-final-state output convention, and are
-processed with the same charged-particle \(\pT>0.4\) GeV selection,
-multiplicity bins, and sixteen-chunk jackknife procedure used for the other
-Monte Carlo comparisons. Neutrinos are removed from the generator-level tree;
-charged particles are selected with the StudyMult-style \(pwflag=0,1,2\)
-convention. The shoving sample enables the following settings:
+shoving branch. The current production uses five million accepted hadronic
+\(\ee\to\gamma^*/Z\to q\bar{q}\) events at \(\sqrt{s}=91.1876\) GeV per
+configuration. Each five-million-event sample is the merge of the original
+seed-12345 three-million-event production and an independent seed-67890
+two-million-event extension. The merged ROOT trees were required to contain
+exactly 5,000,000 entries before the cumulant processing was run. Neutrinos are
+removed from the generator-level tree; charged particles are selected with the
+StudyMult-style \(pwflag=0,1,2\) convention. The cumulant selection, multiplicity
+bins, and sixteen-chunk jackknife procedure are identical for the no-shoving and
+shoving configurations.
+
+The shoving sample enables the following settings:
 \begin{itemize}
 \setlength\itemsep{0pt}
 \item \texttt{StringInteractions:model = 3}
@@ -575,47 +580,47 @@ convention. The shoving sample enables the following settings:
 \item \texttt{PartonVertex:setVertex = on}
 \item \texttt{PartonVertex:modeRadiation = 2}
 \end{itemize}
-The no-shoving control keeps the
-same hard process and shower settings but disables the Gleipnir block. Because
-turning shoving on changes the random-number consumption during hadronization,
-the comparison is treated as a matched-configuration comparison rather than an
-event-by-event paired subtraction.
+The no-shoving control keeps the same hard process and shower settings but
+disables the Gleipnir block. Because turning shoving on changes the random-number
+consumption during hadronization, the comparison is treated as a
+matched-configuration comparison rather than an event-by-event paired
+subtraction.
 
-The shoving effect is summarized in Table~\ref{tab:pythia-shoving-effect}. The
-beam-axis cumulants change at the few-per-mille level, while the thrust-axis
-cumulants show a clearer increase, most notably for \(\vn{2}{2}\) around
-\(20<N_{\mathrm{trk}}^{\mathrm{offline}}<25\). The higher-order thrust-axis
-ratios are larger in the most sensitive bins, although those observables also
-carry larger jackknife uncertainties and stricter real-valued cumulant-sign
-requirements.
+The nominal \(\pT>0.4\) GeV shoving effect is summarized in
+Table~\ref{tab:pythia-shoving-effect}. The beam-axis cumulants change at the
+few-per-mille level with high statistical precision, while the thrust-axis
+cumulants show a larger increase. The quoted significance is
+\((\mathrm{shoving}-\mathrm{no\ shoving})/\sqrt{\sigma_{\rm no}^2+
+\sigma_{\rm sh}^2}\), using the exported jackknife uncertainties and neglecting
+any covariance between the two generator configurations.
 
 \begin{table}[htbp]
 \centering
 \caption{Largest observed generator-level Pythia shoving effect in the current
-three-million-event comparison. The significance uses the shoving-minus-no-shoving
-difference divided by the quadrature sum of the two jackknife uncertainties.}
+five-million-event nominal comparison. Only bins with real, positive plotted
+\(\vn{2}{m}\) values are used.}
 \label{tab:pythia-shoving-effect}
 \begin{tabular}{llccc}
 \toprule
 Axis & Observable & Most sensitive bin & Shoving/no-shoving & Max. significance \\
 \midrule
-Beam & \(\vn{2}{2}\) & 15--20 & 1.0031 & 8.88 \\
-Beam & \(\vn{2}{4}\) & 15--20 & 1.0034 & 7.55 \\
-Beam & \(\vn{2}{6}\) & 15--20 & 1.0035 & 7.38 \\
-Beam & \(\vn{2}{8}\) & 15--20 & 1.0035 & 7.35 \\
-Thrust & \(\vn{2}{2}\) & 20--25 & 1.020 & 15.61 \\
-Thrust & \(\vn{2}{4}\) & 25--30 & 1.029 & 3.63 \\
-Thrust & \(\vn{2}{6}\) & 25--30 & 1.053 & 3.69 \\
-Thrust & \(\vn{2}{8}\) & 25--30 & 1.086 & 3.16 \\
+Beam & \(\vn{2}{2}\) & 20--25 & 1.0047 & 11.55 \\
+Beam & \(\vn{2}{4}\) & 10--15 & 1.0030 & 8.99 \\
+Beam & \(\vn{2}{6}\) & 10--15 & 1.0031 & 8.96 \\
+Beam & \(\vn{2}{8}\) & 10--15 & 1.0031 & 8.96 \\
+Thrust & \(\vn{2}{2}\) & 15--20 & 1.0161 & 21.40 \\
+Thrust & \(\vn{2}{4}\) & 25--30 & 1.0315 & 5.04 \\
+Thrust & \(\vn{2}{6}\) & 25--30 & 1.0525 & 4.24 \\
+Thrust & \(\vn{2}{8}\) & 25--30 & 1.0852 & 3.58 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.98\textwidth]{pythia_zpole_3M_noshoving_vs_shoving_pt04_compare_beam.pdf}
+  \includegraphics[width=0.98\textwidth]{pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_beam.pdf}
   \caption{Generator-level Pythia comparison of beam-axis \(\vn{2}{m}\) with
-  and without Gleipnir shoving. Both samples contain three million accepted
+  and without Gleipnir shoving. Both samples contain five million accepted
   hadronic Z-pole events and are processed with the same charged-particle
   selection and jackknife chunking.}
   \label{fig:pythia-shoving-beam}
@@ -623,12 +628,308 @@ Thrust & \(\vn{2}{8}\) & 25--30 & 1.086 & 3.16 \\
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.98\textwidth]{pythia_zpole_3M_noshoving_vs_shoving_pt04_compare_thrust.pdf}
+  \includegraphics[width=0.98\textwidth]{pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_thrust.pdf}
   \caption{Generator-level Pythia comparison of thrust-axis \(\vn{2}{m}\) with
   and without Gleipnir shoving. The shoving sample gives a visible increase in
   the thrust-axis cumulants, especially for \(\vn{2}{2}\) at intermediate
   multiplicity.}
   \label{fig:pythia-shoving-thrust}
+\end{figure}
+
+\subsection{Generator-level Pythia shoving nonflow-suppression checks}
+\label{subsec:pythia-shoving-nonflow}
+
+The same five-million-event Pythia samples were processed with the
+nonflow-suppression handles used for the LEP1 MC closure study. The two-particle
+rapidity-gap scans use \(|\Delta\eta|>1.0,1.6,2.0,2.5,3.0\). The two-subevent
+cumulants split each axis frame into \(\eta<-b\) and \(\eta>b\), with
+\(b=0,0.5,0.8,1.0\), corresponding to no excluded middle region and total gaps
+of 1.0, 1.6, and 2.0. Track-selection scans use \(0.4<\pT<1\) GeV,
+\(0.4<\pT<2\) GeV, \(1<\pT<3\) GeV, positive charges only, and negative charges
+only. Event-shape scans use \(T<0.90\), \(T<0.85\), \(S>0.12\), and \(S>0.22\).
+For the generated vector trees, the analyzer computes thrust and sphericity from
+visible final-particle momenta when those branches are not present.
+
+Table~\ref{tab:pythia-shoving-nonflow-v22} gives the most significant
+\(\vn{2}{2}\)-level shoving/no-shoving difference for each suppression handle
+and axis. For rapidity-gap rows the observable is the gap \(\vn{2}{2}\); for
+two-subevent rows it is the two-subevent \(\vn{2}{2}\); otherwise it is the
+full-event \(\vn{2}{2}\). The shoving enhancement is not removed by soft-track,
+charge, or event-shape selections. Large rapidity gaps and the two-subevent
+construction reduce the thrust-axis significance, with the strongest tested
+suppression coming from the two-subevent gap of 2.0, where the thrust-axis
+\(\vn{2}{2}\) difference is reduced to about 1.7 standard deviations. These
+checks show that the shoving/no-shoving difference survives many standard
+nonflow handles, but they do not demonstrate that the absolute Pythia cumulants
+are collective; the no-shoving generator still contains sizeable jet/topology
+correlations.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Five-million-event Pythia shoving/no-shoving comparison under
+nonflow-suppression handles. Entries are shoving/no-shoving ratios for the most
+significant \(\vn{2}{2}\)-level bin, with the significance in parentheses.}
+\label{tab:pythia-shoving-nonflow-v22}
+\begin{tabular}{llcc}
+\toprule
+Technique & Case & Beam axis & Thrust axis \\
+\midrule
+Nominal & \(\pT>0.4\) GeV & 1.0047 (11.55) & 1.0161 (21.40) \\
+Rapidity gap & \(|\Delta\eta|>1.0\) & 1.0039 (6.57) & 1.0195 (11.60) \\
+Rapidity gap & \(|\Delta\eta|>1.6\) & 1.0032 (5.96) & 1.0195 (6.67) \\
+Rapidity gap & \(|\Delta\eta|>2.0\) & 1.0037 (6.17) & 1.0219 (5.52) \\
+Rapidity gap & \(|\Delta\eta|>2.5\) & 1.0037 (4.31) & 1.0215 (3.38) \\
+Rapidity gap & \(|\Delta\eta|>3.0\) & 1.0033 (2.75) & 1.0272 (2.73) \\
+Two subevent & \(\eta<0\) vs. \(\eta>0\) & 1.0047 (9.25) & 1.0307 (6.35) \\
+Two subevent & gap 1.0 & 1.0025 (6.39) & 1.0554 (3.76) \\
+Two subevent & gap 1.6 & 1.0026 (5.78) & 1.0563 (2.60) \\
+Two subevent & gap 2.0 & 1.0026 (4.61) & 1.0364 (1.73) \\
+Track selection & \(0.4<\pT<1\) GeV & 1.0090 (16.13) & 1.0319 (30.28) \\
+Track selection & \(0.4<\pT<2\) GeV & 1.0068 (12.27) & 1.0219 (22.30) \\
+Track selection & \(1<\pT<3\) GeV & 1.0028 (9.85) & 1.0080 (13.67) \\
+Charge selection & positive & 1.0052 (11.15) & 1.0188 (16.35) \\
+Charge selection & negative & 1.0031 (11.38) & 1.0196 (17.57) \\
+Event shape & \(T<0.90\) & 1.0044 (5.40) & 1.0194 (14.59) \\
+Event shape & \(T<0.85\) & 1.0071 (4.74) & 1.0191 (14.51) \\
+Event shape & \(S>0.12\) & 1.0220 (5.59) & 1.0204 (13.51) \\
+Event shape & \(S>0.22\) & 1.0087 (5.82) & 1.0189 (10.97) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap1p0_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap1p0_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-particle rapidity-gap selection $|\Delta\eta|>1.0$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-etagap1p0}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap1p6_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap1p6_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-particle rapidity-gap selection $|\Delta\eta|>1.6$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-etagap1p6}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap2p0_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap2p0_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-particle rapidity-gap selection $|\Delta\eta|>2.0$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-etagap2p0}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap2p5_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap2p5_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-particle rapidity-gap selection $|\Delta\eta|>2.5$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-etagap2p5}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap3p0_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_etagap3p0_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-particle rapidity-gap selection $|\Delta\eta|>3.0$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-etagap3p0}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_twosub0p0_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_twosub0p0_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-subevent cumulants with $\eta<0$ versus $\eta>0$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-twosub0p0}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_twosub1p0_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_twosub1p0_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-subevent cumulants with total excluded middle-region gap 1.0.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-twosub1p0}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_twosub1p6_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_twosub1p6_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-subevent cumulants with total excluded middle-region gap 1.6.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-twosub1p6}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_twosub2p0_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_twosub2p0_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Two-subevent cumulants with total excluded middle-region gap 2.0.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-twosub2p0}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_pt04to1_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_pt04to1_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Track selection $0.4<\pT<1$ GeV.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-pt04to1}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_pt04to2_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_pt04to2_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Track selection $0.4<\pT<2$ GeV.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-pt04to2}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_pt1to3_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_pt1to3_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Track selection $1<\pT<3$ GeV.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-pt1to3}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_positive_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_positive_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Positive charged particles only.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-positive}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_negative_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_negative_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Negative charged particles only.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-negative}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_thrustlt0p90_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_thrustlt0p90_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Event-shape selection $T<0.90$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-thrustlt0p90}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_thrustlt0p85_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_thrustlt0p85_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Event-shape selection $T<0.85$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-thrustlt0p85}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_sphgt0p12_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_sphgt0p12_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Event-shape selection $S>0.12$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-sphgt0p12}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_sphgt0p22_noshoving_vs_shoving_beam.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{pythia_zpole_5M_nonflow_sphgt0p22_noshoving_vs_shoving_thrust.pdf}
+  \end{minipage}
+  \caption{Generator-level Pythia no-shoving/shoving comparison for Event-shape selection $S>0.22$.
+  Left: beam axis. Right: thrust axis.}
+  \label{fig:pythia-shoving-nonflow-sphgt0p22}
 \end{figure}
 
 \subsection{Two-particle rapidity-gap comparison}

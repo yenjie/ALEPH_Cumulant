@@ -1,6 +1,6 @@
 # Pythia Shoving Z-Pole Sample
 
-This note records the local production of 3M-event generator-level Pythia8/Gleipnir shoving and no-shoving samples for e+e- hadronic Z-pole studies.
+This note records the local 5M-event generator-level Pythia8/Gleipnir shoving and no-shoving Z-pole samples used for the cumulant analysis.
 
 ## Source Branch
 
@@ -27,17 +27,25 @@ make pythia PYTHIA8_CONFIG=/mnt/data2/data2/yjlee/pythia/pythia8/develop/pythia-
 
 The target compiles `src/GeneratePythiaZPoleRoot.cpp` into `bin/generate_pythia_zpole_root`. The old Pythia branch was built with the old GCC string ABI, so this target explicitly uses `-D_GLIBCXX_USE_CXX11_ABI=0` and avoids ROOT `std::string` branches.
 
-Run the current 3M productions with:
+The current 5M samples are produced and validated with:
 
 ```bash
-scripts/run_pythia_noshoving_zpole_3M.sh
-scripts/run_pythia_shoving_zpole_3M.sh
+scripts/build_pythia_zpole_5M_samples.sh
 ```
 
-Useful overrides:
+This script reuses the existing seed-12345 3M samples when present, generates independent seed-67890 2M extensions when needed, merges each pair with `hadd`, and requires exactly 5,000,000 entries in each merged ROOT tree.
+
+For a direct standalone production rather than the merged 3M+2M extension workflow, the wrappers are:
 
 ```bash
-EVENTS=10000 SEED=12345 OUTPUT=output/test.root LOG=output/test.log scripts/run_pythia_shoving_zpole_3M.sh
+scripts/run_pythia_noshoving_zpole_5M.sh
+scripts/run_pythia_shoving_zpole_5M.sh
+```
+
+Useful override example:
+
+```bash
+EVENTS=10000 SEED=12345 OUTPUT=output/test.root LOG=output/test.log scripts/run_pythia_shoving_zpole_5M.sh
 ```
 
 ## Physics Settings
@@ -70,70 +78,84 @@ PartonVertex:setVertex = on
 PartonVertex:modeRadiation = 2
 ```
 
-The output tree is named `t` and uses vector branches compatible with `bin/aleph_charged_cumulants`: `px`, `py`, `pz`, `pwflag`, and optional `charge`. Neutrinos are dropped by default. The `pwflag` convention follows the local StudyMult-style shoving examples: charged hadrons `0`, electrons `1`, muons `2`, photons `4`, other neutral visible particles `5`.
+The output tree is named `t` and uses vector branches compatible with `bin/aleph_charged_cumulants`: `px`, `py`, `pz`, `pwflag`, and optional `charge`. Neutrinos are dropped by default. The `pwflag` convention follows the local StudyMult-style shoving examples: charged hadrons `0`, electrons `1`, muons `2`, photons `4`, and other neutral visible particles `5`.
 
 ## Produced Samples
 
-The 2026-06-24 3M production wrote:
+The current 5M samples were built on 2026-06-25 from:
 
 ```text
 output/pythia_noshoving_zpole_3M.root
-output/pythia_noshoving_zpole_3M.log
+output/pythia_noshoving_zpole_extra2M_seed67890.root
 output/pythia_shoving_zpole_3M.root
-output/pythia_shoving_zpole_3M.log
+output/pythia_shoving_zpole_extra2M_seed67890.root
 ```
 
-No-shoving summary from the log:
+Merged outputs:
 
 ```text
-Events written: 3,000,000
-Visible final particles: 128,547,297
-StudyMult-selected charged particles: 61,044,510
-Pythia selected/accepted events: 3,000,000 / 3,000,000
-Estimated cross section: 4.146e-05 mb
+output/pythia_noshoving_zpole_5M.root
+output/pythia_shoving_zpole_5M.root
 ```
 
-Shoving summary from the log:
+Final merged readback validation with `bin/aleph_charged_cumulants --PrintEntries 1` reports exactly 5,000,000 entries for both ROOT trees.
+
+No-shoving composition:
 
 ```text
-Events written: 3,000,000
-Visible final particles: 128,542,960
-StudyMult-selected charged particles: 61,053,512
-Pythia selected/accepted events: 3,000,000 / 3,000,000
-Estimated cross section: 4.146e-05 mb
-Gleipnir:nEvents: 3,000,000
-Gleipnir:overlaps: 2.605
-Gleipnir:pushAccept: 6.088
-Gleipnir:pushSuccRate: 6.259e-01
+Seed 12345 base: 3,000,000 events, 128,547,297 visible particles, 61,044,510 StudyMult-selected charged particles
+Seed 67890 extension: 2,000,000 events, 85,702,655 visible particles, 40,695,572 StudyMult-selected charged particles
+Merged total: 5,000,000 events, 214,249,952 visible particles, 101,740,082 StudyMult-selected charged particles
 ```
 
-Readback validation with `bin/aleph_charged_cumulants --PrintEntries 1` reports 3,000,000 entries for both ROOT trees.
-
-Checksums:
+Shoving composition:
 
 ```text
-97339286e28f6029f53a2c5b52604c879dc5e575499caa467bba32e245dff375  output/pythia_noshoving_zpole_3M.root
-86b7c17b9f64966a72d5ce8fc9d8c018035c52603f96521b3b5a42a4faab311d  output/pythia_shoving_zpole_3M.root
-548301e1bef4d2530f2c4eba6bd8f3bdea45e7425b16fff7f2aa8d04c4afbd6a  output/pythia_noshoving_zpole_3M_pt04_summary.root
-67b0a94e2e2de5f2c87fc1a842df9cc9269011420ebbb00c0346e37f4083fb97  output/pythia_shoving_zpole_3M_pt04_summary.root
+Seed 12345 base: 3,000,000 events, 128,542,960 visible particles, 61,053,512 StudyMult-selected charged particles
+Seed 67890 extension: 2,000,000 events, 85,709,957 visible particles, 40,699,476 StudyMult-selected charged particles
+Merged total: 5,000,000 events, 214,252,917 visible particles, 101,752,988 StudyMult-selected charged particles
 ```
 
-## No-Shoving Control and Shoving Comparison
+The seed-67890 shoving extension log reports:
+
+```text
+Gleipnir:nEvents: 2,000,000
+Gleipnir:overlaps: 2.604
+Gleipnir:pushAccept: 6.083
+Gleipnir:pushSuccRate: 6.258e-01
+```
+
+Checksums from the current files:
+
+```text
+28db7bbd1bbc26a84cc51cc4bfc75503e00b37e4082c68ac40dc20170527c353  output/pythia_noshoving_zpole_5M.root
+d09b7a9318faf1b709f5369833e93e828326beb93ffbeb6014e26d1ff6cd2a18  output/pythia_shoving_zpole_5M.root
+ca59cc6ac6c279953e39d7cb7dadfebe7eeedbabb7156cd46c980b2a19c09145  output/pythia_noshoving_zpole_extra2M_seed67890.root
+0d208246b97edee4d80ab8047a41b05d485043fe3c59eef79ba0f57c077e61c3  output/pythia_shoving_zpole_extra2M_seed67890.root
+```
+
+## Nominal Cumulant Processing
 
 The shoving and no-shoving samples were processed with the same 16-chunk cumulant workflow:
 
 ```bash
-ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
-  output/pythia_noshoving_zpole_3M.root \
-  output/pythia_noshoving_zpole_3M_pt04 \
+ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=0 scripts/run_pythia_shoving_5M_analysis.sh
+```
+
+Equivalent explicit commands:
+
+```bash
+ALEPH_MAX_PARALLEL=16 scripts/run_chunks.sh \
+  output/pythia_noshoving_zpole_5M.root \
+  output/pythia_noshoving_zpole_5M_pt04 \
   16 \
   --Tree t --InputFormat vector \
   --LabPtMin 0.4 --ThrustPtMin 0.4 \
   --MultiplicityBins 0,10,15,20,25,30,35,40,999
 
-ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
-  output/pythia_shoving_zpole_3M.root \
-  output/pythia_shoving_zpole_3M_pt04 \
+ALEPH_MAX_PARALLEL=16 scripts/run_chunks.sh \
+  output/pythia_shoving_zpole_5M.root \
+  output/pythia_shoving_zpole_5M_pt04 \
   16 \
   --Tree t --InputFormat vector \
   --LabPtMin 0.4 --ThrustPtMin 0.4 \
@@ -142,40 +164,66 @@ ALEPH_MAX_PARALLEL=8 scripts/run_chunks.sh \
 
 Both summary logs report `Set jackknife errors from 16 input blocks`.
 
-The direct comparison was produced with:
+The nominal comparison was produced with:
 
 ```bash
 bin/compare_v2_multiplicity \
-  --DataSummary output/pythia_noshoving_zpole_3M_pt04_summary.root \
-  --MCSummary output/pythia_shoving_zpole_3M_pt04_summary.root \
-  --OutputPrefix output/pythia_zpole_3M_noshoving_vs_shoving_pt04_compare \
+  --DataSummary output/pythia_noshoving_zpole_5M_pt04_summary.root \
+  --MCSummary output/pythia_shoving_zpole_5M_pt04_summary.root \
+  --OutputPrefix output/pythia_zpole_5M_noshoving_vs_shoving_pt04_compare \
   --DataLabel 'Pythia no shoving' \
   --MCLabel 'Pythia shoving'
 ```
 
-Tracked comparison outputs:
+Tracked nominal comparison outputs:
 
 ```text
-docs/figures/pythia_zpole_3M_noshoving_vs_shoving_pt04_compare_beam.pdf
-docs/figures/pythia_zpole_3M_noshoving_vs_shoving_pt04_compare_beam.csv
-docs/figures/pythia_zpole_3M_noshoving_vs_shoving_pt04_compare_thrust.pdf
-docs/figures/pythia_zpole_3M_noshoving_vs_shoving_pt04_compare_thrust.csv
+docs/figures/pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_beam.pdf
+docs/figures/pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_beam.csv
+docs/figures/pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_thrust.pdf
+docs/figures/pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_thrust.csv
 ```
 
-Largest observed shoving-minus-no-shoving differences in the current 3M comparison:
+Largest observed nominal shoving-minus-no-shoving differences in the current 5M comparison:
 
 ```text
 Beam axis:
-  v2{2}: max |delta/sigma| = 8.88 in Ntrk 15-20, shoving/no-shoving = 1.0031
-  v2{4}: max |delta/sigma| = 7.55 in Ntrk 15-20, shoving/no-shoving = 1.0034
-  v2{6}: max |delta/sigma| = 7.38 in Ntrk 15-20, shoving/no-shoving = 1.0035
-  v2{8}: max |delta/sigma| = 7.35 in Ntrk 15-20, shoving/no-shoving = 1.0035
+  v2{2}: max |delta/sigma| = 11.55 in Ntrk 20-25, shoving/no-shoving = 1.0047
+  v2{4}: max |delta/sigma| = 8.99 in Ntrk 10-15, shoving/no-shoving = 1.0030
+  v2{6}: max |delta/sigma| = 8.96 in Ntrk 10-15, shoving/no-shoving = 1.0031
+  v2{8}: max |delta/sigma| = 8.96 in Ntrk 10-15, shoving/no-shoving = 1.0031
 
 Thrust axis:
-  v2{2}: max |delta/sigma| = 15.61 in Ntrk 20-25, shoving/no-shoving = 1.020
-  v2{4}: max |delta/sigma| = 3.63 in Ntrk 25-30, shoving/no-shoving = 1.029
-  v2{6}: max |delta/sigma| = 3.69 in Ntrk 25-30, shoving/no-shoving = 1.053
-  v2{8}: max |delta/sigma| = 3.16 in Ntrk 25-30, shoving/no-shoving = 1.086
+  v2{2}: max |delta/sigma| = 21.40 in Ntrk 15-20, shoving/no-shoving = 1.0161
+  v2{4}: max |delta/sigma| = 5.04 in Ntrk 25-30, shoving/no-shoving = 1.0315
+  v2{6}: max |delta/sigma| = 4.24 in Ntrk 25-30, shoving/no-shoving = 1.0525
+  v2{8}: max |delta/sigma| = 3.58 in Ntrk 25-30, shoving/no-shoving = 1.0852
 ```
 
-The same seed is used for the two productions, but the samples should be treated as statistically matched generator configurations rather than event-by-event paired samples because enabling shoving changes the random-number consumption during hadronization.
+## Nonflow-Suppression Matrix
+
+The full 5M nonflow-suppression matrix is run with:
+
+```bash
+ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=1 scripts/run_pythia_shoving_5M_analysis.sh
+scripts/plot_pythia_nonflow_suppression_5M.sh
+scripts/summarize_pythia_shoving_nonflow.py
+```
+
+The matrix contains 14 cases per generator configuration:
+
+- two-particle rapidity gaps: `|delta eta| > 1.0, 1.6, 2.0, 2.5, 3.0`;
+- two-subevent cumulants: `eta<0` vs `eta>0`, plus excluded middle-region gaps of 1.0, 1.6, and 2.0;
+- track selections: `0.4<pT<1`, `0.4<pT<2`, `1<pT<3`, positive charge only, and negative charge only;
+- event-shape selections: `Thrust<0.90`, `Thrust<0.85`, `Sphericity>0.12`, and `Sphericity>0.22`.
+
+For generated vector trees, `bin/aleph_charged_cumulants` computes thrust and sphericity from visible final-particle momenta if the stored event-shape branches are absent.
+
+Detailed results and the full metrics table are documented in:
+
+```text
+docs/pythia_shoving_nonflow_5M.md
+docs/figures/pythia_shoving_nonflow_5M_metrics.csv
+```
+
+The same seed is used within each seed block for the two productions, but the samples should be treated as statistically matched generator configurations rather than event-by-event paired samples because enabling shoving changes the random-number consumption during hadronization. Ratio and significance values use the exported jackknife uncertainties and do not include covariance between the two generator configurations.

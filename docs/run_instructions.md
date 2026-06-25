@@ -394,3 +394,48 @@ Additional analyzer switches used by this study:
 - `--TwoSubeventEtaBoundary b`: for two-subevent cumulants, uses
   `eta < -b` and `eta > b`; the excluded central interval gives a subevent
   separation of `2b`.
+
+## 13. Pythia Shoving 5M Generator-Level Study
+
+The current generator-level shoving study uses two 5,000,000-event Z-pole samples:
+
+- `output/pythia_noshoving_zpole_5M.root`
+- `output/pythia_shoving_zpole_5M.root`
+
+They are built from the original seed-12345 3M samples plus independent seed-67890 2M extensions. The build script validates that both merged trees contain exactly 5,000,000 entries:
+
+```bash
+scripts/build_pythia_zpole_5M_samples.sh
+```
+
+Run the nominal `pT>0.4 GeV` cumulants without the nonflow matrix:
+
+```bash
+ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=0 scripts/run_pythia_shoving_5M_analysis.sh
+```
+
+Run the full 5M nonflow-suppression matrix and regenerate all overlays:
+
+```bash
+ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=1 scripts/run_pythia_shoving_5M_analysis.sh
+scripts/plot_pythia_nonflow_suppression_5M.sh
+scripts/summarize_pythia_shoving_nonflow.py
+```
+
+The nonflow matrix includes:
+
+- two-particle rapidity gaps: `|delta eta| > 1.0, 1.6, 2.0, 2.5, 3.0`;
+- two-subevent cumulants: `eta<0` vs `eta>0`, and excluded middle-region gaps of 1.0, 1.6, and 2.0;
+- track selections: `0.4<pT<1`, `0.4<pT<2`, `1<pT<3`, positive charges only, and negative charges only;
+- event-shape selections: `Thrust<0.90`, `Thrust<0.85`, `Sphericity>0.12`, and `Sphericity>0.22`.
+
+For generated vector trees, event-shape branches are not stored. The cumulant analyzer therefore computes thrust and sphericity from visible final-particle momenta when `--ThrustMin/Max` or `--SphericityMin/Max` is requested.
+
+The detailed 5M production and result documentation is in:
+
+```text
+docs/pythia_shoving_zpole.md
+docs/pythia_shoving_nonflow_5M.md
+docs/figures/pythia_shoving_nonflow_5M_metrics.csv
+```
+

@@ -4,6 +4,7 @@
 #include <complex>
 #include <functional>
 #include <iostream>
+#include <limits>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -13,6 +14,8 @@
 #include "TClass.h"
 #include "TFile.h"
 #include "TLeaf.h"
+#include "TMatrixDSym.h"
+#include "TMatrixDSymEigen.h"
 #include "TH1D.h"
 #include "TNamed.h"
 #include "TTree.h"
@@ -516,6 +519,57 @@ namespace
          (maxValue < 0.0 || value < maxValue);
    }
 
+   double ComputeThrustValue(const std::vector<TVector3> &momenta, const TVector3 &axis)
+   {
+      const TVector3 unit = AlephCumulant::SafeUnit(axis);
+      if (unit.Mag2() <= 0.0)
+         return std::numeric_limits<double>::quiet_NaN();
+
+      double total = 0.0;
+      double projected = 0.0;
+      for (const TVector3 &momentum : momenta)
+      {
+         total += momentum.Mag();
+         projected += std::abs(momentum.Dot(unit));
+      }
+      if (total <= 0.0)
+         return std::numeric_limits<double>::quiet_NaN();
+      return projected / total;
+   }
+
+   double ComputeSphericityValue(const std::vector<TVector3> &momenta)
+   {
+      double denominator = 0.0;
+      TMatrixDSym tensor(3);
+      tensor.Zero();
+
+      for (const TVector3 &momentum : momenta)
+      {
+         const double components[3] = {momentum.X(), momentum.Y(), momentum.Z()};
+         denominator += momentum.Mag2();
+         for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 3; ++j)
+               tensor(i, j) += components[i] * components[j];
+      }
+
+      if (denominator <= 0.0)
+         return std::numeric_limits<double>::quiet_NaN();
+      tensor *= 1.0 / denominator;
+
+      TMatrixDSymEigen eigen(tensor);
+      const TVectorD eigenvalues = eigen.GetEigenValues();
+      double sum = 0.0;
+      double largest = -std::numeric_limits<double>::infinity();
+      for (int i = 0; i < eigenvalues.GetNrows(); ++i)
+      {
+         sum += eigenvalues[i];
+         largest = std::max(largest, eigenvalues[i]);
+      }
+
+      const double sphericity = 1.5 * (sum - largest);
+      return std::max(0.0, std::min(1.0, sphericity));
+   }
+
    bool PassChargeSelection(short charge, const std::string &selection)
    {
       if (selection == "all")
@@ -535,16 +589,6 @@ namespace
 
       if (options.UsePassEventSelection && !event.PassEventSelection)
          return false;
-      if (RangeCutRequested(options.ThrustMin, options.ThrustMax) &&
-         (!event.HasThrust || !PassOptionalRange(event.Thrust, options.ThrustMin, options.ThrustMax)))
-      {
-         return false;
-      }
-      if (RangeCutRequested(options.SphericityMin, options.SphericityMax) &&
-         (!event.HasSphericity || !PassOptionalRange(event.Sphericity, options.SphericityMin, options.SphericityMax)))
-      {
-         return false;
-      }
       if (event.Px.size() != event.Py.size() || event.Px.size() != event.Pz.size() ||
          event.Px.size() != event.Pwflag.size() || event.Px.size() != event.HighPurity.size() ||
          event.Px.size() != event.Charge.size())
@@ -572,6 +616,22 @@ namespace
 
       const TVector3 thrustAxis = AlephCumulant::ComputeThrustAxis(thrustInput);
       const bool hasThrustAxis = thrustAxis.Mag2() > 0.0;
+
+      const bool thrustCutRequested = RangeCutRequested(options.ThrustMin, options.ThrustMax);
+      if (thrustCutRequested)
+      {
+         const double thrustValue = event.HasThrust ? event.Thrust : ComputeThrustValue(thrustInput, thrustAxis);
+         if (!std::isfinite(thrustValue) || !PassOptionalRange(thrustValue, options.ThrustMin, options.ThrustMax))
+            return false;
+      }
+
+      const bool sphericityCutRequested = RangeCutRequested(options.SphericityMin, options.SphericityMax);
+      if (sphericityCutRequested)
+      {
+         const double sphericityValue = event.HasSphericity ? event.Sphericity : ComputeSphericityValue(thrustInput);
+         if (!std::isfinite(sphericityValue) || !PassOptionalRange(sphericityValue, options.SphericityMin, options.SphericityMax))
+            return false;
+      }
 
       for (int i = 0; i < static_cast<int>(event.Px.size()); ++i)
       {
