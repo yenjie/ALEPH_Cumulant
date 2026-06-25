@@ -30,6 +30,13 @@ namespace
       bool Valid = false;
    };
 
+   struct RatioRange
+   {
+      double Min = 0.8;
+      double Max = 1.2;
+      bool Found = false;
+   };
+
    TH1D *GetHist(TFile &file, const std::string &name)
    {
       TH1D *hist = nullptr;
@@ -140,10 +147,9 @@ namespace
       return result > 0.0 ? result : 1.0;
    }
 
-   double MinY(const std::vector<const TH1D *> &hists)
+   RatioRange GetRatioRange(const std::vector<const TH1D *> &hists)
    {
-      bool found = false;
-      double result = 0.0;
+      RatioRange range;
       for (const TH1D *hist : hists)
       {
          for (int bin = 1; bin <= hist->GetNbinsX(); ++bin)
@@ -151,15 +157,33 @@ namespace
             if (!IsValidPoint(*hist, bin))
                continue;
 
-            const double value = hist->GetBinContent(bin) - hist->GetBinError(bin);
-            if (!std::isfinite(value))
+            const double low = hist->GetBinContent(bin) - hist->GetBinError(bin);
+            const double high = hist->GetBinContent(bin) + hist->GetBinError(bin);
+            if (!std::isfinite(low) || !std::isfinite(high))
                continue;
 
-            result = found ? std::min(result, value) : value;
-            found = true;
+            range.Min = range.Found ? std::min(range.Min, low) : low;
+            range.Max = range.Found ? std::max(range.Max, high) : high;
+            range.Found = true;
          }
       }
-      return found ? result : 0.8;
+
+      if (!range.Found)
+         return range;
+
+      range.Min = std::min(range.Min, 1.0);
+      range.Max = std::max(range.Max, 1.0);
+      double span = range.Max - range.Min;
+      if (span < 0.08)
+      {
+         const double center = 0.5 * (range.Max + range.Min);
+         range.Min = center - 0.04;
+         range.Max = center + 0.04;
+         span = range.Max - range.Min;
+      }
+      range.Min = std::max(0.0, range.Min - 0.18 * span);
+      range.Max = range.Max + 0.18 * span;
+      return range;
    }
 
    void WriteComparisonTable(TFile &dataFile, TFile &mcFile, const std::string &axis,
@@ -181,7 +205,9 @@ namespace
           << "mc_v22,mc_v22_err,mc_v22_gap,mc_v22_gap_err,"
           << "mc_gap_over_inclusive,mc_gap_over_inclusive_err,"
           << "data_over_mc_v22,data_over_mc_v22_err,"
-          << "data_over_mc_v22_gap,data_over_mc_v22_gap_err\n";
+          << "data_over_mc_v22_gap,data_over_mc_v22_gap_err,"
+          << "mc_over_data_v22,mc_over_data_v22_err,"
+          << "mc_over_data_v22_gap,mc_over_data_v22_gap_err\n";
       out << std::setprecision(10);
 
       for (int bin = 1; bin <= dataInclusive->GetNbinsX(); ++bin)
@@ -190,6 +216,8 @@ namespace
          const bool mcGapRatioValid = IsValidPoint(*mcGapRatio, bin);
          const RatioResult dataOverMcInclusive = Divide(*dataInclusive, *mcInclusive, bin);
          const RatioResult dataOverMcGap = Divide(*dataGap, *mcGap, bin);
+         const RatioResult mcOverDataInclusive = Divide(*mcInclusive, *dataInclusive, bin);
+         const RatioResult mcOverDataGap = Divide(*mcGap, *dataGap, bin);
 
          out << axis << "," << dataInclusive->GetXaxis()->GetBinLabel(bin)
              << "," << dataInclusive->GetBinContent(bin) << "," << dataInclusive->GetBinError(bin)
@@ -201,13 +229,16 @@ namespace
              << "," << (mcGapRatioValid ? mcGapRatio->GetBinContent(bin) : 0.0)
              << "," << (mcGapRatioValid ? mcGapRatio->GetBinError(bin) : 0.0)
              << "," << dataOverMcInclusive.Value << "," << dataOverMcInclusive.Error
-             << "," << dataOverMcGap.Value << "," << dataOverMcGap.Error << "\n";
+             << "," << dataOverMcGap.Value << "," << dataOverMcGap.Error
+             << "," << mcOverDataInclusive.Value << "," << mcOverDataInclusive.Error
+             << "," << mcOverDataGap.Value << "," << mcOverDataGap.Error << "\n";
       }
    }
 
    void PlotAxis(TFile &dataFile, TFile &mcFile, const std::string &axis,
       const std::string &outputPrefix, const std::string &dataLabel,
-      const std::string &mcLabel, const std::string &gapLabel, const std::string &trackLabel)
+      const std::string &mcLabel, const std::string &gapLabel, const std::string &trackLabel,
+      bool ratioMCOverData, const std::string &sampleRatioLabel)
    {
       gStyle->SetOptStat(0);
       gStyle->SetEndErrorSize(3);
@@ -227,21 +258,35 @@ namespace
          throw std::runtime_error("Mismatched binning for eta-gap comparison, " + axis);
       }
 
+      auto sampleInclusiveRatio = ratioMCOverData ?
+         MakeRatioHist(*mcInclusive, *dataInclusive, "sample_inclusive_ratio_" + axis) :
+         MakeRatioHist(*dataInclusive, *mcInclusive, "sample_inclusive_ratio_" + axis);
+      auto sampleGapRatio = ratioMCOverData ?
+         MakeRatioHist(*mcGap, *dataGap, "sample_gap_ratio_" + axis) :
+         MakeRatioHist(*dataGap, *mcGap, "sample_gap_ratio_" + axis);
+
       TCanvas canvas(("c_v22_etagap_" + axis).c_str(),
-         ("v2{2} eta-gap comparison " + axis).c_str(), 1150, 900);
-      TPad upper(("upper_" + axis).c_str(), "", 0.0, 0.32, 1.0, 1.0);
-      TPad lower(("lower_" + axis).c_str(), "", 0.0, 0.0, 1.0, 0.32);
+         ("v2{2} eta-gap comparison " + axis).c_str(), 1150, 1050);
+      TPad upper(("upper_" + axis).c_str(), "", 0.0, 0.44, 1.0, 1.0);
+      TPad middle(("middle_" + axis).c_str(), "", 0.0, 0.22, 1.0, 0.44);
+      TPad lower(("lower_" + axis).c_str(), "", 0.0, 0.0, 1.0, 0.22);
       upper.SetLeftMargin(0.12);
       upper.SetRightMargin(0.04);
       upper.SetTopMargin(0.08);
       upper.SetBottomMargin(0.02);
       upper.SetGridy(true);
+      middle.SetLeftMargin(0.12);
+      middle.SetRightMargin(0.04);
+      middle.SetTopMargin(0.03);
+      middle.SetBottomMargin(0.04);
+      middle.SetGridy(true);
       lower.SetLeftMargin(0.12);
       lower.SetRightMargin(0.04);
       lower.SetTopMargin(0.03);
       lower.SetBottomMargin(0.54);
       lower.SetGridy(true);
       upper.Draw();
+      middle.Draw();
       lower.Draw();
 
       const int nBins = dataInclusive->GetNbinsX();
@@ -285,18 +330,16 @@ namespace
       legend.Draw();
       upper.Modified();
 
-      lower.cd();
+      middle.cd();
       TH1D ratioFrame(("ratio_frame_" + axis).c_str(),
-         ";N_{trk}^{offline};gap / incl.", nBins, 0.0, static_cast<double>(nBins));
+         ";;gap / incl.", nBins, 0.0, static_cast<double>(nBins));
       CopyBinLabels(ratioFrame, *dataInclusive);
       ratioFrame.SetMinimum(0.0);
       ratioFrame.SetMaximum(1.25 * MaxY({dataGapRatio, mcGapRatio}));
-      ratioFrame.GetXaxis()->SetLabelSize(0.108);
-      ratioFrame.GetXaxis()->SetTitleSize(0.118);
-      ratioFrame.GetXaxis()->SetTitleOffset(2.15);
-      ratioFrame.GetYaxis()->SetLabelSize(0.102);
-      ratioFrame.GetYaxis()->SetTitleSize(0.108);
-      ratioFrame.GetYaxis()->SetTitleOffset(0.42);
+      ratioFrame.GetXaxis()->SetLabelSize(0.0);
+      ratioFrame.GetYaxis()->SetLabelSize(0.125);
+      ratioFrame.GetYaxis()->SetTitleSize(0.132);
+      ratioFrame.GetYaxis()->SetTitleOffset(0.36);
       ratioFrame.GetYaxis()->SetNdivisions(505);
       ratioFrame.Draw("AXIS");
 
@@ -305,6 +348,34 @@ namespace
       mcRatioBand->Draw("E2 SAME");
       mcRatioBand->Draw("HIST SAME");
       dataRatioGraph->Draw("P SAME");
+      middle.Modified();
+
+      lower.cd();
+      const RatioRange sampleRatioRange = GetRatioRange({sampleInclusiveRatio.get(), sampleGapRatio.get()});
+      TH1D sampleRatioFrame(("sample_ratio_frame_" + axis).c_str(),
+         (";N_{trk}^{offline};" + sampleRatioLabel).c_str(), nBins, 0.0, static_cast<double>(nBins));
+      CopyBinLabels(sampleRatioFrame, *dataInclusive);
+      sampleRatioFrame.SetMinimum(sampleRatioRange.Min);
+      sampleRatioFrame.SetMaximum(sampleRatioRange.Max);
+      sampleRatioFrame.GetXaxis()->SetLabelSize(0.130);
+      sampleRatioFrame.GetXaxis()->SetTitleSize(0.140);
+      sampleRatioFrame.GetXaxis()->SetTitleOffset(2.05);
+      sampleRatioFrame.GetYaxis()->SetLabelSize(0.118);
+      sampleRatioFrame.GetYaxis()->SetTitleSize(0.122);
+      sampleRatioFrame.GetYaxis()->SetTitleOffset(0.40);
+      sampleRatioFrame.GetYaxis()->SetNdivisions(505);
+      sampleRatioFrame.Draw("AXIS");
+
+      TLine unity(0.0, 1.0, static_cast<double>(nBins), 1.0);
+      unity.SetLineStyle(2);
+      unity.SetLineColor(kGray + 2);
+      unity.SetLineWidth(2);
+      unity.Draw("SAME");
+
+      auto sampleInclusiveGraph = MakeGraph(*sampleInclusiveRatio, kRed + 1, 20, -0.08);
+      auto sampleGapGraph = MakeGraph(*sampleGapRatio, kBlue + 1, 21, 0.08);
+      sampleInclusiveGraph->Draw("P SAME");
+      sampleGapGraph->Draw("P SAME");
       lower.Modified();
 
       canvas.SaveAs((outputPrefix + "_" + axis + ".png").c_str());
@@ -312,7 +383,8 @@ namespace
    }
 
    void PlotDataMcRatioAxis(TFile &dataFile, TFile &mcFile, const std::string &axis,
-      const std::string &outputPrefix, const std::string &gapLabel)
+      const std::string &outputPrefix, const std::string &gapLabel,
+      bool ratioMCOverData, const std::string &ratioLabel)
    {
       gStyle->SetOptStat(0);
       gStyle->SetEndErrorSize(3);
@@ -328,8 +400,12 @@ namespace
          throw std::runtime_error("Mismatched binning for eta-gap data/MC ratio, " + axis);
       }
 
-      auto inclusiveRatio = MakeRatioHist(*dataInclusive, *mcInclusive, "data_mc_inclusive_" + axis);
-      auto gapRatio = MakeRatioHist(*dataGap, *mcGap, "data_mc_gap_" + axis);
+      auto inclusiveRatio = ratioMCOverData ?
+         MakeRatioHist(*mcInclusive, *dataInclusive, "data_mc_inclusive_" + axis) :
+         MakeRatioHist(*dataInclusive, *mcInclusive, "data_mc_inclusive_" + axis);
+      auto gapRatio = ratioMCOverData ?
+         MakeRatioHist(*mcGap, *dataGap, "data_mc_gap_" + axis) :
+         MakeRatioHist(*dataGap, *mcGap, "data_mc_gap_" + axis);
 
       const int nBins = dataInclusive->GetNbinsX();
       TCanvas canvas(("c_v22_etagap_datamc_" + axis).c_str(),
@@ -341,12 +417,11 @@ namespace
       canvas.SetGridy(true);
 
       TH1D frame(("datamc_frame_" + axis).c_str(),
-         ";N_{trk}^{offline};Data / MC", nBins, 0.0, static_cast<double>(nBins));
+         (";N_{trk}^{offline};" + ratioLabel).c_str(), nBins, 0.0, static_cast<double>(nBins));
       CopyBinLabels(frame, *dataInclusive);
-      const double yMin = std::max(0.0, std::min(0.85, MinY({inclusiveRatio.get(), gapRatio.get()}) * 0.94));
-      const double yMax = std::max(1.15, MaxY({inclusiveRatio.get(), gapRatio.get()}) * 1.06);
-      frame.SetMinimum(yMin);
-      frame.SetMaximum(yMax);
+      const RatioRange range = GetRatioRange({inclusiveRatio.get(), gapRatio.get()});
+      frame.SetMinimum(range.Min);
+      frame.SetMaximum(range.Max);
       frame.GetXaxis()->SetLabelSize(0.082);
       frame.GetXaxis()->SetTitleSize(0.090);
       frame.GetXaxis()->SetTitleOffset(2.20);
@@ -397,6 +472,8 @@ int main(int argc, char *argv[])
       const std::string mcLabel = cl.Get("MCLabel", "ALEPH 1994 MC");
       const std::string gapLabel = cl.Get("GapLabel", "|#Delta#eta|>2");
       const std::string trackLabel = cl.Get("TrackLabel", "charged particles, p_{T} > 0.4 GeV");
+      const bool ratioMCOverData = cl.GetBool("RatioMCOverData", false);
+      const std::string ratioLabel = cl.Get("RatioLabel", ratioMCOverData ? "MC / data" : "data / MC");
 
       TFile dataFile(dataName.c_str(), "READ");
       if (dataFile.IsZombie())
@@ -408,8 +485,9 @@ int main(int argc, char *argv[])
       for (const std::string &axis : {std::string("beam"), std::string("thrust")})
       {
          WriteComparisonTable(dataFile, mcFile, axis, outputPrefix + "_" + axis + ".csv");
-         PlotAxis(dataFile, mcFile, axis, outputPrefix, dataLabel, mcLabel, gapLabel, trackLabel);
-         PlotDataMcRatioAxis(dataFile, mcFile, axis, outputPrefix, gapLabel);
+         PlotAxis(dataFile, mcFile, axis, outputPrefix, dataLabel, mcLabel, gapLabel, trackLabel,
+            ratioMCOverData, ratioLabel);
+         PlotDataMcRatioAxis(dataFile, mcFile, axis, outputPrefix, gapLabel, ratioMCOverData, ratioLabel);
       }
 
       std::cout << "Wrote " << outputPrefix

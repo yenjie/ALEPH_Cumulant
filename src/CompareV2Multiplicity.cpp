@@ -13,6 +13,7 @@
 #include "TGraphErrors.h"
 #include "TH1D.h"
 #include "TLegend.h"
+#include "TLine.h"
 #include "TPad.h"
 #include "TStyle.h"
 #include "TLatex.h"
@@ -26,6 +27,20 @@ namespace
       std::string HistName;
       std::string Label;
       int Marker;
+   };
+
+   struct RatioResult
+   {
+      double Value = 0.0;
+      double Error = 0.0;
+      bool Valid = false;
+   };
+
+   struct RatioRange
+   {
+      double Min = 0.8;
+      double Max = 1.2;
+      bool Found = false;
    };
 
    const std::vector<Quantity> Quantities = {
@@ -49,6 +64,28 @@ namespace
       return !(hist.GetBinContent(bin) == 0.0 && hist.GetBinError(bin) == 0.0);
    }
 
+   RatioResult Divide(double numerator, double numeratorError,
+      double denominator, double denominatorError, bool numeratorValid, bool denominatorValid)
+   {
+      RatioResult result;
+      if (!numeratorValid || !denominatorValid || denominator == 0.0)
+         return result;
+
+      result.Value = numerator / denominator;
+      result.Error = std::sqrt((numeratorError / denominator) * (numeratorError / denominator) +
+         (numerator * denominatorError / (denominator * denominator)) *
+         (numerator * denominatorError / (denominator * denominator)));
+      result.Valid = std::isfinite(result.Value) && std::isfinite(result.Error);
+      return result;
+   }
+
+   RatioResult Divide(const TH1D &numerator, const TH1D &denominator, int bin)
+   {
+      return Divide(numerator.GetBinContent(bin), numerator.GetBinError(bin),
+         denominator.GetBinContent(bin), denominator.GetBinError(bin),
+         IsValidPoint(numerator, bin), IsValidPoint(denominator, bin));
+   }
+
    std::unique_ptr<TGraphErrors> MakeGraph(const TH1D &hist, int color, int marker, double xOffset)
    {
       auto graph = std::make_unique<TGraphErrors>();
@@ -68,6 +105,63 @@ namespace
          ++point;
       }
       return graph;
+   }
+
+   std::unique_ptr<TGraphErrors> MakeRatioGraph(const TH1D &numerator, const TH1D &denominator,
+      int color, int marker, double xOffset)
+   {
+      auto graph = std::make_unique<TGraphErrors>();
+      graph->SetLineColor(color);
+      graph->SetMarkerColor(color);
+      graph->SetMarkerStyle(marker);
+      graph->SetMarkerSize(0.95);
+      graph->SetLineWidth(2);
+
+      int point = 0;
+      for (int bin = 1; bin <= numerator.GetNbinsX(); ++bin)
+      {
+         const RatioResult ratio = Divide(numerator, denominator, bin);
+         if (!ratio.Valid)
+            continue;
+         graph->SetPoint(point, bin + xOffset, ratio.Value);
+         graph->SetPointError(point, 0.0, ratio.Error);
+         ++point;
+      }
+      return graph;
+   }
+
+   RatioRange GetRatioRange(const TH1D &numerator, const TH1D &denominator)
+   {
+      RatioRange range;
+      for (int bin = 1; bin <= numerator.GetNbinsX(); ++bin)
+      {
+         const RatioResult ratio = Divide(numerator, denominator, bin);
+         if (!ratio.Valid)
+            continue;
+
+         const double low = ratio.Value - ratio.Error;
+         const double high = ratio.Value + ratio.Error;
+         range.Min = range.Found ? std::min(range.Min, low) : low;
+         range.Max = range.Found ? std::max(range.Max, high) : high;
+         range.Found = true;
+      }
+
+      if (!range.Found)
+         return range;
+
+      range.Min = std::min(range.Min, 1.0);
+      range.Max = std::max(range.Max, 1.0);
+      double span = range.Max - range.Min;
+      if (span < 0.08)
+      {
+         const double center = 0.5 * (range.Max + range.Min);
+         range.Min = center - 0.04;
+         range.Max = center + 0.04;
+         span = range.Max - range.Min;
+      }
+      range.Min = std::max(0.0, range.Min - 0.18 * span);
+      range.Max = range.Max + 0.18 * span;
+      return range;
    }
 
    double MaxY(const TH1D &a, const TH1D &b)
@@ -103,7 +197,8 @@ namespace
       if (!out.is_open())
          throw std::runtime_error("Failed to create " + outputName);
 
-      out << "axis,multiplicity_bin,quantity,data,data_err,mc,mc_err,data_over_mc,data_over_mc_err\n";
+      out << "axis,multiplicity_bin,quantity,data,data_err,mc,mc_err,data_over_mc,data_over_mc_err,"
+          << "mc_over_data,mc_over_data_err\n";
       out << std::setprecision(10);
       for (const Quantity &quantity : Quantities)
       {
@@ -117,21 +212,19 @@ namespace
             const double ed = data->GetBinError(bin);
             const double m = mc->GetBinContent(bin);
             const double em = mc->GetBinError(bin);
-            double ratio = 0.0;
-            double ratioErr = 0.0;
-            if (m != 0.0 && IsValidPoint(*data, bin) && IsValidPoint(*mc, bin))
-            {
-               ratio = d / m;
-               ratioErr = std::sqrt((ed / m) * (ed / m) + (d * em / (m * m)) * (d * em / (m * m)));
-            }
+            const RatioResult dataOverMC = Divide(d, ed, m, em, IsValidPoint(*data, bin), IsValidPoint(*mc, bin));
+            const RatioResult mcOverData = Divide(m, em, d, ed, IsValidPoint(*mc, bin), IsValidPoint(*data, bin));
             out << axis << "," << data->GetXaxis()->GetBinLabel(bin) << "," << quantity.HistName
-                << "," << d << "," << ed << "," << m << "," << em << "," << ratio << "," << ratioErr << "\n";
+                << "," << d << "," << ed << "," << m << "," << em
+                << "," << dataOverMC.Value << "," << dataOverMC.Error
+                << "," << mcOverData.Value << "," << mcOverData.Error << "\n";
          }
       }
    }
 
    void PlotAxis(TFile &dataFile, TFile &mcFile, const std::string &axis,
-      const std::string &outputPrefix, const std::string &dataLabel, const std::string &mcLabel)
+      const std::string &outputPrefix, const std::string &dataLabel, const std::string &mcLabel,
+      bool ratioMCOverData, const std::string &ratioLabel)
    {
       gStyle->SetOptStat(0);
       gStyle->SetEndErrorSize(3);
@@ -141,6 +234,8 @@ namespace
       std::vector<std::unique_ptr<TH1D>> ownedFrames;
       std::vector<std::unique_ptr<TGraphErrors>> ownedGraphs;
       std::vector<std::unique_ptr<TLegend>> ownedLegends;
+      std::vector<std::unique_ptr<TPad>> ownedPads;
+      std::vector<std::unique_ptr<TLine>> ownedLines;
 
       for (std::size_t i = 0; i < Quantities.size(); ++i)
       {
@@ -151,19 +246,40 @@ namespace
             throw std::runtime_error("Mismatched binning for " + quantity.HistName + "_" + axis);
 
          canvas.cd(i + 1);
-         TPad *pad = static_cast<TPad *>(gPad);
-         pad->SetLeftMargin(0.15);
-         pad->SetRightMargin(0.04);
-         pad->SetTopMargin(0.10);
-         pad->SetBottomMargin(0.34);
-         pad->SetGridy(true);
+         TPad *cell = static_cast<TPad *>(gPad);
+         cell->SetMargin(0.0, 0.0, 0.0, 0.0);
+         cell->cd();
 
+         auto upperPad = std::make_unique<TPad>(
+            ("upper_" + axis + "_" + quantity.HistName).c_str(), "", 0.0, 0.34, 1.0, 1.0);
+         auto lowerPad = std::make_unique<TPad>(
+            ("ratio_" + axis + "_" + quantity.HistName).c_str(), "", 0.0, 0.0, 1.0, 0.34);
+         upperPad->SetLeftMargin(0.15);
+         upperPad->SetRightMargin(0.04);
+         upperPad->SetTopMargin(0.10);
+         upperPad->SetBottomMargin(0.02);
+         upperPad->SetGridy(true);
+         lowerPad->SetLeftMargin(0.15);
+         lowerPad->SetRightMargin(0.04);
+         lowerPad->SetTopMargin(0.03);
+         lowerPad->SetBottomMargin(0.44);
+         lowerPad->SetGridy(true);
+         upperPad->Draw();
+         lowerPad->Draw();
+         TPad *upper = upperPad.get();
+         TPad *lower = lowerPad.get();
+         ownedPads.push_back(std::move(upperPad));
+         ownedPads.push_back(std::move(lowerPad));
+
+         upper->cd();
          auto frame = std::make_unique<TH1D>(("frame_" + axis + "_" + quantity.HistName).c_str(),
-            (";N_{trk}^{offline};" + quantity.Label).c_str(),
+            (";;" + quantity.Label).c_str(),
             data->GetNbinsX(), 0.5, data->GetNbinsX() + 0.5);
          CopyBinLabels(*frame, *data);
          frame->SetMinimum(0.0);
          frame->SetMaximum(MaxY(*data, *mc) * 1.28);
+         frame->GetXaxis()->SetLabelSize(0.0);
+         frame->GetXaxis()->SetTitleSize(0.0);
          frame->Draw("AXIS");
          ownedFrames.push_back(std::move(frame));
 
@@ -191,9 +307,42 @@ namespace
             legend->AddEntry(mcGraphPtr, mcLabel.c_str(), "pe");
             legend->Draw();
             ownedLegends.push_back(std::move(legend));
-            pad->Update();
+            upper->Update();
          }
-         pad->Modified();
+         upper->Modified();
+
+         lower->cd();
+         const TH1D &ratioNumerator = ratioMCOverData ? *mc : *data;
+         const TH1D &ratioDenominator = ratioMCOverData ? *data : *mc;
+         const RatioRange ratioRange = GetRatioRange(ratioNumerator, ratioDenominator);
+         auto ratioFrame = std::make_unique<TH1D>(("ratio_frame_" + axis + "_" + quantity.HistName).c_str(),
+            (";N_{trk}^{offline};" + ratioLabel).c_str(),
+            data->GetNbinsX(), 0.5, data->GetNbinsX() + 0.5);
+         CopyBinLabels(*ratioFrame, *data);
+         ratioFrame->SetMinimum(ratioRange.Min);
+         ratioFrame->SetMaximum(ratioRange.Max);
+         ratioFrame->GetXaxis()->SetLabelSize(0.140);
+         ratioFrame->GetXaxis()->SetTitleSize(0.150);
+         ratioFrame->GetXaxis()->SetTitleOffset(2.00);
+         ratioFrame->GetYaxis()->SetLabelSize(0.120);
+         ratioFrame->GetYaxis()->SetTitleSize(0.125);
+         ratioFrame->GetYaxis()->SetTitleOffset(0.48);
+         ratioFrame->GetYaxis()->SetNdivisions(505);
+         ratioFrame->Draw("AXIS");
+         ownedFrames.push_back(std::move(ratioFrame));
+
+         auto unity = std::make_unique<TLine>(0.5, 1.0, data->GetNbinsX() + 0.5, 1.0);
+         unity->SetLineStyle(2);
+         unity->SetLineColor(kGray + 2);
+         unity->SetLineWidth(2);
+         unity->Draw("SAME");
+         ownedLines.push_back(std::move(unity));
+
+         auto ratioGraph = MakeRatioGraph(ratioNumerator, ratioDenominator, kBlue + 2, quantity.Marker, 0.0);
+         ratioGraph->Draw("P SAME");
+         ownedGraphs.push_back(std::move(ratioGraph));
+         lower->Modified();
+         cell->Modified();
       }
 
       canvas.SaveAs((outputPrefix + "_" + axis + ".png").c_str());
@@ -211,6 +360,8 @@ int main(int argc, char *argv[])
       const std::string outputPrefix = cl.Get("OutputPrefix", "output/lep1_1994_data_mc_charged_pt04_compare");
       const std::string dataLabel = cl.Get("DataLabel", "ALEPH 1994 data");
       const std::string mcLabel = cl.Get("MCLabel", "ALEPH 1994 MC");
+      const bool ratioMCOverData = cl.GetBool("RatioMCOverData", false);
+      const std::string ratioLabel = cl.Get("RatioLabel", ratioMCOverData ? "MC / data" : "data / MC");
 
       TFile dataFile(dataName.c_str(), "READ");
       if (dataFile.IsZombie())
@@ -222,7 +373,7 @@ int main(int argc, char *argv[])
       for (const std::string &axis : {std::string("beam"), std::string("thrust")})
       {
          WriteComparisonTable(dataFile, mcFile, axis, outputPrefix + "_" + axis + ".csv");
-         PlotAxis(dataFile, mcFile, axis, outputPrefix, dataLabel, mcLabel);
+         PlotAxis(dataFile, mcFile, axis, outputPrefix, dataLabel, mcLabel, ratioMCOverData, ratioLabel);
       }
 
       std::cout << "Wrote " << outputPrefix << "_[beam,thrust].[csv,png,pdf]" << std::endl;

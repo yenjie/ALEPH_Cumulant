@@ -15,7 +15,7 @@ compare_v2() {
   local sh_summary="${SH_PREFIX}_${case_name}_summary.root"
   local out="${OUT_PREFIX}_${case_name}_noshoving_vs_shoving"
   echo "=== compare v2 ${case_name} ==="
-  bin/compare_v2_multiplicity     --DataSummary "$no_summary"     --MCSummary "$sh_summary"     --OutputPrefix "$out"     --DataLabel 'Pythia no shoving'     --MCLabel 'Pythia shoving'
+  bin/compare_v2_multiplicity     --DataSummary "$no_summary"     --MCSummary "$sh_summary"     --OutputPrefix "$out"     --DataLabel 'Pythia no shoving'     --MCLabel 'Pythia shoving'     --RatioMCOverData 1     --RatioLabel 'shoving / no shoving'
 }
 
 compare_eta_gap() {
@@ -25,7 +25,7 @@ compare_eta_gap() {
   local sh_summary=$4
   local out="${OUT_PREFIX}_${case_name}_noshoving_vs_shoving"
   echo "=== compare eta gap ${case_name} ==="
-  bin/compare_v22_eta_gap     --DataSummary "$no_summary"     --MCSummary "$sh_summary"     --OutputPrefix "$out"     --DataLabel 'Pythia no shoving'     --MCLabel 'Pythia shoving'     --GapLabel "$gap_label"     --TrackLabel 'generator charged particles, p_{T}>0.4 GeV'
+  bin/compare_v22_eta_gap     --DataSummary "$no_summary"     --MCSummary "$sh_summary"     --OutputPrefix "$out"     --DataLabel 'Pythia no shoving'     --MCLabel 'Pythia shoving'     --RatioMCOverData 1     --RatioLabel 'shoving / no shoving'     --GapLabel "$gap_label"     --TrackLabel 'generator charged particles, p_{T}>0.4 GeV'
 }
 
 compare_two_sub() {
@@ -34,10 +34,10 @@ compare_two_sub() {
   local sh_summary=$3
   local out="${OUT_PREFIX}_${case_name}_noshoving_vs_shoving"
   echo "=== compare two-subevent ${case_name} ==="
-  bin/compare_two_subevent_v2_multiplicity     --DataSummary "$no_summary"     --MCSummary "$sh_summary"     --OutputPrefix "$out"     --DataLabel 'Pythia no shoving'     --MCLabel 'Pythia shoving'
+  bin/compare_two_subevent_v2_multiplicity     --DataSummary "$no_summary"     --MCSummary "$sh_summary"     --OutputPrefix "$out"     --DataLabel 'Pythia no shoving'     --MCLabel 'Pythia shoving'     --RatioMCOverData 1     --RatioLabel 'shoving / no shoving'
 }
 
-bin/compare_v2_multiplicity   --DataSummary "$NO_BASE"   --MCSummary "$SH_BASE"   --OutputPrefix "$BASE_OUT"   --DataLabel 'Pythia no shoving'   --MCLabel 'Pythia shoving'
+bin/compare_v2_multiplicity   --DataSummary "$NO_BASE"   --MCSummary "$SH_BASE"   --OutputPrefix "$BASE_OUT"   --DataLabel 'Pythia no shoving'   --MCLabel 'Pythia shoving'     --RatioMCOverData 1     --RatioLabel 'shoving / no shoving'
 
 # Eta-gap v2{2} comparisons.
 compare_eta_gap etagap1p0 '|#Delta#eta|>1.0' "${NO_PREFIX}_etagap1p0_twosub1p0_summary.root" "${SH_PREFIX}_etagap1p0_twosub1p0_summary.root"

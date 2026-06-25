@@ -292,7 +292,7 @@ bin/compare_two_subevent_v2_multiplicity \
   --MCLabel 'ALEPH 1994 MC'
 ```
 
-The plotting programs write both `.pdf` and `.csv` files under `output/`. `bin/compare_v22_eta_gap` also writes compact `*_datamc_[beam,thrust].pdf` Data/MC ratio plots for note subfigures.
+The plotting programs write both `.pdf` and `.csv` files under `output/`. The generic comparison defaults remain data/MC, but the Pythia shoving plotting driver passes `--RatioMCOverData 1 --RatioLabel 'shoving / no shoving'` so the lower sample-ratio panels use the physics comparison direction. `bin/compare_v22_eta_gap` also writes compact `*_datamc_[beam,thrust].pdf` ratio plots for note subfigures.
 
 ## 9. Update and Build the Analysis Note
 

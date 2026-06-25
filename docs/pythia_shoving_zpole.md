@@ -172,10 +172,12 @@ bin/compare_v2_multiplicity \
   --MCSummary output/pythia_shoving_zpole_5M_pt04_summary.root \
   --OutputPrefix output/pythia_zpole_5M_noshoving_vs_shoving_pt04_compare \
   --DataLabel 'Pythia no shoving' \
-  --MCLabel 'Pythia shoving'
+  --MCLabel 'Pythia shoving' \
+  --RatioMCOverData 1 \
+  --RatioLabel 'shoving / no shoving'
 ```
 
-Tracked nominal comparison outputs:
+Tracked nominal comparison outputs. The PDF panels show the two samples in the upper part of each observable pad and the `shoving/no-shoving` ratio in the lower part; the CSV files include both `data_over_mc` and `mc_over_data` columns, where `mc_over_data` is the shoving/no-shoving ratio for this production.
 
 ```text
 docs/figures/pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_beam.pdf
@@ -218,6 +220,7 @@ The matrix contains 14 cases per generator configuration:
 - event-shape selections: `Thrust<0.90`, `Thrust<0.85`, `Sphericity>0.12`, and `Sphericity>0.22`.
 
 For generated vector trees, `bin/aleph_charged_cumulants` computes thrust and sphericity from visible final-particle momenta if the stored event-shape branches are absent.
+The plotting script passes `--RatioMCOverData 1 --RatioLabel 'shoving / no shoving'` to all three comparison plotters. For eta-gap cases, the comparison PDF contains the main inclusive/gap overlay, the existing gap/inclusive panel, and an additional shoving/no-shoving ratio panel.
 
 Detailed results and the full metrics table are documented in:
 

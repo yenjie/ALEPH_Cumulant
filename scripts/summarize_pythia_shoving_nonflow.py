@@ -206,7 +206,7 @@ def main():
     lines.append('')
     lines.append('## Output Figures')
     lines.append('')
-    lines.append('The per-technique overlays are written as `output/pythia_zpole_5M_nonflow_<case>_noshoving_vs_shoving_<axis>.pdf`; the full 5M PDF/CSV figure set is copied to `docs/figures`, `AnalysisNote/figures`, and `overleaf_note/figures`. The nominal comparison is `pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_<axis>.pdf`.')
+    lines.append('The per-technique overlays are written as `output/pythia_zpole_5M_nonflow_<case>_noshoving_vs_shoving_<axis>.pdf`; the full 5M PDF/CSV figure set is copied to `docs/figures`, `AnalysisNote/figures`, and `overleaf_note/figures`. The nominal comparison is `pythia_zpole_5M_noshoving_vs_shoving_pt04_compare_<axis>.pdf`. Each comparison PDF now includes a `shoving/no-shoving` ratio panel using the same jackknife errors propagated in quadrature; eta-gap comparison PDFs also retain the gap/inclusive diagnostic panel.')
     lines.append('')
     lines.append('## Interpretation Notes')
     lines.append('')
