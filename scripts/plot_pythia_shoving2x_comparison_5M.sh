@@ -26,9 +26,9 @@ compare_v2_2x() {
     --MCSummary "$sh2_summary" \
     --OutputPrefix "$out" \
     --DataLabel 'Pythia no shoving' \
-    --MCLabel 'Pythia shoving x2' \
+    --MCLabel 'Pythia enhanced shoving' \
     --RatioMCOverData 1 \
-    --RatioLabel 'shoving x2 / no shoving'
+    --RatioLabel 'enhanced shoving / no shoving'
 }
 
 compare_eta_gap_2x() {
@@ -43,9 +43,9 @@ compare_eta_gap_2x() {
     --MCSummary "$sh2_summary" \
     --OutputPrefix "$out" \
     --DataLabel 'Pythia no shoving' \
-    --MCLabel 'Pythia shoving x2' \
+    --MCLabel 'Pythia enhanced shoving' \
     --RatioMCOverData 1 \
-    --RatioLabel 'shoving x2 / no shoving' \
+    --RatioLabel 'enhanced shoving / no shoving' \
     --GapLabel "$gap_label" \
     --TrackLabel 'generator charged particles, p_{T}>0.4 GeV'
 }
@@ -61,9 +61,9 @@ compare_two_sub_2x() {
     --MCSummary "$sh2_summary" \
     --OutputPrefix "$out" \
     --DataLabel 'Pythia no shoving' \
-    --MCLabel 'Pythia shoving x2' \
+    --MCLabel 'Pythia enhanced shoving' \
     --RatioMCOverData 1 \
-    --RatioLabel 'shoving x2 / no shoving'
+    --RatioLabel 'enhanced shoving / no shoving'
 }
 
 bin/compare_v2_multiplicity \
@@ -71,9 +71,9 @@ bin/compare_v2_multiplicity \
   --MCSummary "$SH2_BASE" \
   --OutputPrefix "$BASE_OUT" \
   --DataLabel 'Pythia no shoving' \
-  --MCLabel 'Pythia shoving x2' \
+  --MCLabel 'Pythia enhanced shoving' \
   --RatioMCOverData 1 \
-  --RatioLabel 'shoving x2 / no shoving'
+  --RatioLabel 'enhanced shoving / no shoving'
 
 # Eta-gap v2{2} comparisons.
 compare_eta_gap_2x etagap1p0 '|#Delta#eta|>1.0' "${NO_PREFIX}_etagap1p0_twosub1p0_summary.root" "${SH2_PREFIX}_etagap1p0_twosub1p0_summary.root"

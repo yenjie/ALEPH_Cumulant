@@ -7,6 +7,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
+from matplotlib.lines import Line2D
 import numpy as np
 
 OUTPUT_DIR = Path('output')
@@ -51,7 +52,7 @@ V2_CASES = [
 SAMPLE_STYLES = {
     'no': {'label': 'Pythia no shoving', 'color': 'black', 'marker': 'o'},
     'sh': {'label': 'Pythia shoving', 'color': '#d62728', 'marker': 's'},
-    'sh2': {'label': 'Pythia shoving x2', 'color': '#2ca02c', 'marker': '^'},
+    'sh2': {'label': 'Pythia enhanced shoving', 'color': '#2ca02c', 'marker': '^'},
 }
 
 
@@ -98,9 +99,46 @@ def arrays_for(rows, value_key, err_key, bins):
 def errorbar(ax, x, y, yerr, *, label, color, marker, offset=0.0, ms=4.5, lw=1.2):
     mask = np.isfinite(y) & np.isfinite(yerr)
     if not np.any(mask):
-        return
-    ax.errorbar(x[mask] + offset, y[mask], yerr=yerr[mask], fmt=marker, color=color,
-                markersize=ms, elinewidth=lw, capsize=2.4, linewidth=0.0, label=label)
+        return None
+    return ax.errorbar(x[mask] + offset, y[mask], yerr=yerr[mask], fmt=marker, color=color,
+                       markersize=ms, elinewidth=lw, capsize=2.4, linewidth=0.0, label=label)
+
+
+def sample_legend_handles():
+    return [
+        Line2D([0], [0], color=style['color'], marker=style['marker'], linestyle='None',
+               markersize=5.0, label=style['label'])
+        for style in SAMPLE_STYLES.values()
+    ]
+
+
+def ratio_legend_handles(include_gap=False, gap_label='gap'):
+    if include_gap:
+        return [
+            Line2D([0], [0], color=SAMPLE_STYLES['sh']['color'], marker='o', linestyle='None',
+                   markersize=4.5, label='shoving/no inclusive'),
+            Line2D([0], [0], color=SAMPLE_STYLES['sh']['color'], marker='s', linestyle='None',
+                   markersize=4.5, label=f'shoving/no {gap_label}'),
+            Line2D([0], [0], color=SAMPLE_STYLES['sh2']['color'], marker='o', linestyle='None',
+                   markersize=4.5, label='enhanced/no inclusive'),
+            Line2D([0], [0], color=SAMPLE_STYLES['sh2']['color'], marker='s', linestyle='None',
+                   markersize=4.5, label=f'enhanced/no {gap_label}'),
+        ]
+    return [
+        Line2D([0], [0], color=SAMPLE_STYLES['sh']['color'], marker='s', linestyle='None',
+               markersize=4.5, label='shoving/no'),
+        Line2D([0], [0], color=SAMPLE_STYLES['sh2']['color'], marker='^', linestyle='None',
+               markersize=4.5, label='enhanced/no'),
+    ]
+
+
+def observable_legend_handles(gap_label):
+    return [
+        Line2D([0], [0], color='0.25', marker='o', linestyle='None',
+               markersize=4.5, label='inclusive'),
+        Line2D([0], [0], color='0.25', marker='s', linestyle='None',
+               markersize=4.5, label=gap_label),
+    ]
 
 
 def ratio_limits(*series):
@@ -189,7 +227,7 @@ def plot_v2_overlay(pair_sh_csv, pair_sh2_csv, output_prefix, axis, title, quant
         ax.set_ylabel(qlabel, fontsize=12)
         ax.grid(axis='y', alpha=0.25)
         ax.tick_params(axis='x', labelbottom=False)
-        ax.text(0.02, 0.90, f'{axis} axis, {qlabel}', transform=ax.transAxes, fontsize=11)
+        ax.set_title(f'{axis} axis, {qlabel}', fontsize=11, pad=4)
         finite_max = []
         for series in (no_y + no_e, sh_y + sh_e, sh2_y + sh2_e):
             finite = series[np.isfinite(series)]
@@ -198,11 +236,8 @@ def plot_v2_overlay(pair_sh_csv, pair_sh2_csv, output_prefix, axis, title, quant
         ymax = max(finite_max) if finite_max else math.nan
         if math.isfinite(ymax) and ymax > 0:
             ax.set_ylim(0, ymax * 1.25)
-        if iq == 0:
-            ax.legend(frameon=False, fontsize=10, loc='upper right')
-
         errorbar(rax, x, sh_r, sh_re, label='shoving/no', color=SAMPLE_STYLES['sh']['color'], marker='s', offset=-0.06, ms=4.0)
-        errorbar(rax, x, sh2_r, sh2_re, label='shoving x2/no', color=SAMPLE_STYLES['sh2']['color'], marker='^', offset=0.06, ms=4.0)
+        errorbar(rax, x, sh2_r, sh2_re, label='enhanced/no', color=SAMPLE_STYLES['sh2']['color'], marker='^', offset=0.06, ms=4.0)
         rax.axhline(1.0, color='0.35', linestyle='--', linewidth=1.0)
         rax.set_ylabel('ratio/no', fontsize=10)
         rax.set_ylim(*ratio_limits((sh_r, sh_re), (sh2_r, sh2_re)))
@@ -211,11 +246,11 @@ def plot_v2_overlay(pair_sh_csv, pair_sh2_csv, output_prefix, axis, title, quant
         rax.set_xticklabels(labels, rotation=55, ha='right', fontsize=8)
         if iq >= 2:
             rax.set_xlabel('Ntrk offline', fontsize=11)
-        if iq == 0:
-            rax.legend(frameon=False, fontsize=8, loc='upper right')
-
-    fig.suptitle(title, fontsize=15)
-    fig.tight_layout(rect=[0, 0, 1, 0.96])
+    fig.suptitle(title, fontsize=15, y=0.992)
+    fig.legend(handles=sample_legend_handles() + ratio_legend_handles(),
+               loc='upper center', bbox_to_anchor=(0.5, 0.955), ncol=5,
+               frameon=False, fontsize=9.2, handletextpad=0.4, columnspacing=1.0)
+    fig.subplots_adjust(left=0.075, right=0.985, bottom=0.095, top=0.855, hspace=0.34, wspace=0.24)
     fig.savefig(str(output_prefix) + f'_{axis}.pdf')
     fig.savefig(str(output_prefix) + f'_{axis}.png', dpi=160)
     plt.close(fig)
@@ -323,27 +358,24 @@ def plot_eta_overlay(pair_sh_csv, pair_sh2_csv, output_prefix, axis, title, gap_
     ax.set_ylabel('v2{2}', fontsize=12)
     ax.grid(axis='y', alpha=0.25)
     ax.tick_params(axis='x', labelbottom=False)
-    ax.text(0.02, 0.90, f'{axis} axis', transform=ax.transAxes, fontsize=11)
+    ax.set_title(f'{axis} axis', fontsize=11, pad=4)
     ymax = np.nanmax([np.nanmax(no_i + no_ie), np.nanmax(no_g + no_ge), np.nanmax(sh_i + sh_ie), np.nanmax(sh_g + sh_ge), np.nanmax(sh2_i + sh2_ie), np.nanmax(sh2_g + sh2_ge)])
     if math.isfinite(ymax) and ymax > 0:
         ax.set_ylim(0, ymax * 1.22)
-    ax.legend(frameon=False, fontsize=8, ncol=2, loc='upper right')
-
     errorbar(mid, x, no_gr, no_gre, label='no shoving', color=SAMPLE_STYLES['no']['color'], marker='o', offset=-0.12)
     errorbar(mid, x, sh_gr, sh_gre, label='shoving', color=SAMPLE_STYLES['sh']['color'], marker='s', offset=0.0)
-    errorbar(mid, x, sh2_gr, sh2_gre, label='shoving x2', color=SAMPLE_STYLES['sh2']['color'], marker='^', offset=0.12)
+    errorbar(mid, x, sh2_gr, sh2_gre, label='enhanced shoving', color=SAMPLE_STYLES['sh2']['color'], marker='^', offset=0.12)
     mid.set_ylabel('gap/incl.', fontsize=11)
     mid.grid(axis='y', alpha=0.25)
     mid.tick_params(axis='x', labelbottom=False)
-    mid.legend(frameon=False, fontsize=8, loc='upper right', ncol=3)
     ymax_mid = np.nanmax([np.nanmax(no_gr + no_gre), np.nanmax(sh_gr + sh_gre), np.nanmax(sh2_gr + sh2_gre)])
     if math.isfinite(ymax_mid) and ymax_mid > 0:
         mid.set_ylim(0, ymax_mid * 1.22)
 
     errorbar(low, x, sh_ri, sh_rie, label='shoving/no inclusive', color=SAMPLE_STYLES['sh']['color'], marker='o', offset=-0.14, ms=4.0)
     errorbar(low, x, sh_rg, sh_rge, label='shoving/no gap', color=SAMPLE_STYLES['sh']['color'], marker='s', offset=-0.05, ms=4.0)
-    errorbar(low, x, sh2_ri, sh2_rie, label='shoving x2/no inclusive', color=SAMPLE_STYLES['sh2']['color'], marker='o', offset=0.05, ms=4.0)
-    errorbar(low, x, sh2_rg, sh2_rge, label='shoving x2/no gap', color=SAMPLE_STYLES['sh2']['color'], marker='s', offset=0.14, ms=4.0)
+    errorbar(low, x, sh2_ri, sh2_rie, label='enhanced/no inclusive', color=SAMPLE_STYLES['sh2']['color'], marker='o', offset=0.05, ms=4.0)
+    errorbar(low, x, sh2_rg, sh2_rge, label='enhanced/no gap', color=SAMPLE_STYLES['sh2']['color'], marker='s', offset=0.14, ms=4.0)
     low.axhline(1.0, color='0.35', linestyle='--', linewidth=1.0)
     low.set_ylabel('ratio/no', fontsize=11)
     low.set_ylim(*ratio_limits((sh_ri, sh_rie), (sh_rg, sh_rge), (sh2_ri, sh2_rie), (sh2_rg, sh2_rge)))
@@ -351,10 +383,11 @@ def plot_eta_overlay(pair_sh_csv, pair_sh2_csv, output_prefix, axis, title, gap_
     low.set_xticks(x)
     low.set_xticklabels(labels, rotation=55, ha='right', fontsize=9)
     low.set_xlabel('Ntrk offline', fontsize=11)
-    low.legend(frameon=False, fontsize=8, loc='upper right', ncol=2)
-
-    fig.suptitle(title, fontsize=15)
-    fig.tight_layout(rect=[0, 0, 1, 0.96])
+    fig.suptitle(title, fontsize=15, y=0.992)
+    fig.legend(handles=sample_legend_handles() + observable_legend_handles(gap_label) + ratio_legend_handles(True, gap_label),
+               loc='upper center', bbox_to_anchor=(0.5, 0.955), ncol=5,
+               frameon=False, fontsize=7.8, handletextpad=0.35, columnspacing=0.8)
+    fig.subplots_adjust(left=0.090, right=0.985, bottom=0.095, top=0.835, hspace=0.10)
     fig.savefig(str(output_prefix) + f'_{axis}.pdf')
     fig.savefig(str(output_prefix) + f'_{axis}.png', dpi=160)
     plt.close(fig)
@@ -363,8 +396,8 @@ def plot_eta_overlay(pair_sh_csv, pair_sh2_csv, output_prefix, axis, title, gap_
     fig, axr = plt.subplots(figsize=(11.5, 5.2))
     errorbar(axr, x, sh_ri, sh_rie, label='shoving/no inclusive', color=SAMPLE_STYLES['sh']['color'], marker='o', offset=-0.14, ms=5.0)
     errorbar(axr, x, sh_rg, sh_rge, label='shoving/no ' + gap_label, color=SAMPLE_STYLES['sh']['color'], marker='s', offset=-0.05, ms=5.0)
-    errorbar(axr, x, sh2_ri, sh2_rie, label='shoving x2/no inclusive', color=SAMPLE_STYLES['sh2']['color'], marker='o', offset=0.05, ms=5.0)
-    errorbar(axr, x, sh2_rg, sh2_rge, label='shoving x2/no ' + gap_label, color=SAMPLE_STYLES['sh2']['color'], marker='s', offset=0.14, ms=5.0)
+    errorbar(axr, x, sh2_ri, sh2_rie, label='enhanced/no inclusive', color=SAMPLE_STYLES['sh2']['color'], marker='o', offset=0.05, ms=5.0)
+    errorbar(axr, x, sh2_rg, sh2_rge, label='enhanced/no ' + gap_label, color=SAMPLE_STYLES['sh2']['color'], marker='s', offset=0.14, ms=5.0)
     axr.axhline(1.0, color='0.35', linestyle='--', linewidth=1.0)
     axr.set_ylabel('ratio/no', fontsize=12)
     axr.set_xlabel('Ntrk offline', fontsize=12)
@@ -372,9 +405,11 @@ def plot_eta_overlay(pair_sh_csv, pair_sh2_csv, output_prefix, axis, title, gap_
     axr.set_xticklabels(labels, rotation=55, ha='right', fontsize=9)
     axr.set_ylim(*ratio_limits((sh_ri, sh_rie), (sh_rg, sh_rge), (sh2_ri, sh2_rie), (sh2_rg, sh2_rge)))
     axr.grid(axis='y', alpha=0.25)
-    axr.legend(frameon=False, fontsize=9, ncol=2, loc='upper right')
-    axr.set_title(f'{title}, {axis} axis sample ratios', fontsize=14)
-    fig.tight_layout()
+    fig.suptitle(f'{title}, {axis} axis sample ratios', fontsize=14, y=0.98)
+    fig.legend(handles=ratio_legend_handles(True, gap_label), loc='upper center',
+               bbox_to_anchor=(0.5, 0.90), ncol=4, frameon=False, fontsize=8.6,
+               handletextpad=0.35, columnspacing=0.9)
+    fig.subplots_adjust(left=0.090, right=0.985, bottom=0.175, top=0.735)
     fig.savefig(str(output_prefix) + f'_datamc_{axis}.pdf')
     fig.savefig(str(output_prefix) + f'_datamc_{axis}.png', dpi=160)
     plt.close(fig)
