@@ -80,6 +80,7 @@ namespace
          << "  --Seed 12345\n"
          << "  --PythiaData /path/to/share/Pythia8/xmldoc\n"
          << "  --EnableShoving 1\n"
+         << "  --ShovingRepulsionFactor 0.25\n"
          << "  --ApplyAlephLikeAcceptance 0\n";
    }
 }
@@ -100,6 +101,7 @@ int main(int argc, char *argv[])
       const int seed = cl.GetInt("Seed", 12345);
       const double eCM = cl.GetDouble("ECM", 91.1876);
       const bool enableShoving = cl.GetBool("EnableShoving", true);
+      const double shovingRepulsionFactor = cl.GetDouble("ShovingRepulsionFactor", 0.25);
       const bool applyAcceptance = cl.GetBool("ApplyAlephLikeAcceptance", false);
       const bool keepNeutrinos = cl.GetBool("KeepNeutrinos", false);
       const long long reportEvery = cl.GetLongLong("ReportEvery", 50000);
@@ -142,7 +144,7 @@ int main(int argc, char *argv[])
          Read(pythia, "Gleipnir:nPushMaxCalc = 0");
          Read(pythia, "Gleipnir:pushPT = 0.02");
          Read(pythia, "Gleipnir:extendGluonRegions = on");
-         Read(pythia, "Gleipnir:repulsionFactor = 0.25");
+         Read(pythia, "Gleipnir:repulsionFactor = " + std::to_string(shovingRepulsionFactor));
          Read(pythia, "Fragmentation:setVertices = on");
          Read(pythia, "PartonVertex:setVertex = on");
          Read(pythia, "PartonVertex:modeRadiation = 2");
@@ -203,12 +205,13 @@ int main(int argc, char *argv[])
       fillConfig("Seed", std::to_string(seed));
       fillConfig("ECM", std::to_string(eCM));
       fillConfig("EnableShoving", enableShoving ? "1" : "0");
+      fillConfig("ShovingRepulsionFactor", std::to_string(shovingRepulsionFactor));
       fillConfig("ApplyAlephLikeAcceptance", applyAcceptance ? "1" : "0");
       fillConfig("KeepNeutrinos", keepNeutrinos ? "1" : "0");
       fillConfig("PythiaData", pythiaData);
       fillConfig("Process", "e+e- -> gamma*/Z -> q qbar, 23:onIfAny = 1 2 3 4 5");
       fillConfig("ShovingSettings", enableShoving
-         ? "StringInteractions:model=3; Gleipnir:shoving=on; StringR=1.0; tauString=1.0; tauHad=2.0; pushPT=0.02; extendGluonRegions=on; repulsionFactor=0.25; PartonVertex:setVertex=on; PartonVertex:modeRadiation=2"
+         ? "StringInteractions:model=3; Gleipnir:shoving=on; StringR=1.0; tauString=1.0; tauHad=2.0; pushPT=0.02; extendGluonRegions=on; repulsionFactor=" + std::to_string(shovingRepulsionFactor) + "; PartonVertex:setVertex=on; PartonVertex:modeRadiation=2"
          : "off");
 
       long long acceptedEvents = 0;

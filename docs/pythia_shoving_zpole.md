@@ -1,6 +1,6 @@
 # Pythia Shoving Z-Pole Sample
 
-This note records the local 5M-event generator-level Pythia8/Gleipnir shoving and no-shoving Z-pole samples used for the cumulant analysis.
+This note records the local 5M-event generator-level Pythia8/Gleipnir no-shoving, nominal-shoving, and factor-two-shoving Z-pole samples used for the cumulant analysis.
 
 ## Source Branch
 
@@ -27,13 +27,13 @@ make pythia PYTHIA8_CONFIG=/mnt/data2/data2/yjlee/pythia/pythia8/develop/pythia-
 
 The target compiles `src/GeneratePythiaZPoleRoot.cpp` into `bin/generate_pythia_zpole_root`. The old Pythia branch was built with the old GCC string ABI, so this target explicitly uses `-D_GLIBCXX_USE_CXX11_ABI=0` and avoids ROOT `std::string` branches.
 
-The current 5M samples are produced and validated with:
+The current no-shoving and nominal-shoving 5M samples are produced and validated with:
 
 ```bash
 scripts/build_pythia_zpole_5M_samples.sh
 ```
 
-This script reuses the existing seed-12345 3M samples when present, generates independent seed-67890 2M extensions when needed, merges each pair with `hadd`, and requires exactly 5,000,000 entries in each merged ROOT tree.
+This script reuses the existing seed-12345 3M samples when present, generates independent seed-67890 2M extensions when needed, merges each pair with `hadd`, and requires exactly 5,000,000 entries in each merged ROOT tree. The factor-two shoving sample is built with `scripts/build_pythia_shoving2x_zpole_5M_sample.sh`, which sets `SHOVING_REPULSION_FACTOR=0.50` and applies the same merge and entry-count validation.
 
 For a direct standalone production rather than the merged 3M+2M extension workflow, the wrappers are:
 
@@ -42,10 +42,11 @@ scripts/run_pythia_noshoving_zpole_5M.sh
 scripts/run_pythia_shoving_zpole_5M.sh
 ```
 
-Useful override example:
+Useful override examples:
 
 ```bash
 EVENTS=10000 SEED=12345 OUTPUT=output/test.root LOG=output/test.log scripts/run_pythia_shoving_zpole_5M.sh
+SHOVING_REPULSION_FACTOR=0.50 EVENTS=10000 SEED=12345 OUTPUT=output/test_2x.root LOG=output/test_2x.log scripts/run_pythia_shoving_zpole_5M.sh
 ```
 
 ## Physics Settings
@@ -72,7 +73,7 @@ Gleipnir:tauHad = 2.0
 Gleipnir:nPushMaxCalc = 0
 Gleipnir:pushPT = 0.02
 Gleipnir:extendGluonRegions = on
-Gleipnir:repulsionFactor = 0.25
+Gleipnir:repulsionFactor = 0.25  # nominal; factor-two sample uses 0.50
 Fragmentation:setVertices = on
 PartonVertex:setVertex = on
 PartonVertex:modeRadiation = 2
@@ -89,6 +90,8 @@ output/pythia_noshoving_zpole_3M.root
 output/pythia_noshoving_zpole_extra2M_seed67890.root
 output/pythia_shoving_zpole_3M.root
 output/pythia_shoving_zpole_extra2M_seed67890.root
+output/pythia_shoving2x_zpole_3M.root
+output/pythia_shoving2x_zpole_extra2M_seed67890.root
 ```
 
 Merged outputs:
@@ -96,9 +99,10 @@ Merged outputs:
 ```text
 output/pythia_noshoving_zpole_5M.root
 output/pythia_shoving_zpole_5M.root
+output/pythia_shoving2x_zpole_5M.root
 ```
 
-Final merged readback validation with `bin/aleph_charged_cumulants --PrintEntries 1` reports exactly 5,000,000 entries for both ROOT trees.
+Final merged readback validation with `bin/aleph_charged_cumulants --PrintEntries 1` reports exactly 5,000,000 entries for all three ROOT trees.
 
 No-shoving composition:
 
@@ -114,6 +118,14 @@ Shoving composition:
 Seed 12345 base: 3,000,000 events, 128,542,960 visible particles, 61,053,512 StudyMult-selected charged particles
 Seed 67890 extension: 2,000,000 events, 85,709,957 visible particles, 40,699,476 StudyMult-selected charged particles
 Merged total: 5,000,000 events, 214,252,917 visible particles, 101,752,988 StudyMult-selected charged particles
+```
+
+Factor-two shoving composition:
+
+```text
+Seed 12345 base: 3,000,000 events, 128,579,065 visible particles, 61,053,110 StudyMult-selected charged particles
+Seed 67890 extension: 2,000,000 events, 85,694,931 visible particles, 40,695,712 StudyMult-selected charged particles
+Merged total: 5,000,000 events, 214,273,996 visible particles, 101,748,822 StudyMult-selected charged particles
 ```
 
 The seed-67890 shoving extension log reports:
@@ -132,6 +144,9 @@ Checksums from the current files:
 d09b7a9318faf1b709f5369833e93e828326beb93ffbeb6014e26d1ff6cd2a18  output/pythia_shoving_zpole_5M.root
 ca59cc6ac6c279953e39d7cb7dadfebe7eeedbabb7156cd46c980b2a19c09145  output/pythia_noshoving_zpole_extra2M_seed67890.root
 0d208246b97edee4d80ab8047a41b05d485043fe3c59eef79ba0f57c077e61c3  output/pythia_shoving_zpole_extra2M_seed67890.root
+7bb5bcfe2e961d70e24c2d558515443f35ce6e2268eaafb8d031218dfaf39c4d  output/pythia_shoving2x_zpole_3M.root
+4b676970a807e4aaad9c6dc3f48745ba4c366e3abfb7c3fd774e933ee4552718  output/pythia_shoving2x_zpole_extra2M_seed67890.root
+ef377275e222b0e08349fd60989571e751ce998299e6ce047ff6c0f05f76d53e  output/pythia_shoving2x_zpole_5M.root
 ```
 
 ## Nominal Cumulant Processing
@@ -229,4 +244,22 @@ docs/pythia_shoving_nonflow_5M.md
 docs/figures/pythia_shoving_nonflow_5M_metrics.csv
 ```
 
-The same seed is used within each seed block for the two productions, but the samples should be treated as statistically matched generator configurations rather than event-by-event paired samples because enabling shoving changes the random-number consumption during hadronization. Ratio and significance values use the exported jackknife uncertainties and do not include covariance between the two generator configurations.
+The same seed blocks are used across the no-shoving, nominal-shoving, and factor-two-shoving productions, but the samples should be treated as statistically matched generator configurations rather than event-by-event paired samples because enabling or changing shoving changes random-number consumption during hadronization. Ratio and significance values use the exported jackknife uncertainties and do not include covariance between generator configurations.
+
+
+## Factor-Two Shoving Processing
+
+The factor-two sample uses the same analysis matrix as the nominal shoving sample:
+
+```bash
+ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=1 scripts/run_pythia_shoving2x_5M_analysis.sh
+scripts/plot_pythia_shoving2x_comparison_5M.sh
+scripts/summarize_pythia_shoving2x_5M.py
+```
+
+The three-sample overlay figures are written as `output/pythia_zpole_5M_*_noshoving_vs_shoving_vs_shoving2x*` and copied to `docs/figures`, `AnalysisNote/figures`, and `overleaf_note/figures`. Ratio panels show both nominal shoving/no-shoving and factor-two shoving/no-shoving. The generated factor-two metrics are documented in:
+
+```text
+docs/pythia_shoving2x_5M.md
+docs/figures/pythia_shoving2x_5M_metrics.csv
+```

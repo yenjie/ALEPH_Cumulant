@@ -397,29 +397,34 @@ Additional analyzer switches used by this study:
 
 ## 13. Pythia Shoving 5M Generator-Level Study
 
-The current generator-level shoving study uses two 5,000,000-event Z-pole samples:
+The current generator-level shoving study uses three 5,000,000-event Z-pole samples:
 
 - `output/pythia_noshoving_zpole_5M.root`
-- `output/pythia_shoving_zpole_5M.root`
+- `output/pythia_shoving_zpole_5M.root` with `Gleipnir:repulsionFactor = 0.25`
+- `output/pythia_shoving2x_zpole_5M.root` with `Gleipnir:repulsionFactor = 0.50`
 
-They are built from the original seed-12345 3M samples plus independent seed-67890 2M extensions. The build script validates that both merged trees contain exactly 5,000,000 entries:
+They are built from seed-12345 3M samples plus independent seed-67890 2M extensions. The build scripts validate that each merged tree contains exactly 5,000,000 entries:
 
 ```bash
 scripts/build_pythia_zpole_5M_samples.sh
+scripts/build_pythia_shoving2x_zpole_5M_sample.sh
 ```
 
 Run the nominal `pT>0.4 GeV` cumulants without the nonflow matrix:
 
 ```bash
 ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=0 scripts/run_pythia_shoving_5M_analysis.sh
+ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=0 scripts/run_pythia_shoving2x_5M_analysis.sh
 ```
 
 Run the full 5M nonflow-suppression matrix and regenerate all overlays:
 
 ```bash
 ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=1 scripts/run_pythia_shoving_5M_analysis.sh
-scripts/plot_pythia_nonflow_suppression_5M.sh
+ALEPH_MAX_PARALLEL=16 CHUNKS=16 RUN_NONFLOW=1 scripts/run_pythia_shoving2x_5M_analysis.sh
+scripts/plot_pythia_shoving2x_comparison_5M.sh
 scripts/summarize_pythia_shoving_nonflow.py
+scripts/summarize_pythia_shoving2x_5M.py
 ```
 
 The nonflow matrix includes:
@@ -436,6 +441,8 @@ The detailed 5M production and result documentation is in:
 ```text
 docs/pythia_shoving_zpole.md
 docs/pythia_shoving_nonflow_5M.md
+docs/pythia_shoving2x_5M.md
 docs/figures/pythia_shoving_nonflow_5M_metrics.csv
+docs/figures/pythia_shoving2x_5M_metrics.csv
 ```
 
