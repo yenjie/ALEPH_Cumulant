@@ -1,0 +1,66 @@
+\subsection{Generator-level signed shoving test in inclusive hadronic events at \texorpdfstring{$\sqrt{s}=200$ GeV}{sqrt(s)=200 GeV}}
+\label{sec:qq200-signed-generator-test}
+
+As a cross-check distinct from the hadronic \(W^+W^-\) study, we generated inclusive
+hadronic \(e^+e^- \to \gamma^*/Z \to q\bar{q}\) events at \(\sqrt{s}=200\) GeV with
+Pythia8.  The samples use the same charged-particle selection as the cumulant analysis,
+\(p_T>0.4\) GeV, and the same \(N_{\mathrm{trk}}^{\mathrm{offline}}\) bins.  Three
+generator settings are compared: no shoving, nominal Gleipnir shoving, and enhanced
+Gleipnir shoving with twice the nominal repulsion factor.
+
+The signed observable is the underlying two-particle correlator
+\[
+  c_2\{2\}=\left<\cos 2(\phi_i-\phi_j)\right>,
+\]
+rather than only \(v_2\{2\}=\sqrt{c_2\{2\}}\).  The signed response is evaluated as
+\[
+  \Delta c_2 = c_2^{\mathrm{shoving}} - c_2^{\mathrm{no~shoving}},
+\]
+for inclusive pairs, rapidity-gap pairs, and two-subevent pairs.  The long-range
+thrust-axis coefficient \(V_{2\Delta}\) is also extracted from pairs with
+\(1.6<|\Delta\eta|<3.2\), together with the signed proxy
+\(\mathrm{sign}(V_{2\Delta})\sqrt{|V_{2\Delta}|}\).
+
+The generated trees contain final-state saved particles and their production vertices,
+but not a complete event record, string-piece geometry, or mother/daughter links.  We
+therefore do not define a geometry-plane signed \(v_2\) for this inclusive sample.
+The signed \(c_2\) and \(V_{2\Delta}\) tests preserve the sign of the two-particle
+response, but they are not direct spatial-geometry sign tests.
+
+The completed 5M-sample comparison gives a positive signed thrust-axis shoving
+response in the representative bins.  In the
+\(N_{\mathrm{trk}}^{\mathrm{offline}}=[30,35)\) bin, the inclusive thrust-axis
+response is \(\Delta c_2=+0.00701\) for nominal shoving and \(+0.01290\) for
+enhanced shoving.  With \(|\Delta\eta|>1.6\), the corresponding values are
+\(+0.00266\) and \(+0.00476\).  For the two-subevent selection
+\(\eta<-0.8\) versus \(\eta>0.8\), the responses are \(+0.00166\) and
+\(+0.00255\).  The long-range thrust-axis coefficient also increases, with
+\(\Delta V_{2\Delta}=+0.00382\) for nominal shoving and \(+0.00698\) for
+enhanced shoving in the same multiplicity bin.  Thus the inclusive
+\(q\bar{q}\) 200 GeV generator-level study shows a sign-preserving positive
+two-particle shoving response in these observables, with enhanced shoving larger
+than nominal shoving.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.92\linewidth]{figures/qq200_signed_c2_thrust_inclusive_inclusive.pdf}
+  \caption{Signed inclusive thrust-axis \(c_2\{2\}\), shoving response, and response ratio
+  in inclusive hadronic \(e^+e^-\to q\bar{q}\) events at \(\sqrt{s}=200\) GeV.}
+  \label{fig:qq200-signed-c2-thrust-inclusive}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.92\linewidth]{figures/qq200_signed_c2_thrust_rapidity_gap_abs_delta_eta_gt_1p6.pdf}
+  \caption{Signed thrust-axis \(c_2\{2\}\) with \(|\Delta\eta|>1.6\) in inclusive
+  hadronic \(e^+e^-\to q\bar{q}\) events at \(\sqrt{s}=200\) GeV.}
+  \label{fig:qq200-signed-c2-thrust-gap16}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.92\linewidth]{figures/qq200_signed_V2Delta_thrust_standard.pdf}
+  \caption{Long-range thrust-axis \(V_{2\Delta}\), signed proxy, and shoving response
+  in inclusive hadronic \(e^+e^-\to q\bar{q}\) events at \(\sqrt{s}=200\) GeV.}
+  \label{fig:qq200-signed-v2delta-thrust}
+\end{figure}

@@ -1,0 +1,61 @@
+Inclusive LEP2 200 GeV generator sample inventory
+================================================
+
+Process definition: Pythia8 WeakSingleBoson:ffbar2gmZ with 23:onIfAny = 1 2 3 4 5 at sqrt(s)=200 GeV.
+Saved event content: final-state visible particles, excluding neutrinos, with ALEPH-like acceptance disabled.
+
+Sample: Pythia qqbar 200 GeV no shoving
+file path: /raid5/data/yjlee/ALEPH_Cumulant/output/pythia_noshoving_qq200_5M.root
+tree name: t
+total number of entries: 5000000
+branch list: EventNo, source, Energy, passEventSelection, px, py, pz, mass, energy, vx, vy, vz, pid, pwflag, charge
+top-level ROOT objects: t, pythia_config, EventsRequested, EventsWritten, EventsAttempted, EventsFailed, VisibleParticles, ChargedParticles, Seed, ECM
+final-state charged particles available: yes
+final-state production vertices available: yes (vx, vy, vz for saved final-state particles)
+generator-level partons available: no
+string pieces or Gleipnir space-time information available: no
+truth W daughters or event-record mother/daughter indices available: no
+config ECM: 200.000000
+config ProcessName: zpole
+config Process: e+e- -> gamma*/Z -> q qbar, 23:onIfAny = 1 2 3 4 5
+config EnableShoving: 0
+config ShovingRepulsionFactor: 0.250000
+config ShovingSettings: off
+
+Sample: Pythia qqbar 200 GeV nominal shoving
+file path: /raid5/data/yjlee/ALEPH_Cumulant/output/pythia_shoving_qq200_5M.root
+tree name: t
+total number of entries: 5000000
+branch list: EventNo, source, Energy, passEventSelection, px, py, pz, mass, energy, vx, vy, vz, pid, pwflag, charge
+top-level ROOT objects: t, pythia_config, EventsRequested, EventsWritten, EventsAttempted, EventsFailed, VisibleParticles, ChargedParticles, Seed, ECM
+final-state charged particles available: yes
+final-state production vertices available: yes (vx, vy, vz for saved final-state particles)
+generator-level partons available: no
+string pieces or Gleipnir space-time information available: no
+truth W daughters or event-record mother/daughter indices available: no
+config ECM: 200.000000
+config ProcessName: zpole
+config Process: e+e- -> gamma*/Z -> q qbar, 23:onIfAny = 1 2 3 4 5
+config EnableShoving: 1
+config ShovingRepulsionFactor: 0.250000
+config ShovingSettings: StringInteractions:model=3; Gleipnir:shoving=on; StringR=1.0; tauString=1.0; tauHad=2.0; pushPT=0.02; extendGluonRegions=on; repulsionFactor=0.250000; PartonVertex:setVertex=on; PartonVertex:modeRadiation=2
+
+Sample: Pythia qqbar 200 GeV enhanced shoving
+file path: /raid5/data/yjlee/ALEPH_Cumulant/output/pythia_shoving2x_qq200_5M.root
+tree name: t
+total number of entries: 5000000
+branch list: EventNo, source, Energy, passEventSelection, px, py, pz, mass, energy, vx, vy, vz, pid, pwflag, charge
+top-level ROOT objects: t, pythia_config, EventsRequested, EventsWritten, EventsAttempted, EventsFailed, VisibleParticles, ChargedParticles, Seed, ECM
+final-state charged particles available: yes
+final-state production vertices available: yes (vx, vy, vz for saved final-state particles)
+generator-level partons available: no
+string pieces or Gleipnir space-time information available: no
+truth W daughters or event-record mother/daughter indices available: no
+config ECM: 200.000000
+config ProcessName: zpole
+config Process: e+e- -> gamma*/Z -> q qbar, 23:onIfAny = 1 2 3 4 5
+config EnableShoving: 1
+config ShovingRepulsionFactor: 0.500000
+config ShovingSettings: StringInteractions:model=3; Gleipnir:shoving=on; StringR=1.0; tauString=1.0; tauHad=2.0; pushPT=0.02; extendGluonRegions=on; repulsionFactor=0.500000; PartonVertex:setVertex=on; PartonVertex:modeRadiation=2
+
+Geometry-plane signed v2 status: skipped. The saved files contain final-state particle vertices but not the full event record, parton dipoles, string pieces, or mother/daughter links needed for a controlled generator geometry-plane definition.
