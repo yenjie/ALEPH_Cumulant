@@ -32,7 +32,7 @@
 \newcommand{\SpeakerName}{Yen-Jie Lee (MIT)}
 \newcommand{\FigurePath}{figures/}
 \IfFileExists{AnalysisNote/figures/v2_multiplicity_beam.pdf}{\renewcommand{\FigurePath}{AnalysisNote/figures/}}{}
-\graphicspath{{\FigurePath}}
+\graphicspath{{\FigurePath}{figures/}{overleaf_note/figures/}}
 
 \setbeamertemplate{footline}{%
   \leavevmode%
@@ -62,7 +62,7 @@
 
 \title{ALEPH Charged-Particle Cumulants\\Status Report}
 \author{Yen-Jie Lee}
-\date{June 2026}
+\date{June 27, 2026}
 
 \begin{document}
 
@@ -90,7 +90,7 @@
     \vspace{0.9em}
     {\normalsize Electron-Positron Alliance / MIT HIG}\par
     \vspace{1.1em}
-    {\normalsize June 2026}
+    {\normalsize June 27, 2026}
   \end{center}
 \end{frame}
 }
@@ -101,7 +101,7 @@
   \item Standalone ROOT/C++ cumulant analysis using charged particles in archived ALEPH LEP1 data.
   \item Current data input is the merged LEP1 1992--1995 StudyMult sample with \textbf{3,050,610 events}.
   \item Main data/MC results are detector-level; MC-only generator-level reference plots are included.
-  \item Outputs include inclusive, MC-only, generator-level MC-only, rapidity-gap, two-subevent, and MC-comparison plots.
+  \item Outputs include inclusive, MC-only, generator-level MC-only, rapidity-gap, two-subevent, MC-comparison, and generator-level WW signed-shoving plots.
 \end{itemize}
 \vspace{0.6em}
 \statusbox{mitred}{\textbf{Important caveat:} no converted 1991 ROOT sample was found in the checked merged StudyMult directories, so the current data result is 1992--1995 rather than complete 1991--1995 LEP1.}
@@ -181,8 +181,9 @@ c_2\{8\} &= \langle\!\langle 8\rangle\!\rangle
 \end{aligned}
 \]
 }
-\vspace{-0.4em}
-{\scriptsize Inclusive denominators are \(N(N-1)\cdots(N-2k+1)\); two-subevent denominators are \(N_A(N_A-1)\cdots(N_A-k+1)\,N_B(N_B-1)\cdots(N_B-k+1)\).}
+
+\vspace{0em}
+{\scriptsize $Den_{2k}$:  Inclusive denominators are \(N(N-1)\cdots(N-2k+1)\)\\ two-subevent denominators are \(N_A(N_A-1)\cdots(N_A-k+1)\,N_B(N_B-1)\cdots(N_B-k+1)\).}
 \end{frame}
 
 \begin{frame}
@@ -268,7 +269,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{frame}
 \slidehead{Data/MC Comparison: Beam Axis}
 \begin{center}
-  \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_data_mc_compare_beam.pdf}
+  \includegraphics[width=0.94\textwidth,height=0.80\textheight,keepaspectratio]{v2_data_mc_compare_beam.pdf}
 \end{center}
 \figcaptiontext{Data: LEP1 1992--1995; MC: 1994 reconstructed baseline.}
 \end{frame}
@@ -276,7 +277,7 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 \begin{frame}
 \slidehead{Data/MC Comparison: Thrust Axis}
 \begin{center}
-  \includegraphics[width=0.94\textwidth,height=0.74\textheight,keepaspectratio]{v2_data_mc_compare_thrust.pdf}
+  \includegraphics[width=0.94\textwidth,height=0.80\textheight,keepaspectratio]{v2_data_mc_compare_thrust.pdf}
 \end{center}
 \figcaptiontext{Data: LEP1 1992--1995; MC: 1994 reconstructed baseline.}
 \end{frame}
@@ -367,6 +368,99 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
 
 
 \begin{frame}
+\slidehead{WW200 Signed Shoving Test: Scope}
+\begin{columns}[T,totalwidth=0.96\textwidth]
+\begin{column}{0.50\textwidth}
+\textbf{Samples used}
+\begin{itemize}\setlength\itemsep{0.38em}
+  \item Generator-level hadronic \(e^+e^-\to W^+W^-\to q\bar q q\bar q\) at \(\sqrt{s}=200\) GeV.
+  \item Three already-produced 5M-event trees: no shoving, nominal Gleipnir shoving, enhanced shoving.
+  \item Charged final-state particles; \(p_T>0.4\) GeV; same \(N_{trk}^{offline}\) bins as the cumulant analysis.
+  \item No new event generation was done for this signed test.
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\textbf{Inventory outcome}
+\begin{itemize}\setlength\itemsep{0.38em}
+  \item Available: final-particle momenta, PID, charged flags, charge, event-selection flag, final-particle vertices.
+  \item Not available: full Pythia event record, \(W\)-daughter links, mother/daughter indices, parton records, string pieces, Gleipnir space-time records.
+  \item Therefore this is a signed two-particle response test, not a direct geometry-plane sign measurement.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\slidehead{Signed Observables and Uncertainties}
+\begin{itemize}\setlength\itemsep{0.55em}
+  \item The usual \(v_2\{2\}=\sqrt{c_2\{2\}}\) is positive when \(c_2\{2\}>0\), so it cannot test the response sign.
+  \item Signed pair correlator:
+\end{itemize}
+\vspace{-0.8em}
+{\small
+\[
+  c_2\{2\}=\left\langle \cos 2(\phi_i-\phi_j)\right\rangle,\qquad
+  \Delta c_2 = c_2^{\mathrm{shoving}} - c_2^{\mathrm{no\ shoving}} .
+\]
+}
+\vspace{-0.6em}
+\begin{itemize}\setlength\itemsep{0.45em}
+  \item Computed for inclusive pairs, \(|\Delta\eta|>1.0,1.6,2.0,2.5,3.0\), and two-subevent pairs \(\eta<-b\) vs. \(\eta>b\) with \(b=0,0.5,0.8,1.0\).
+  \item Long-range thrust-axis coefficients use \(1.6<|\Delta\eta|<3.2\): \(V_{n\Delta}=\langle\cos n\Delta\phi\rangle\), with \(v_n^{\mathrm{sgn}}=\mathrm{sign}(V_{n\Delta})\sqrt{|V_{n\Delta}|}\).
+  \item Statistical errors use the 16-block delete-one-block jackknife; sample differences use \(\sqrt{\sigma_{\mathrm{shoving}}^2+\sigma_{\mathrm{no}}^2}\).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\slidehead{Signed \(c_2\{2\}\): Shoving Response}
+\begin{columns}[T,totalwidth=0.98\textwidth]
+\begin{column}{0.55\textwidth}
+  \includegraphics[width=\linewidth,height=0.66\textheight,keepaspectratio]{signed_c2_thrust_inclusive_inclusive.pdf}
+\end{column}
+\begin{column}{0.43\textwidth}
+  \includegraphics[width=\linewidth,height=0.36\textheight,keepaspectratio]{signed_c2_beam_rapidity_gap_abs_delta_eta_gt_1p6.pdf}
+  \vspace{0.3em}
+  \begin{itemize}\setlength\itemsep{0.32em}
+    \item Inclusive thrust-axis \(c_2\{2\}\) increases with shoving.
+    \item For \(30\le N_{trk}^{offline}<35\): \(\Delta c_2=+0.00430\) nominal and \(+0.00862\) enhanced.
+    \item Beam-axis \(|\Delta\eta|>1.6\) can have negative enhanced response; same bin gives \(-9.18\times10^{-4}\), about \(-2.34\sigma\).
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\slidehead{Long-Range Thrust-Axis \(V_{2\Delta}\)}
+\begin{columns}[T,totalwidth=0.98\textwidth]
+\begin{column}{0.50\textwidth}
+  \includegraphics[width=\linewidth,height=0.60\textheight,keepaspectratio]{signed_V2Delta_thrust_standard.pdf}
+\end{column}
+\begin{column}{0.48\textwidth}
+  \includegraphics[width=\linewidth,height=0.29\textheight,keepaspectratio]{signed_V2Delta_thrust_high_multiplicity.pdf}
+  \vspace{-0.2em}
+  \begin{itemize}\setlength\itemsep{0.18em}
+    \item Pair window: \(1.6<|\Delta\eta|<3.2\) in thrust-axis coordinates.
+    \item Standard bins show mostly positive \(\Delta V_{2\Delta}\).
+    \item In \([30,35)\), \(V_{2\Delta}\) is 0.00953, 0.01078, 0.01244 for no, nominal, enhanced shoving.
+    \item Enhanced response is usually larger than nominal; the high-multiplicity tail is less stable.
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\slidehead{Signed Study Interpretation}
+\begin{itemize}\setlength\itemsep{0.65em}
+  \item The signed observables show a statistically significant generator-level shoving response in several \(\Delta c_2\) and \(\Delta V_{2\Delta}\) bins.
+  \item The response sign is not universal: it depends on the axis definition and on the nonflow-suppression handle.
+  \item The thrust-axis long-range \(V_{2\Delta}\) response is mostly positive; the beam-axis rapidity-gap response can become negative in mid/high multiplicity bins.
+  \item The stored WW trees do not support a clean geometry-plane signed \(v_2^{\mathrm{geom}}\) test, because partons, strings, and truth daughter links are absent.
+  \item This is generator-level only; it is not a claim of against-flow in WW data.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
 \slidehead{What We Learn So Far}
 \begin{itemize}\setlength\itemsep{0.75em}
   \item Beam-axis \(v_2\{m\}\) values are large and decrease with multiplicity; high-order cumulants are stable in the populated bins.
@@ -385,7 +479,6 @@ c_2\{6\}&> 0, & c_2\{8\}&<0 .
   \item Keep the analysis note and reproducible run instructions synchronized with each production.
 \end{itemize}
 \vspace{0.5em}
-\statusbox{statusblue}{\textbf{Current deliverable:} GitHub and Overleaf contain the merged-data figures, CSV tables, note, and status slides for detector-level data/MC and generator-level MC references.}
 \end{frame}
 
 \end{document}
