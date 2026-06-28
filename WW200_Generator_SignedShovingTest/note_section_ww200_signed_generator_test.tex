@@ -1,0 +1,115 @@
+\subsection{Generator-level signed shoving test in hadronic \(W^+W^-\) events at \(\sqrt{s}=200\) GeV}
+\label{subsec:ww200-signed-generator-test}
+
+This section uses only the already-generated generator-level hadronic
+\(e^+e^-\to W^+W^-\to q\bar q q\bar q\) Pythia samples at
+\(\sqrt{s}=200\) GeV.  The three configurations are no shoving, nominal
+Gleipnir shoving, and enhanced shoving.  Each sample contains 5,000,000
+accepted events.  Charged final-state particles are selected with the same
+\(\pT>0.4\) GeV convention and the same \(N_{\mathrm{trk}}^{\mathrm{offline}}\)
+bins as the cumulant analysis.
+
+The usual \(\vn{2}{2}\) magnitude is not a sign test because
+\[
+  \vn{2}{2} = \sqrt{c_2\{2\}}
+\]
+is positive whenever \(c_2\{2\}>0\).  We therefore export and plot the signed
+underlying correlator
+\[
+  c_2\{2\}=\left\langle \cos 2(\phi_i-\phi_j)\right\rangle
+\]
+and the signed shoving response
+\[
+  \Delta c_2^{\mathrm{nominal}} =
+  c_2^{\mathrm{nominal\ shoving}}-c_2^{\mathrm{no\ shoving}},\qquad
+  \Delta c_2^{\mathrm{enhanced}} =
+  c_2^{\mathrm{enhanced\ shoving}}-c_2^{\mathrm{no\ shoving}}.
+\]
+Inclusive, rapidity-gap, and two-subevent signed \(c_2\{2\}\) values are saved
+in \texttt{ww200\_signed\_c2\_summary.csv}.  The uncertainty is the same
+16-block delete-one-block jackknife used by the existing cumulant summaries.
+For differences we quote
+\(\sqrt{\sigma_{\mathrm{sample}}^2+\sigma_{\mathrm{no}}^2}\).
+
+Figure~\ref{fig:ww200-signed-c2} shows representative signed \(c_2\{2\}\)
+responses.  Inclusive \(c_2\{2\}\) increases with shoving in both axes.  In the
+thrust axis the response is large; for \(30\leq N_{\mathrm{trk}}^{\mathrm{offline}}<35\),
+\(\Delta c_2=+0.00430\) for nominal shoving and \(+0.00862\) for enhanced
+shoving.  With \(|\Delta\eta|>1.6\), the beam-axis response becomes negative in
+several mid/high multiplicity bins; for \(30\leq N_{\mathrm{trk}}^{\mathrm{offline}}<35\),
+enhanced shoving gives \(\Delta c_2=-9.18\times 10^{-4}\), about
+\(-2.34\sigma\).  In the same gap and multiplicity bin the thrust-axis response
+is positive, \(\Delta c_2=+2.22\times 10^{-3}\), about \(5.59\sigma\).  Thus the
+sign of the pair-harmonic response depends on the axis definition and nonflow
+handle.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{plots/signed_c2_thrust_inclusive_inclusive.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{plots/signed_c2_beam_rapidity_gap_abs_delta_eta_gt_1p6.pdf}
+  \end{minipage}
+  \caption{Generator-level WW signed \(c_2\{2\}\) response.  Left: inclusive
+  charged particles in the thrust-axis coordinate system.  Right: beam-axis
+  rapidity-gap pairs with \(|\Delta\eta|>1.6\).  The lower panels show
+  \(\Delta c_2\) for nominal and enhanced shoving and the enhanced/nominal
+  response ratio.}
+  \label{fig:ww200-signed-c2}
+\end{figure}
+
+For comparison with long-range two-particle analyses, we also compute thrust-axis
+Fourier coefficients in the window \(1.6<|\Delta\eta|<3.2\):
+\[
+  Y_l(\Delta\phi)=\frac{N_{\mathrm{assoc}}}{2\pi}
+  \left(1+\sum_n 2V_{n\Delta}\cos(n\Delta\phi)\right).
+\]
+The unbinned pair average \(V_{n\Delta}=\langle\cos n\Delta\phi\rangle\) is
+equivalent to the coefficient obtained from this normalized Fourier form.  We
+extract \(V_{1\Delta}\), \(V_{2\Delta}\), and \(V_{3\Delta}\), and define
+\[
+  v_n^{\mathrm{sgn}}=\mathrm{sign}(V_{n\Delta})\sqrt{|V_{n\Delta}|}.
+\]
+The results are saved in \texttt{ww200\_signed\_VnDelta\_summary.csv}.
+
+Figure~\ref{fig:ww200-v2delta} shows \(V_{2\Delta}\), \(v_2^{\mathrm{sgn}}\),
+and the signed response.  In the standard multiplicity bins the thrust-axis
+\(V_{2\Delta}\) response is mostly positive.  For example, in
+\([30,35)\), \(V_{2\Delta}=0.00953\) without shoving, \(0.01078\) with nominal
+shoving, and \(0.01244\) with enhanced shoving, giving
+\(\Delta V_{2\Delta}=+0.00125\) and \(+0.00291\).  The enhanced response is
+larger than the nominal response in the main bins.  In the finer high-multiplicity
+split, the nominal response in \([40,45)\) is slightly negative while the
+enhanced response remains positive; the \([50,\infty)\) bin has weak statistics
+and both responses are negative but not significant.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{plots/signed_V2Delta_thrust_standard.pdf}
+  \end{minipage}\hfill
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{plots/signed_V2Delta_thrust_high_multiplicity.pdf}
+  \end{minipage}
+  \caption{Long-range thrust-axis \(V_{2\Delta}\) signed shoving response in
+  \(1.6<|\Delta\eta|<3.2\).  Left: standard multiplicity bins.  Right: finer
+  high-multiplicity bins.}
+  \label{fig:ww200-v2delta}
+\end{figure}
+
+The generated trees were inspected for geometry-plane information.  They contain
+final-particle production vertices \((v_x,v_y,v_z)\), but do not contain a full
+Pythia event record, W-daughter truth links, mother/daughter indices, parton
+records, or string-piece records.  Since the stored final-particle vertices
+cannot be cleanly separated into prompt hadronization vertices and displaced
+decay vertices, we do not claim a direct geometry-plane signed
+\(v_{2,\mathrm{signed}}^{\mathrm{geom}}\) measurement.  The random-plane and
+\(\pi/2\)-rotation geometry closure tests are therefore not applicable to this
+sample format.
+
+The signed pair tests show that the already-generated WW samples have a
+statistically significant signed shoving response in several \(\Delta c_2\) and
+\(\Delta V_{2\Delta}\) bins.  The sign is axis- and selection-dependent.  This
+is a generator-level result only and should not be interpreted as evidence for
+an against-flow signal in WW data.

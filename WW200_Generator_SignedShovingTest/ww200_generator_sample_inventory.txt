@@ -1,0 +1,123 @@
+WW200 generator-level hadronic W+W- sample inventory
+Generated on existing files only; no event generation performed.
+
+================================================================================
+sample: Pythia WW no shoving
+shoving setting: no_shoving
+file path: /raid5/data/yjlee/ALEPH_Cumulant/output/pythia_noshoving_ww200_5M.root
+trees: t, pythia_config
+tree name: t
+total number of entries: 5000000
+branch list:
+  - EventNo: int32_t
+  - source: int32_t
+  - Energy: float
+  - passEventSelection: bool
+  - px: std::vector<float>
+  - py: std::vector<float>
+  - pz: std::vector<float>
+  - mass: std::vector<float>
+  - energy: std::vector<float>
+  - vx: std::vector<float>
+  - vy: std::vector<float>
+  - vz: std::vector<float>
+  - pid: std::vector<int32_t>
+  - pwflag: std::vector<int16_t>
+  - charge: std::vector<int16_t>
+final-state charged particles available: yes
+generator-level partons available: no
+  matching parton/event-record branches: none
+string pieces, vertices, or Gleipnir space-time information available: partial
+  available vertex/string-like branches: ['vx', 'vy', 'vz']
+truth W daughters or event-record mother/daughter indices available: no
+  matching truth-link branches: none
+first 1000 entries: visible particles=79687, StudyMult-charged=37756
+first 1000 entries: nonzero production vertices=47891/79687
+  vertex |r| median=0.000255169, max=10417.8
+pythia_config tree: present
+  ProcessName = ww_hadronic
+  ProcessName = ww_hadronic
+
+================================================================================
+sample: Pythia WW nominal shoving
+shoving setting: nominal_shoving
+file path: /raid5/data/yjlee/ALEPH_Cumulant/output/pythia_shoving_ww200_5M.root
+trees: t, pythia_config
+tree name: t
+total number of entries: 5000000
+branch list:
+  - EventNo: int32_t
+  - source: int32_t
+  - Energy: float
+  - passEventSelection: bool
+  - px: std::vector<float>
+  - py: std::vector<float>
+  - pz: std::vector<float>
+  - mass: std::vector<float>
+  - energy: std::vector<float>
+  - vx: std::vector<float>
+  - vy: std::vector<float>
+  - vz: std::vector<float>
+  - pid: std::vector<int32_t>
+  - pwflag: std::vector<int16_t>
+  - charge: std::vector<int16_t>
+final-state charged particles available: yes
+generator-level partons available: no
+  matching parton/event-record branches: none
+string pieces, vertices, or Gleipnir space-time information available: partial
+  available vertex/string-like branches: ['vx', 'vy', 'vz']
+truth W daughters or event-record mother/daughter indices available: no
+  matching truth-link branches: none
+first 1000 entries: visible particles=79255, StudyMult-charged=37744
+first 1000 entries: nonzero production vertices=78325/79255
+  vertex |r| median=2.23509e-05, max=19824.3
+pythia_config tree: present
+  ProcessName = ww_hadronic
+  ShovingSettings = StringInteractions:model=3; Gleipnir:shoving=on; StringR=1.0; tauString=1.0; tauHad=2.0; pushPT=0.02; extendGluonRegions=on; repulsionFactor=0.250000; PartonVertex:setVertex=on; PartonVertex:modeRadiation=2
+  ProcessName = ww_hadronic
+  ShovingSettings = StringInteractions:model=3; Gleipnir:shoving=on; StringR=1.0; tauString=1.0; tauHad=2.0; pushPT=0.02; extendGluonRegions=on; repulsionFactor=0.250000; PartonVertex:setVertex=on; PartonVertex:modeRadiation=2
+
+================================================================================
+sample: Pythia WW enhanced shoving
+shoving setting: enhanced_shoving
+file path: /raid5/data/yjlee/ALEPH_Cumulant/output/pythia_shoving2x_ww200_5M.root
+trees: t, pythia_config
+tree name: t
+total number of entries: 5000000
+branch list:
+  - EventNo: int32_t
+  - source: int32_t
+  - Energy: float
+  - passEventSelection: bool
+  - px: std::vector<float>
+  - py: std::vector<float>
+  - pz: std::vector<float>
+  - mass: std::vector<float>
+  - energy: std::vector<float>
+  - vx: std::vector<float>
+  - vy: std::vector<float>
+  - vz: std::vector<float>
+  - pid: std::vector<int32_t>
+  - pwflag: std::vector<int16_t>
+  - charge: std::vector<int16_t>
+final-state charged particles available: yes
+generator-level partons available: no
+  matching parton/event-record branches: none
+string pieces, vertices, or Gleipnir space-time information available: partial
+  available vertex/string-like branches: ['vx', 'vy', 'vz']
+truth W daughters or event-record mother/daughter indices available: no
+  matching truth-link branches: none
+first 1000 entries: visible particles=78954, StudyMult-charged=37542
+first 1000 entries: nonzero production vertices=78050/78954
+  vertex |r| median=2.19065e-05, max=15743.6
+pythia_config tree: present
+  ProcessName = ww_hadronic
+  ShovingSettings = StringInteractions:model=3; Gleipnir:shoving=on; StringR=1.0; tauString=1.0; tauHad=2.0; pushPT=0.02; extendGluonRegions=on; repulsionFactor=0.500000; PartonVertex:setVertex=on; PartonVertex:modeRadiation=2
+  ProcessName = ww_hadronic
+  ShovingSettings = StringInteractions:model=3; Gleipnir:shoving=on; StringR=1.0; tauString=1.0; tauHad=2.0; pushPT=0.02; extendGluonRegions=on; repulsionFactor=0.500000; PartonVertex:setVertex=on; PartonVertex:modeRadiation=2
+
+Short summary:
+- The three requested hadronic WW files are present and contain the tree `t` with about 5M entries each.
+- Final-state visible-particle vectors and charge/pwflag labels are available, so charged-particle cumulants can be computed.
+- The files do not contain the full Pythia event record: no parton collection, no W-daughter truth links, and no mother/daughter indices are stored.
+- The files do contain final-particle production-vertex branches `vx`, `vy`, and `vz`. These are vertex-like final-particle coordinates, not explicit string-piece or parton geometry records. A vertex-plane test can be attempted only as a hadron-production-vertex proxy, and must be documented as such.

@@ -1,0 +1,481 @@
+sample,shoving_setting,axis,observable_type,case,gap_value,multiplicity_bin,multiplicity_bin_text,number_of_events,number_of_valid_pairs,signed_c2_2,statistical_uncertainty,v2_2_if_c2_positive,note
+Pythia WW no shoving,no_shoving,beam,inclusive,inclusive,0.0,0_10,"[0,10)",185.0,12222.0,0.242393749685407,0.018240867639974182,0.4923349974208689,
+Pythia WW no shoving,no_shoving,beam,inclusive,inclusive,0.0,10_15,"[10,15)",13721.0,2226802.0,0.19322163214118063,0.0016087519088790177,0.4395698262405879,
+Pythia WW no shoving,no_shoving,beam,inclusive,inclusive,0.0,15_20,"[15,20)",198759.0,59710024.0,0.18385089070580532,0.00028952083631252285,0.4287783701468689,
+Pythia WW no shoving,no_shoving,beam,inclusive,inclusive,0.0,20_25,"[20,25)",852004.0,409843940.0,0.17193594344262253,0.0002931630488363968,0.4146515928374357,
+Pythia WW no shoving,no_shoving,beam,inclusive,inclusive,0.0,25_30,"[25,30)",1494824.0,1058443978.0,0.15862750782303017,0.00015453391571746298,0.39828068974409264,
+Pythia WW no shoving,no_shoving,beam,inclusive,inclusive,0.0,30_35,"[30,35)",1347509.0,1326351298.0,0.14483586504612903,0.00012647635803182523,0.3805730745154326,
+Pythia WW no shoving,no_shoving,beam,inclusive,inclusive,0.0,35_40,"[35,40)",735571.0,963585548.0,0.13182282005896956,0.00019945674869756936,0.3630741247444791,
+Pythia WW no shoving,no_shoving,beam,inclusive,inclusive,0.0,40_999,"[40,inf)",357427.0,648455346.0,0.11599746468961303,0.00022857698968863275,0.34058400533438593,
+Pythia WW no shoving,no_shoving,thrust,inclusive,inclusive,0.0,0_10,"[0,10)",185.0,13662.0,0.23932142429114425,0.019091092419014025,0.489204889888832,
+Pythia WW no shoving,no_shoving,thrust,inclusive,inclusive,0.0,10_15,"[10,15)",13721.0,2258020.0,0.2431283521374589,0.0017441717167614328,0.4930804722735011,
+Pythia WW no shoving,no_shoving,thrust,inclusive,inclusive,0.0,15_20,"[15,20)",198759.0,56542568.0,0.23364034947989729,0.0006227148247832046,0.4833635789753892,
+Pythia WW no shoving,no_shoving,thrust,inclusive,inclusive,0.0,20_25,"[20,25)",852004.0,372520216.0,0.22105691205672193,0.00024147312833179752,0.4701668980869686,
+Pythia WW no shoving,no_shoving,thrust,inclusive,inclusive,0.0,25_30,"[25,30)",1494824.0,938367082.0,0.20456736612780765,0.0001747584431847556,0.45229124038367985,
+Pythia WW no shoving,no_shoving,thrust,inclusive,inclusive,0.0,30_35,"[30,35)",1347509.0,1154354108.0,0.1865624232407414,0.00014596113767821045,0.43192872472288923,
+Pythia WW no shoving,no_shoving,thrust,inclusive,inclusive,0.0,35_40,"[35,40)",735571.0,825226422.0,0.16839005102355906,0.0002097770335579592,0.4103535683085491,
+Pythia WW no shoving,no_shoving,thrust,inclusive,inclusive,0.0,40_999,"[40,inf)",357427.0,543234918.0,0.14541011872496196,0.00021869154813792928,0.38132678731628855,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,0_10,"[0,10)",178.0,5388.0,0.11152633861401488,0.02419592514492864,0.33395559377560197,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,10_15,"[10,15)",13527.0,913068.0,0.02349262923234151,0.0034955895352927814,0.15327305448884848,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,15_20,"[15,20)",197197.0,23485934.0,0.02107765749575974,0.0005549992986655352,0.14518146402264903,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,20_25,"[20,25)",847808.0,154800166.0,0.015582399917474185,0.0003765448948452625,0.12482948336620714,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,25_30,"[25,30)",1490522.0,385378564.0,0.010954738290207731,0.00018099535411525235,0.10466488565993722,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,30_35,"[30,35)",1345387.0,466582006.0,0.007663742618145055,0.00022750843383555818,0.0875428044909749,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,35_40,"[35,40)",734920.0,327533150.0,0.006293260826129027,0.00027942818338388275,0.07933007516780144,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,40_999,"[40,inf)",357311.0,210002316.0,0.0059259074084565605,0.00037948367014862237,0.07697991561736452,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,0_10,"[0,10)",178.0,7186.0,0.06264369457644675,0.032007806774582856,0.25028722415746024,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,10_15,"[10,15)",13568.0,1155756.0,0.05860656060385811,0.0030582894637892987,0.24208791916132064,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,15_20,"[15,20)",198078.0,28672212.0,0.0484218762532908,0.0007067064718556139,0.2200497131406692,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,20_25,"[20,25)",850938.0,186726272.0,0.041808312421372465,0.00046451226267512583,0.20447081068302259,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,25_30,"[25,30)",1494237.0,466096474.0,0.03721546710421074,0.0002672793776213845,0.19291310765267025,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,30_35,"[30,35)",1347367.0,569168528.0,0.035804289111089564,0.00020006212698665964,0.18922021327302632,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,35_40,"[35,40)",735557.0,404683572.0,0.035405035682941954,0.0002832544278302706,0.18816225892282956,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,40_999,"[40,inf)",357425.0,265199816.0,0.03328946464382074,0.00036443197272706905,0.1824540069272822,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,0_10,"[0,10)",160.0,3296.0,0.11765129018810462,0.03956461196347666,0.3430033384503781,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,10_15,"[10,15)",12408.0,528424.0,0.009891867788832796,0.004603836119965092,0.09945786941631515,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,15_20,"[15,20)",183705.0,12878282.0,0.00908674647583458,0.0006932266178171642,0.09532442748757833,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,20_25,"[20,25)",797912.0,80777056.0,0.004809862742733506,0.0005680189993630982,0.06935317399177564,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,25_30,"[25,30)",1415176.0,191034172.0,0.0017383589510954092,0.0002586141021039507,0.041693632020914285,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,30_35,"[30,35)",1289222.0,220107336.0,-0.00048304460700154914,0.00023158008292968778,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,35_40,"[35,40)",709967.0,147228294.0,-0.0011745876182487353,0.00032844631308066646,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,40_999,"[40,inf)",348251.0,88489562.0,-0.00084009748660146,0.0005827857843803449,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,0_10,"[0,10)",172.0,4938.0,-0.003442080013042096,0.03847578781994869,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,10_15,"[10,15)",13338.0,804962.0,0.006912827074725233,0.003426033100532532,0.08314341269592698,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,15_20,"[15,20)",196500.0,19920744.0,0.002795445350036102,0.0008106004217822924,0.05287197130839838,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,20_25,"[20,25)",847461.0,128494064.0,0.002761455270812217,0.00048732456366357927,0.05254955062426526,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,25_30,"[25,30)",1491579.0,316282208.0,0.005171366752225224,0.00029153780544570744,0.07191221559808336,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,30_35,"[30,35)",1346357.0,379473078.0,0.010168274693048278,0.00024896459787198614,0.10083786338994039,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,35_40,"[35,40)",735337.0,264665146.0,0.014766432856099174,0.00029103859389772725,0.1215172121804116,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,40_999,"[40,inf)",357388.0,168954624.0,0.017255973993837017,0.0004592233478951755,0.13136199600279,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,0_10,"[0,10)",141.0,2404.0,0.17037780164517524,0.04499054509905502,0.4127684600901276,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,10_15,"[10,15)",10792.0,345318.0,0.0070074401660936625,0.004776275128348343,0.08371045434169894,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,15_20,"[15,20)",161906.0,8046016.0,0.009732962975531471,0.0008525577513702541,0.09865578024389382,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,20_25,"[20,25)",706971.0,48269720.0,0.006773713058160729,0.0007270812806328285,0.08230257017955593,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,25_30,"[25,30)",1262764.0,109051544.0,0.004574929224831745,0.0003384883382373934,0.06763822310522169,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,30_35,"[30,35)",1160246.0,120427780.0,0.0027233367447418973,0.0002803341343379765,0.052185599016796744,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,35_40,"[35,40)",644146.0,77380590.0,0.0017965410629639555,0.0004629832648702053,0.042385623305125,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,40_999,"[40,inf)",319282.0,44238436.0,0.0014999314121615986,0.0008663637481321555,0.03872894798676564,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,0_10,"[0,10)",165.0,3948.0,0.010107175368214746,0.04204702358641553,0.1005344486642004,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,10_15,"[10,15)",13041.0,612374.0,0.013033117477305364,0.003325710403576446,0.11416267987965842,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,15_20,"[15,20)",194082.0,15011830.0,0.009248292928870569,0.0008824030695785975,0.09616804525865423,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,20_25,"[20,25)",841454.0,95633890.0,0.008813683014769818,0.0004636029033795215,0.09388121758248462,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,25_30,"[25,30)",1486147.0,231979834.0,0.009694610098452345,0.00029407489331965215,0.09846121113642846,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,30_35,"[30,35)",1343978.0,274061672.0,0.012189298194467808,0.0002685692868928294,0.11040515474590762,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,35_40,"[35,40)",734815.0,188110404.0,0.014631584590033978,0.0003169386206290421,0.12096108709016291,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,40_999,"[40,inf)",357294.0,117407740.0,0.015210714758500216,0.000486040224952725,0.12333172648795693,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,0_10,"[0,10)",107.0,1372.0,0.13871120387598512,0.052146315905075076,0.3724395304958714,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,10_15,"[10,15)",8049.0,186970.0,0.0023597019209906115,0.005440624038682816,0.04857676317943191,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,15_20,"[15,20)",120344.0,4038768.0,0.010181872196524428,0.0014400857669506772,0.1009052634728458,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,20_25,"[20,25)",525516.0,22584572.0,0.008525026626400678,0.0007310367523805424,0.09233107075302809,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,25_30,"[25,30)",940690.0,47644524.0,0.006570471656605931,0.0004526024906190574,0.08105844593011842,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,30_35,"[30,35)",871017.0,49525508.0,0.005238948419417259,0.0005536538508211596,0.0723805804026001,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,35_40,"[35,40)",488355.0,30091064.0,0.0043988567243869545,0.0006081632074361921,0.06632387748305248,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,40_999,"[40,inf)",243842.0,16077330.0,0.003602117526288412,0.0011298725926617752,0.06001764345830659,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,0_10,"[0,10)",144.0,2688.0,0.024760445982214257,0.04599720826517319,0.15735452323404706,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,10_15,"[10,15)",11990.0,408854.0,0.016648105402872423,0.0036191826523723843,0.12902753738203493,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,15_20,"[15,20)",182139.0,9874370.0,0.013317904108718727,0.0009528934776952438,0.115403223996207,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,20_25,"[20,25)",800761.0,61662940.0,0.012806239865240175,0.0004170969980355947,0.11316465819875114,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,25_30,"[25,30)",1430301.0,146357122.0,0.011959835129421928,0.00031350229639361756,0.10936103112819451,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,30_35,"[30,35)",1307533.0,168922756.0,0.01198177798336345,0.0002746392233892277,0.1094613081566425,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,35_40,"[35,40)",721530.0,113115014.0,0.01239219759311921,0.0002836105023314476,0.11132024790270281,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,40_999,"[40,inf)",353735.0,68025634.0,0.011970143403990535,0.0005107340320815247,0.10940815053729103,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,0_10,"[0,10)",72.0,690.0,0.14588332181584238,0.052238762664934164,0.3819467525923507,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,10_15,"[10,15)",5227.0,92664.0,0.002619880220262553,0.006414535100809079,0.05118476550950051,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,15_20,"[15,20)",76311.0,1809450.0,0.007842245134730414,0.002106209229516294,0.0885564516832648,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,20_25,"[20,25)",325572.0,9328326.0,0.0055350889038174285,0.0008653364689569707,0.07439817809474522,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,25_30,"[25,30)",573395.0,18211756.0,0.004327456456068536,0.000617446684419294,0.06578340562838424,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,30_35,"[30,35)",527996.0,17699054.0,0.00432326646325153,0.0009167471482805834,0.06575155103304811,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,35_40,"[35,40)",294945.0,10110088.0,0.00332728596094127,0.0007306533357075267,0.0576826313628398,
+Pythia WW no shoving,no_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,40_999,"[40,inf)",147088.0,5018182.0,0.002287123081188809,0.0013096413270440319,0.04782387563956741,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,0_10,"[0,10)",124.0,1898.0,0.02861802543104814,0.04661216147536803,0.1691686301624747,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,10_15,"[10,15)",10248.0,269358.0,0.02328055443086787,0.0040191226692733294,0.1525796658499024,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,15_20,"[15,20)",158681.0,6349598.0,0.016835080957987972,0.0010486913796581363,0.12975007112902856,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,20_25,"[20,25)",704825.0,38590676.0,0.015377804343097237,0.0004090877771824433,0.12400727536357388,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,25_30,"[25,30)",1270577.0,88594452.0,0.013001620544074976,0.00035300732365445053,0.11402464884433969,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,30_35,"[30,35)",1174747.0,98308648.0,0.01142145793119177,0.0003440213145959832,0.1068712212487149,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,35_40,"[35,40)",656730.0,63133322.0,0.010751544040464505,0.00033132860330404635,0.10368965252359806,
+Pythia WW no shoving,no_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,40_999,"[40,inf)",327442.0,35827162.0,0.009362037143221211,0.0005838966106418845,0.09675762059507877,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,0_10,"[0,10)",183.0,2928.0,0.11758791684914027,0.023305347045923915,0.34291094594535804,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,10_15,"[10,15)",13647.0,519950.0,0.042966273589979335,0.0031239791792428344,0.20728307598542467,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,15_20,"[15,20)",198610.0,14057582.0,0.04022251634075531,0.0005718589139601481,0.2005555193475246,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,20_25,"[20,25)",851872.0,96960310.0,0.03641243931560152,0.0003851520588733647,0.19082043736351073,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,25_30,"[25,30)",1494792.0,251753553.0,0.03337020248119839,0.0002048684492735964,0.18267512825012164,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,30_35,"[30,35)",1347505.0,317140651.0,0.03165643539339,0.00020271685078582867,0.17792255448197117,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,35_40,"[35,40)",735571.0,231764673.0,0.03158031940873994,0.00031642205404754976,0.17770852373687634,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,40_999,"[40,inf)",357427.0,157204128.0,0.03223125976162367,0.0003298469321509121,0.17953066524029723,
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,0_10,"[0,10)",174.0,3072.0,-0.0019065679963894005,0.0387219398332655,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,10_15,"[10,15)",13416.0,511636.0,-0.008639890986473298,0.0032034417352245184,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,15_20,"[15,20)",197106.0,12842993.0,-0.01417889703456926,0.000819743036897677,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,20_25,"[20,25)",848757.0,84826896.0,-0.013236560280233161,0.00048650927685356247,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,25_30,"[25,30)",1492565.0,214825386.0,-0.008377054181276006,0.0003178790291920696,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,30_35,"[30,35)",1346693.0,265825246.0,-0.0001907202130624657,0.00021356261818520573,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,35_40,"[35,40)",735396.0,191316804.0,0.008516567663366706,0.0003541716923907459,0.09228525160266242,
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,40_999,"[40,inf)",357394.0,127287581.0,0.016367563521351318,0.0004660389246558352,0.1279357788945349,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,0_10,"[0,10)",164.0,1287.0,0.07601992743625602,0.041737642341237384,0.2757171148772887,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,10_15,"[10,15)",12649.0,205426.0,0.010477089882053838,0.005488924388409022,0.10235765668504647,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,15_20,"[15,20)",189104.0,5210251.0,0.0088384074256837,0.0006470659464705277,0.09401280458365073,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,20_25,"[20,25)",822068.0,33831264.0,0.004989866073092783,0.0005402838925108359,0.07063898408876491,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,25_30,"[25,30)",1455663.0,82775012.0,0.001095302397538529,0.00029541922724454854,0.03309535311095092,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,30_35,"[30,35)",1322223.0,98602472.0,-0.0006846310685740846,0.00028588695962426824,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,35_40,"[35,40)",725865.0,68068959.0,-0.0010655217564252892,0.0004990125720885968,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,40_999,"[40,inf)",354653.0,42642007.0,5.9970793593905065e-05,0.0005164902305368564,0.007744081197527894,
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,0_10,"[0,10)",167.0,1815.0,-0.01655693711619272,0.04963241969722119,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,10_15,"[10,15)",13174.0,314020.0,-0.025873701574540393,0.0035131214842505872,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,15_20,"[15,20)",195596.0,7799750.0,-0.03257305534851179,0.0010119922327583074,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,20_25,"[20,25)",845282.0,50447664.0,-0.030948490356693788,0.000608796882120076,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,25_30,"[25,30)",1489368.0,124382743.0,-0.02630124333754124,0.0003936479326807649,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,30_35,"[30,35)",1345232.0,149379524.0,-0.01726223666713462,0.00030134560455430707,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,35_40,"[35,40)",735009.0,104236007.0,-0.00742590992715523,0.0003748115034530546,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,40_999,"[40,inf)",357305.0,66902008.0,0.0019369324618816017,0.0005629926064032644,0.04401059488215993,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,0_10,"[0,10)",134.0,747.0,0.12639083864071768,0.05655332398324907,0.3555148922910511,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,10_15,"[10,15)",9832.0,100143.0,0.015597685404322041,0.006536416245451836,0.1248906938259294,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,15_20,"[15,20)",151214.0,2390054.0,0.017685479329336735,0.0011332795062445455,0.13298676373736124,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,20_25,"[20,25)",670414.0,14623074.0,0.0144445026072787,0.0007269969398031414,0.12018528448723953,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,25_30,"[25,30)",1210183.0,33758319.0,0.010771019531370713,0.0003990595083985986,0.10378352244634363,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,30_35,"[30,35)",1121741.0,38136096.0,0.008025538095881794,0.0004142203653006448,0.089585367643839,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,35_40,"[35,40)",627536.0,25070039.0,0.005517547948890493,0.0005223859469497172,0.0742801989017968,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,40_999,"[40,inf)",313573.0,14675360.0,0.003829643953199157,0.0009867728326217954,0.061884117131935854,
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,0_10,"[0,10)",145.0,1098.0,0.00880192556977258,0.05321951781681774,0.09381857795646116,
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,10_15,"[10,15)",12406.0,174088.0,-0.007431261764040425,0.004714253501556834,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,15_20,"[15,20)",188875.0,4263604.0,-0.011067233876241738,0.0011640902582893008,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,20_25,"[20,25)",827725.0,27162800.0,-0.010049632768207957,0.0005441351230461374,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,25_30,"[25,30)",1471429.0,65837181.0,-0.007191153577118338,0.00041020245699636894,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,30_35,"[30,35)",1336312.0,77896437.0,-0.0012813283083347822,0.0003685339819726914,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,35_40,"[35,40)",732562.0,53701245.0,0.004444277283740781,0.00041379616708313554,0.06666541294960064,
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,40_999,"[40,inf)",356832.0,33992155.0,0.00928769605874707,0.0005906060460891768,0.09637269353269665,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,0_10,"[0,10)",102.0,454.0,0.11661695051537471,0.05021212235679475,0.3414922407835568,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,10_15,"[10,15)",7123.0,57314.0,0.01075261236578512,0.006861551192793447,0.10369480394785999,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,15_20,"[15,20)",110529.0,1286051.0,0.020261270166215345,0.0017249683037560424,0.14234208852695449,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,20_25,"[20,25)",495345.0,7446291.0,0.016609891845825543,0.0009450966925658692,0.12887936935687397,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,25_30,"[25,30)",905488.0,16380545.0,0.013687942452882653,0.0005662323747584935,0.11699548048058375,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,30_35,"[30,35)",853044.0,17746718.0,0.011604293837916353,0.0005516364419563424,0.1077232279404788,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,35_40,"[35,40)",485014.0,11223639.0,0.009014229327652563,0.0008933432964281688,0.09494329532754045,
+Pythia WW no shoving,no_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,40_999,"[40,inf)",246396.0,6263183.0,0.00634484952338631,0.0013276267473604291,0.07965456373232051,
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,0_10,"[0,10)",125.0,702.0,-0.023502857191607704,0.0794210330935117,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,10_15,"[10,15)",10690.0,109418.0,-0.010092281570823118,0.004035925525839027,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,15_20,"[15,20)",167029.0,2656225.0,-0.011577111706210681,0.0012035554622809852,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,20_25,"[20,25)",748570.0,16633377.0,-0.010575265431558999,0.0004457227541611526,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,25_30,"[25,30)",1359049.0,39647808.0,-0.007176860994246226,0.0004654937727872618,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,30_35,"[30,35)",1259240.0,46220873.0,-0.0013168291974557497,0.0004519256744105821,nan,negative c2; v2{2} magnitude not defined
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,35_40,"[35,40)",702730.0,31492050.0,0.004530794183501507,0.00042614639056644656,0.06731117428407787,
+Pythia WW no shoving,no_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,40_999,"[40,inf)",348267.0,19661464.0,0.008425154931366247,0.0006373248540213465,0.09178864271447883,
+Pythia WW nominal shoving,nominal_shoving,beam,inclusive,inclusive,0.0,0_10,"[0,10)",171.0,11222.0,0.21271129292806748,0.018438608825220904,0.4612063452816618,
+Pythia WW nominal shoving,nominal_shoving,beam,inclusive,inclusive,0.0,10_15,"[10,15)",13940.0,2262384.0,0.19420962243102868,0.0010611909878427313,0.440692208271293,
+Pythia WW nominal shoving,nominal_shoving,beam,inclusive,inclusive,0.0,15_20,"[15,20)",199947.0,60033582.0,0.18539440193871642,0.0005003727630022281,0.4305745021929613,
+Pythia WW nominal shoving,nominal_shoving,beam,inclusive,inclusive,0.0,20_25,"[20,25)",857835.0,412646932.0,0.17343982608274003,0.00021175257427343366,0.41646107391056375,
+Pythia WW nominal shoving,nominal_shoving,beam,inclusive,inclusive,0.0,25_30,"[25,30)",1496886.0,1059829936.0,0.15980630281802735,0.00019026879336722795,0.39975780519963255,
+Pythia WW nominal shoving,nominal_shoving,beam,inclusive,inclusive,0.0,30_35,"[30,35)",1344459.0,1323087116.0,0.14581832142400705,0.00017179659881371099,0.3818616522040503,
+Pythia WW nominal shoving,nominal_shoving,beam,inclusive,inclusive,0.0,35_40,"[35,40)",732138.0,958975642.0,0.13254209860701519,0.00017848978249159172,0.3640633167554995,
+Pythia WW nominal shoving,nominal_shoving,beam,inclusive,inclusive,0.0,40_999,"[40,inf)",354624.0,643227836.0,0.11669247014404663,0.0001879581872634579,0.34160279586684683,
+Pythia WW nominal shoving,nominal_shoving,thrust,inclusive,inclusive,0.0,0_10,"[0,10)",171.0,13374.0,0.23525616795809298,0.029328364055950303,0.48503213085123853,
+Pythia WW nominal shoving,nominal_shoving,thrust,inclusive,inclusive,0.0,10_15,"[10,15)",13940.0,2297308.0,0.24786676914424974,0.0019956962499772537,0.4978621989509243,
+Pythia WW nominal shoving,nominal_shoving,thrust,inclusive,inclusive,0.0,15_20,"[15,20)",199947.0,56915434.0,0.23818224860241344,0.0004704967522695931,0.48803918756838927,
+Pythia WW nominal shoving,nominal_shoving,thrust,inclusive,inclusive,0.0,20_25,"[20,25)",857835.0,375750564.0,0.22493408263890666,0.00029457346662544587,0.4742721609360038,
+Pythia WW nominal shoving,nominal_shoving,thrust,inclusive,inclusive,0.0,25_30,"[25,30)",1496886.0,940140486.0,0.2088961519817759,0.00017028206068047736,0.45705158569003557,
+Pythia WW nominal shoving,nominal_shoving,thrust,inclusive,inclusive,0.0,30_35,"[30,35)",1344459.0,1151571060.0,0.19085926799361969,0.0001377633543135154,0.43687443046442953,
+Pythia WW nominal shoving,nominal_shoving,thrust,inclusive,inclusive,0.0,35_40,"[35,40)",732138.0,820193294.0,0.17300772833993447,0.00013088391305691484,0.41594197713134756,
+Pythia WW nominal shoving,nominal_shoving,thrust,inclusive,inclusive,0.0,40_999,"[40,inf)",354624.0,537799678.0,0.15032542872390592,0.000162237084061864,0.38771823367479885,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,0_10,"[0,10)",161.0,4640.0,-0.0008254053915130328,0.02488583065128499,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,10_15,"[10,15)",13693.0,917650.0,0.030505062578393378,0.0026757022035022067,0.17465698548410075,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,15_20,"[15,20)",198398.0,23618478.0,0.022448483905748905,0.0008001001142232343,0.14982818128025482,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,20_25,"[20,25)",853390.0,156147926.0,0.01607226581512915,0.000237536008250761,0.12677644029995933,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,25_30,"[25,30)",1492219.0,386333664.0,0.010899154008987883,0.00015370223862887922,0.10439901344834578,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,30_35,"[30,35)",1342014.0,465838618.0,0.007305514463080576,0.00023374881785641338,0.08547230231531486,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,35_40,"[35,40)",731456.0,325748394.0,0.00528949723565407,0.0002680249702993377,0.07272892983987919,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,40_999,"[40,inf)",354483.0,208077294.0,0.003901806944033533,0.0003370372300166534,0.062464445439253946,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,0_10,"[0,10)",166.0,6888.0,0.07101151727581476,0.04645140493406273,0.2664798627960746,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,10_15,"[10,15)",13791.0,1177640.0,0.06856386195145844,0.002540315125923248,0.26184702013095057,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,15_20,"[15,20)",199235.0,28835476.0,0.052464849731556774,0.0006922743952834743,0.22905206773036732,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,20_25,"[20,25)",856728.0,188250022.0,0.04423667746670847,0.00044434536127301906,0.2103251707873037,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,25_30,"[25,30)",1496286.0,466661714.0,0.04019949842194599,0.00027994104067140485,0.2004981257317534,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,30_35,"[30,35)",1344300.0,567192370.0,0.037976285832998904,0.00018063744455726005,0.1948750518486112,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,35_40,"[35,40)",732120.0,401863800.0,0.037410295979652404,0.00026185041601800693,0.1934174138480101,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,40_999,"[40,inf)",354621.0,262461830.0,0.03478420732206121,0.00021549390202174075,0.18650524743840644,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,0_10,"[0,10)",141.0,2720.0,-0.017735967224570992,0.03434166782732536,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,10_15,"[10,15)",12480.0,529322.0,0.020828774569733435,0.0031657179683342836,0.1443217744130574,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,15_20,"[15,20)",184869.0,12982550.0,0.009135610035455308,0.0010699966741455976,0.09558038520248445,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,20_25,"[20,25)",803302.0,81586996.0,0.005105204783359372,0.00034978229433200786,0.0714507157651998,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,25_30,"[25,30)",1416105.0,191720794.0,0.0014634910355078347,0.00022232021057796197,0.03825560136121029,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,30_35,"[30,35)",1284503.0,220158764.0,-0.0005343742133793281,0.00033161943933059904,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,35_40,"[35,40)",705585.0,146534838.0,-0.001281146887978882,0.00035449634413546024,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,40_999,"[40,inf)",345005.0,87745004.0,-0.0021152259276014237,0.0003245608869701747,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,0_10,"[0,10)",160.0,4860.0,0.004747939273388031,0.057925559651897475,0.06890529205647437,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,10_15,"[10,15)",13550.0,817474.0,0.018202921102461384,0.0026101495401441885,0.13491820152396555,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,15_20,"[15,20)",197572.0,20006966.0,0.005265630812894389,0.0008455803120806177,0.07256466642171236,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,20_25,"[20,25)",853282.0,129401578.0,0.00381027972518542,0.0005133929509416727,0.06172746329783381,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,25_30,"[25,30)",1493497.0,316370506.0,0.0069006478353908765,0.00035241067172660587,0.08307013804846407,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,30_35,"[30,35)",1343177.0,377965002.0,0.011215191104802357,0.00019450477197719803,0.10590179934638673,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,35_40,"[35,40)",731885.0,262892708.0,0.015734148369141544,0.0003045968956640755,0.12543583367260547,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,40_999,"[40,inf)",354589.0,167372866.0,0.017572998291642578,0.0002467890660624397,0.13256318603459474,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,0_10,"[0,10)",116.0,1776.0,-0.013178989863195567,0.04154252081743079,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,10_15,"[10,15)",10866.0,345580.0,0.02481079396335495,0.004182509463739441,0.1575144246199533,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,15_20,"[15,20)",162871.0,8116796.0,0.009140550611068325,0.0012073040044783487,0.0956062268425458,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,20_25,"[20,25)",712418.0,48705764.0,0.006865630322662189,0.0004522810073322977,0.08285909921464382,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,25_30,"[25,30)",1264711.0,109481240.0,0.004209400836545279,0.00029974337109597534,0.06487989547267535,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,30_35,"[30,35)",1155582.0,120546012.0,0.0026383415414125222,0.00044250239317634624,0.0513647889259999,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,35_40,"[35,40)",638783.0,77037112.0,0.0023892866827774557,0.00042788814228376644,0.04888033022369485,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,40_999,"[40,inf)",315098.0,43835230.0,0.0005538918523050601,0.0005441292749505409,0.02353490710211239,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,0_10,"[0,10)",154.0,3812.0,0.004155060242976431,0.060793371597910734,0.06445975677099962,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,10_15,"[10,15)",13245.0,621426.0,0.022364991469300776,0.0028605679573596716,0.1495492944460146,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,15_20,"[15,20)",195105.0,15063568.0,0.010857380199539877,0.0009737358484278996,0.10419875334925979,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,20_25,"[20,25)",847321.0,96187206.0,0.009184860203454218,0.0004909196377208412,0.09583767632541086,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,25_30,"[25,30)",1487945.0,231844412.0,0.010740715281816911,0.0003842249492106033,0.10363742220750626,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,30_35,"[30,35)",1340723.0,272874754.0,0.01297108805435386,0.00021048347727014904,0.11389068466891338,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,35_40,"[35,40)",731333.0,186868808.0,0.01523100740806156,0.0003246293390768997,0.12341396763762828,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,40_999,"[40,inf)",354487.0,116368510.0,0.015058325067795522,0.000263920697158021,0.12271236721616742,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,0_10,"[0,10)",78.0,994.0,-0.05483117329759139,0.05502366670147333,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,10_15,"[10,15)",8043.0,186076.0,0.024388630047711662,0.00550009732646485,0.1561685949469728,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,15_20,"[15,20)",121198.0,4074630.0,0.008184996161162037,0.0011140154846542426,0.09047096860961552,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,20_25,"[20,25)",529852.0,22755556.0,0.00851645396005036,0.0006605192715962028,0.092284635557878,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,25_30,"[25,30)",942917.0,47806668.0,0.006240972097571001,0.0005031664345089937,0.07899982340215073,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,30_35,"[30,35)",866594.0,49514232.0,0.005354958222615525,0.0005153134400228882,0.07317758005438227,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,35_40,"[35,40)",482837.0,29943440.0,0.005705307483180221,0.0004112776176217489,0.07553348584025645,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,40_999,"[40,inf)",239779.0,15897346.0,0.003152263650235879,0.0008970673540113295,0.0561450233790661,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,0_10,"[0,10)",135.0,2642.0,0.020410786955157884,0.0698901285232505,0.14286632547650227,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,10_15,"[10,15)",12182.0,415582.0,0.027089801798352565,0.0038423803522932387,0.16458979858530895,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,15_20,"[15,20)",182929.0,9896710.0,0.01574006972275915,0.0010029284086376343,0.12545943457053818,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,20_25,"[20,25)",805117.0,61971346.0,0.012664464097533374,0.00045845196713930643,0.11253650117865481,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,25_30,"[25,30)",1430732.0,146174400.0,0.012207958050611522,0.0004312410807265268,0.11048962870157326,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,30_35,"[30,35)",1303068.0,168218038.0,0.01219809254310918,0.00019092658275708874,0.11044497518270888,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,35_40,"[35,40)",717426.0,112350526.0,0.01292333932162036,0.00038276793867872053,0.11368086611923908,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,40_999,"[40,inf)",350754.0,67481284.0,0.011235294447485097,0.00031885901088493375,0.10599667186985211,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,0_10,"[0,10)",54.0,568.0,-0.10391583612227806,0.0584530727463494,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,10_15,"[10,15)",5217.0,92268.0,0.023207333794683725,0.008325016593976093,0.15233953457551236,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,15_20,"[15,20)",76870.0,1830090.0,0.005932895304554621,0.0016731462746688195,0.0770252900322655,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,20_25,"[20,25)",327590.0,9388916.0,0.0062856053759091,0.0008726413274853496,0.07928180986776917,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,25_30,"[25,30)",574038.0,18222698.0,0.004398712953724961,0.000667801217522198,0.06632279362123523,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,30_35,"[30,35)",524443.0,17629794.0,0.0038676606512857395,0.0007781917851886709,0.062190518982283303,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,35_40,"[35,40)",291159.0,10057228.0,0.0047660565958213144,0.0007583961769469735,0.06903663227462152,
+Pythia WW nominal shoving,nominal_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,40_999,"[40,inf)",144159.0,4960952.0,0.002703848455680486,0.0015515372361956257,0.05199854282266462,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,0_10,"[0,10)",115.0,1744.0,0.07299299157281768,0.06293092217068219,0.27017215173444076,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,10_15,"[10,15)",10431.0,272370.0,0.030558108091665863,0.004444038605106199,0.17480877578561627,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,15_20,"[15,20)",159628.0,6370104.0,0.01914049560650463,0.001096455777003331,0.13834917999939367,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,20_25,"[20,25)",708040.0,38817188.0,0.015540140887896601,0.00047049497213442256,0.12466010142742785,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,25_30,"[25,30)",1269367.0,88561266.0,0.012961581093612368,0.0004319709242421691,0.11384893980012448,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,30_35,"[30,35)",1169020.0,98044172.0,0.011661796033504404,0.00023373095610759926,0.10798979596936187,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,35_40,"[35,40)",651572.0,62759380.0,0.010818947252591225,0.0004254988948405831,0.10401416851848225,
+Pythia WW nominal shoving,nominal_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,40_999,"[40,inf)",324157.0,35589668.0,0.008678498812417966,0.0004553091108174639,0.09315846076668488,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,0_10,"[0,10)",164.0,2563.0,0.03497611594897106,0.03038868678090726,0.18701902563368,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,10_15,"[10,15)",13869.0,528413.0,0.048918346978433676,0.0019694423860788656,0.22117492393676474,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,15_20,"[15,20)",199775.0,14122513.0,0.04217103991678319,0.0007183933035448761,0.2053558860047191,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,20_25,"[20,25)",857720.0,97605676.0,0.03702623051545222,0.0002756728526676256,0.19242201151493096,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,25_30,"[25,30)",1496858.0,251973400.0,0.03341857490203732,0.00022371370349420723,0.18280748043238634,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,30_35,"[30,35)",1344453.0,316189891.0,0.031148189498685447,0.0002162044436502464,0.17648849678855968,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,35_40,"[35,40)",732138.0,230475668.0,0.03076036060696272,0.00030445454099789146,0.17538631818634748,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,40_999,"[40,inf)",354624.0,155819428.0,0.03061081235479119,0.0003124741921805924,0.17495945917495057,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,0_10,"[0,10)",160.0,3010.0,-0.016891185490907873,0.04964638203477992,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,10_15,"[10,15)",13647.0,520769.0,0.0008219705310219488,0.002517944189570624,0.028670028444735606,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,15_20,"[15,20)",198158.0,12912837.0,-0.010469526663418719,0.0008681951036461211,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,20_25,"[20,25)",854553.0,85560836.0,-0.011211424864188906,0.0004665772336775965,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,25_30,"[25,30)",1494479.0,215084258.0,-0.005914346690298894,0.00029478704569857705,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,30_35,"[30,35)",1343548.0,264873406.0,0.0015505472400745382,0.0001536535753632342,0.03937698871262934,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,35_40,"[35,40)",731940.0,189931348.0,0.010107164366495131,0.0002915167074509111,0.10053439394801728,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,40_999,"[40,inf)",354591.0,125906504.0,0.017514375499470335,0.00023800155967465607,0.13234188868030536,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,0_10,"[0,10)",141.0,964.0,-0.03739474773441288,0.041570147234533186,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,10_15,"[10,15)",12768.0,206142.0,0.020029247916741672,0.0038841105227326337,0.1415247254607536,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,15_20,"[15,20)",190331.0,5245632.0,0.009936275635012386,0.0011607322058348197,0.09968086895193273,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,20_25,"[20,25)",827456.0,34142336.0,0.005226523009973039,0.00030295990555284397,0.07229469558669598,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,25_30,"[25,30)",1457066.0,83056101.0,0.00128010373979527,0.00026464765530726577,0.03577853741833601,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,30_35,"[30,35)",1318195.0,98538601.0,-0.0010687926289095259,0.00033601595552656987,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,35_40,"[35,40)",721920.0,67777302.0,-0.001399309490286401,0.0004468324309008573,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,40_999,"[40,inf)",351576.0,42353248.0,-0.0013530796471849641,0.0004968662666787506,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,0_10,"[0,10)",155.0,1817.0,-0.0027225602751339987,0.06340289930220151,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,10_15,"[10,15)",13398.0,317582.0,-0.017496116821438548,0.0031677058818431352,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,15_20,"[15,20)",196642.0,7816251.0,-0.02998140407182871,0.0011870157048822537,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,20_25,"[20,25)",850987.0,50787254.0,-0.030477852446250283,0.0005432847938776996,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,25_30,"[25,30)",1491288.0,124449930.0,-0.024663678054859733,0.0004358211312680995,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,30_35,"[30,35)",1341949.0,148784254.0,-0.016546030781992606,0.00024610677421994266,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,35_40,"[35,40)",731534.0,103566028.0,-0.0068154582453468105,0.000342369102476361,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,40_999,"[40,inf)",354511.0,66330290.0,0.001481522644650974,0.000330321968202461,0.03849055266751796,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,0_10,"[0,10)",92.0,464.0,-0.006133400133908216,0.06987663406780445,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,10_15,"[10,15)",9874.0,101044.0,0.02981054798159504,0.005666963662496651,0.17265731372170437,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,15_20,"[15,20)",152060.0,2405816.0,0.017698179141303172,0.001375109121057695,0.13303450357446062,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,20_25,"[20,25)",675484.0,14734309.0,0.01460448698993984,0.000705680073302013,0.12084902560608356,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,25_30,"[25,30)",1211166.0,33896283.0,0.01066745540394573,0.00037077326260011626,0.10328337428621187,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,30_35,"[30,35)",1116904.0,38183047.0,0.007546726401754293,0.000486258959539209,0.08687189650142497,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,35_40,"[35,40)",622150.0,24939783.0,0.0063881546151365685,0.0006172215646712378,0.07992593205672717,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,40_999,"[40,inf)",309374.0,14579873.0,0.0035141873242782442,0.0007931852558799778,0.05928058134227636,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,0_10,"[0,10)",134.0,961.0,-0.06150487973105818,0.07404989563050085,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,10_15,"[10,15)",12620.0,176034.0,-0.00033953774639478127,0.00402902337631062,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,15_20,"[15,20)",189759.0,4273576.0,-0.010058015790575744,0.0012976166885947807,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,20_25,"[20,25)",833119.0,27274416.0,-0.010306969794294997,0.0006084224846879534,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,25_30,"[25,30)",1472917.0,65797811.0,-0.006521974336357665,0.00041353943739367015,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,30_35,"[30,35)",1332922.0,77518330.0,-0.0008577779585614865,0.0002765563136025048,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,35_40,"[35,40)",729030.0,53344709.0,0.004982921204966288,0.00044461651035152563,0.0705898094980167,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,40_999,"[40,inf)",354004.0,33683375.0,0.008651482223896851,0.00028070191617506226,0.09301334433239593,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,0_10,"[0,10)",67.0,258.0,-0.12802481756193537,0.07668200498728066,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,10_15,"[10,15)",7197.0,58266.0,0.03142800113797543,0.007231179540923102,0.17727944364188258,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,15_20,"[15,20)",111206.0,1289930.0,0.01861376793332924,0.001421723472847034,0.13643228332520585,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,20_25,"[20,25)",498789.0,7507697.0,0.017456507562051218,0.000768653972277213,0.132123077325845,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,25_30,"[25,30)",906434.0,16448568.0,0.013644979648024608,0.0006673877857251789,0.11681172735656556,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,30_35,"[30,35)",848020.0,17760374.0,0.010752384085813773,0.0006745628555163302,0.10369370321197799,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,35_40,"[35,40)",478845.0,11152542.0,0.009892838029201472,0.0005464095175881042,0.09946274694176445,
+Pythia WW nominal shoving,nominal_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,40_999,"[40,inf)",242342.0,6216544.0,0.006106587164570718,0.001144019288979021,0.07814465538071505,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,0_10,"[0,10)",107.0,588.0,0.004236837949515311,0.07804166974399279,0.06509099745368258,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,10_15,"[10,15)",10866.0,112669.0,-0.0005480242937345645,0.005131876309132529,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,15_20,"[15,20)",167784.0,2666660.0,-0.011043317592349526,0.0012263312117015096,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,20_25,"[20,25)",752612.0,16681756.0,-0.011305621909773437,0.0006009457109506119,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,25_30,"[25,30)",1359503.0,39583632.0,-0.006936097820678802,0.0004125246718433546,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,30_35,"[30,35)",1255211.0,45914714.0,-0.00110659362171561,0.00022028814845860336,nan,negative c2; v2{2} magnitude not defined
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,35_40,"[35,40)",699006.0,31258079.0,0.004782021936631935,0.0004991013300966503,0.06915216508998062,
+Pythia WW nominal shoving,nominal_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,40_999,"[40,inf)",345191.0,19468756.0,0.007767677457575614,0.00035775921905299187,0.08813442833294838,
+Pythia WW enhanced shoving,enhanced_shoving,beam,inclusive,inclusive,0.0,0_10,"[0,10)",163.0,10654.0,0.1734211754809067,0.015136843747308656,0.41643868153775854,
+Pythia WW enhanced shoving,enhanced_shoving,beam,inclusive,inclusive,0.0,10_15,"[10,15)",13878.0,2251324.0,0.19451601101255545,0.002178608693528466,0.44103969323923153,
+Pythia WW enhanced shoving,enhanced_shoving,beam,inclusive,inclusive,0.0,15_20,"[15,20)",201009.0,60363552.0,0.18629889029440638,0.0004961363492691045,0.4316235515983881,
+Pythia WW enhanced shoving,enhanced_shoving,beam,inclusive,inclusive,0.0,20_25,"[20,25)",861017.0,414088756.0,0.1743576110116063,0.00015732340925513346,0.4175615056630655,
+Pythia WW enhanced shoving,enhanced_shoving,beam,inclusive,inclusive,0.0,25_30,"[25,30)",1497640.0,1060627004.0,0.16037776737064174,0.00013071480742247606,0.4004719308149346,
+Pythia WW enhanced shoving,enhanced_shoving,beam,inclusive,inclusive,0.0,30_35,"[30,35)",1342948.0,1321688124.0,0.1465751703683246,0.00015617757179665887,0.3828513685078383,
+Pythia WW enhanced shoving,enhanced_shoving,beam,inclusive,inclusive,0.0,35_40,"[35,40)",730401.0,956588096.0,0.13333475086290184,0.0001307116197808503,0.36515031269725323,
+Pythia WW enhanced shoving,enhanced_shoving,beam,inclusive,inclusive,0.0,40_999,"[40,inf)",352944.0,640261912.0,0.11798859979531047,0.0001712289685421813,0.3434946867060835,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,inclusive,inclusive,0.0,0_10,"[0,10)",163.0,12756.0,0.2208369974611283,0.022542557047868363,0.4699329712428447,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,inclusive,inclusive,0.0,10_15,"[10,15)",13878.0,2300540.0,0.25299328393578707,0.0021166225334567986,0.5029843774271593,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,inclusive,inclusive,0.0,15_20,"[15,20)",201009.0,57336766.0,0.24282882075624534,0.0005882091834903413,0.49277664388264725,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,inclusive,inclusive,0.0,20_25,"[20,25)",861017.0,377601008.0,0.22939864551356778,0.00028022237843350296,0.47895578659576477,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,inclusive,inclusive,0.0,25_30,"[25,30)",1497640.0,941112988.0,0.21285957203522843,0.00013670256002445386,0.46136706865057936,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,inclusive,inclusive,0.0,30_35,"[30,35)",1342948.0,1149851502.0,0.19518535603777457,0.00016156260890868362,0.4417978678510961,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,inclusive,inclusive,0.0,35_40,"[35,40)",730401.0,817824706.0,0.17748985074633616,0.00023131380437160695,0.4212954435385412,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,inclusive,inclusive,0.0,40_999,"[40,inf)",352944.0,534024664.0,0.1555632058392732,0.00023545720524301004,0.39441501725881734,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,0_10,"[0,10)",151.0,4362.0,-0.0137203335561022,0.036950026244243664,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,10_15,"[10,15)",13669.0,919858.0,0.026967895892155723,0.0030068314418516683,0.16421904850581653,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,15_20,"[15,20)",199314.0,23757108.0,0.022989446098157867,0.0007134510050662557,0.15162270970457514,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,20_25,"[20,25)",856602.0,156970664.0,0.01579027862052584,0.000335592350266534,0.12565937537854405,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,25_30,"[25,30)",1492689.0,387070738.0,0.009919471505969476,0.0002320807350805329,0.0995965436446942,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,30_35,"[30,35)",1340312.0,465620650.0,0.006216477808019086,0.00023079708338318255,0.07884464349604915,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,35_40,"[35,40)",729601.0,325182882.0,0.00402194285311243,0.00021363039915087042,0.06341878943272593,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p0,1.0,40_999,"[40,inf)",352761.0,207005252.0,0.003283413900545729,0.00029981498082263885,0.057301081146394865,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,0_10,"[0,10)",157.0,6504.0,-0.00047884885229899774,0.039216861631531034,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,10_15,"[10,15)",13714.0,1171940.0,0.07061878519376182,0.0033689035084733918,0.26574195226527897,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,15_20,"[15,20)",200255.0,29043976.0,0.05665891945034082,0.0007113169940388887,0.23803134131945908,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,20_25,"[20,25)",859913.0,189125190.0,0.048204161636466854,0.00045809622330962796,0.21955446166376774,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,25_30,"[25,30)",1497005.0,466767290.0,0.042679164177707715,0.00021344537153742093,0.20658936124037877,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,30_35,"[30,35)",1342795.0,565907380.0,0.040173828471027066,0.00026554019297294663,0.2004341000703899,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,35_40,"[35,40)",730378.0,400525432.0,0.039571139367729304,0.0003750251780396425,0.19892495913718145,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p0,1.0,40_999,"[40,inf)",352939.0,260605252.0,0.03737258519208016,0.00045032364699268467,0.1933199037659603,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,0_10,"[0,10)",131.0,2662.0,-0.024918970921910394,0.0486498816549218,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,10_15,"[10,15)",12541.0,531938.0,0.012435819835198328,0.0032962011338258843,0.11151600708059058,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,15_20,"[15,20)",185784.0,13033414.0,0.010494302879819927,0.0006825727268517044,0.1024417047877471,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,20_25,"[20,25)",806298.0,82094438.0,0.004609517261646835,0.0004634025198248475,0.06789342576160695,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,25_30,"[25,30)",1415869.0,192477010.0,0.0005611023972020735,0.00030490545409546133,0.023687600072655596,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,30_35,"[30,35)",1281545.0,220427506.0,-0.001401315597256727,0.00031608019717667353,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,35_40,"[35,40)",702930.0,146354436.0,-0.0026356401084059082,0.000380768377540877,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_1p6,1.6,40_999,"[40,inf)",342596.0,87396250.0,-0.002463159716587035,0.0004795629844689054,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,0_10,"[0,10)",152.0,4536.0,-0.04998365829129026,0.046491863071783754,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,10_15,"[10,15)",13476.0,811482.0,0.01741703323009475,0.004033545801858366,0.13197360808167197,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,15_20,"[15,20)",198631.0,20103292.0,0.00819120723713023,0.0008086477251527426,0.09050528844841184,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,20_25,"[20,25)",856382.0,129824186.0,0.006505184880687487,0.0005202454047326598,0.08065472633818484,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,25_30,"[25,30)",1494201.0,316252046.0,0.008273054250410866,0.00029005438629821297,0.09095633155757143,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,30_35,"[30,35)",1341686.0,377060576.0,0.012387119480674483,0.0003088670685798447,0.1112974369905906,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,35_40,"[35,40)",730124.0,262090618.0,0.017289382837057807,0.00040190128200192233,0.1314890977878311,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_1p6,1.6,40_999,"[40,inf)",352899.0,166423366.0,0.019970640495319082,0.0005087123601824543,0.14131751659054542,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,0_10,"[0,10)",110.0,1896.0,-0.0020364971171929584,0.050945372910364974,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,10_15,"[10,15)",10947.0,347302.0,0.011362849539268369,0.004301301270658225,0.10659666758050351,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,15_20,"[15,20)",163806.0,8135534.0,0.01111549392376622,0.0008469617254812628,0.1054300427950507,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,20_25,"[20,25)",715833.0,49036208.0,0.006547489800613684,0.0005117766268947015,0.08091656073149478,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,25_30,"[25,30)",1263759.0,109999850.0,0.0037208100715752294,0.0003481298249249915,0.06099844318976698,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,30_35,"[30,35)",1151828.0,120644798.0,0.001814164468079187,0.00038419418899260165,0.042593009615184356,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,35_40,"[35,40)",635381.0,76894710.0,0.0007510509655246143,0.0004624437166173786,0.027405309075516998,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p0,2.0,40_999,"[40,inf)",312314.0,43673206.0,0.00019936636397759164,0.0006431156522129377,0.01411971543543253,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,0_10,"[0,10)",142.0,3420.0,-0.0287974372073348,0.04815700079214956,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,10_15,"[10,15)",13169.0,616160.0,0.019017441720157246,0.004294695172424832,0.13790374077651862,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,15_20,"[15,20)",196214.0,15108152.0,0.012742649127030806,0.0009315452600714672,0.11288334300077583,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,20_25,"[20,25)",850187.0,96418246.0,0.0112513866894951,0.000526302454603925,0.10607255389352657,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,25_30,"[25,30)",1488536.0,231687514.0,0.01156182997231792,0.0003253473242538429,0.10752595022745867,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,30_35,"[30,35)",1339097.0,272144728.0,0.013459671157096093,0.00028194120447880896,0.11601582287384808,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,35_40,"[35,40)",729550.0,186288522.0,0.016329256643009157,0.000416063822337541,0.1277859798374186,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p0,2.0,40_999,"[40,inf)",352787.0,115758228.0,0.01735307827611702,0.0005189051105247743,0.1317310831812941,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,0_10,"[0,10)",77.0,1014.0,0.05238857209335085,0.05460108493493156,0.22888549996308383,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,10_15,"[10,15)",8165.0,186986.0,0.009763327203123614,0.0067220601122901505,0.09880955016152848,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,15_20,"[15,20)",121755.0,4072608.0,0.011076414409946618,0.0012004674612203611,0.10524454574915804,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,20_25,"[20,25)",532420.0,22918354.0,0.008085920070853082,0.0006308784780543641,0.08992174414930508,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,25_30,"[25,30)",942561.0,48058674.0,0.005597667806565885,0.0004951350811930119,0.07481756348990447,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,30_35,"[30,35)",864073.0,49564614.0,0.004635730240750077,0.00043628085547670894,0.06808619713826054,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,35_40,"[35,40)",479298.0,29808732.0,0.004221031278288064,0.0006242899402478648,0.06496946419886857,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_2p5,2.5,40_999,"[40,inf)",236596.0,15814912.0,0.0014238174471793213,0.0009307665422009509,0.0377335056306636,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,0_10,"[0,10)",125.0,2282.0,-0.019851837150824062,0.052662522191118825,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,10_15,"[10,15)",12125.0,411026.0,0.022114619636104792,0.00460938868088614,0.14870985050125224,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,15_20,"[15,20)",183670.0,9917394.0,0.015947092982495373,0.0009502346666442435,0.12628179988618857,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,20_25,"[20,25)",807367.0,62088750.0,0.013741961746052156,0.0004810804430181219,0.11722611375479508,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,25_30,"[25,30)",1430975.0,146080536.0,0.01276873127898779,0.00039495705013990073,0.11299881096271673,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,30_35,"[30,35)",1300720.0,167818080.0,0.01233067793564261,0.00025372884174011586,0.11104358574741095,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,35_40,"[35,40)",715237.0,112063410.0,0.013087636851666433,0.0004156500079544097,0.11440121000962548,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_2p5,2.5,40_999,"[40,inf)",348900.0,67134222.0,0.013406810244100899,0.0005980434811788251,0.1157877810656241,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,0_10,"[0,10)",51.0,550.0,0.11835742366444937,0.06959764317466524,0.34403113763793153,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,10_15,"[10,15)",5281.0,92396.0,0.0038386754910335824,0.008313030857107943,0.061957045531832636,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,15_20,"[15,20)",76858.0,1819096.0,0.008721858410686303,0.0018878016964103573,0.09339089040525475,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,20_25,"[20,25)",330028.0,9452434.0,0.004503550891291988,0.0008417235495035698,0.06710850088693673,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,25_30,"[25,30)",574423.0,18327546.0,0.0034943880362662883,0.0008239632101240014,0.05911334905303783,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,30_35,"[30,35)",522314.0,17655386.0,0.003782174556095158,0.0006419157149023141,0.06149938663186128,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,35_40,"[35,40)",287825.0,9964930.0,0.003369233876803647,0.0009188565939425715,0.058045102091422385,
+Pythia WW enhanced shoving,enhanced_shoving,beam,rapidity_gap,abs_delta_eta_gt_3p0,3.0,40_999,"[40,inf)",141297.0,4912128.0,-0.0005878779673549793,0.001184752997872136,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,0_10,"[0,10)",106.0,1556.0,0.0065469518215871166,0.06099837186209721,0.08091323638062636,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,10_15,"[10,15)",10411.0,271926.0,0.02299062119103984,0.004823687359187219,0.15162658471072887,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,15_20,"[15,20)",159931.0,6388438.0,0.018532641714996367,0.0009348431390026391,0.13613464553520668,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,20_25,"[20,25)",709683.0,38936408.0,0.01577657298216428,0.0005181157433000502,0.12560482865783576,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,25_30,"[25,30)",1269100.0,88600616.0,0.01363020481374805,0.00035529866207259926,0.11674846814304696,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,30_35,"[30,35)",1165097.0,97936526.0,0.011150228573354059,0.00027110424776909624,0.10559464273036799,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,35_40,"[35,40)",649038.0,62702108.0,0.010597780520652196,0.0004448314275928213,0.10294552210102291,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,rapidity_gap,abs_delta_eta_gt_3p0,3.0,40_999,"[40,inf)",322002.0,35401486.0,0.01033738945039476,0.0006234848218534336,0.10167295338680174,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,0_10,"[0,10)",155.0,2420.0,-0.0059119257549959765,0.030592548201475726,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,10_15,"[10,15)",13811.0,525762.0,0.045247993378887595,0.0028499480739147035,0.2127157572416477,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,15_20,"[15,20)",200826.0,14204006.0,0.04233829656369137,0.0006292000765077693,0.2057627190812062,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,20_25,"[20,25)",860897.0,97922340.0,0.036846786883762986,0.000288011557710396,0.1919551689425502,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,25_30,"[25,30)",1497606.0,252053515.0,0.032300563199218105,0.00022806009624229027,0.17972357441142245,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,30_35,"[30,35)",1342941.0,315710306.0,0.030277674589036154,0.0002018749108710236,0.17400481197092268,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,35_40,"[35,40)",730400.0,229777694.0,0.029438832700100385,0.00017459995256433785,0.1715774830800953,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,40_999,"[40,inf)",352944.0,155017944.0,0.030090065677307168,0.0002920614741110197,0.17346488312424266,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,0_10,"[0,10)",155.0,2882.0,-0.05334528506434338,0.049271458982699856,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,10_15,"[10,15)",13595.0,519030.0,0.0036791135867265765,0.0038083445659076883,0.06065569706735367,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,15_20,"[15,20)",199296.0,13020630.0,-0.005939807842607163,0.0009046044813954941,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,20_25,"[20,25)",857714.0,85927969.0,-0.0075503561223413,0.0005195061027150335,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,25_30,"[25,30)",1495151.0,215072458.0,-0.0038781316842815008,0.00021796679738896995,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,30_35,"[30,35)",1342044.0,264241667.0,0.0034106821619999277,0.0003308323724888028,0.05840104589816802,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,35_40,"[35,40)",730197.0,189229778.0,0.011901728483909552,0.00040769226737473485,0.10909504335170114,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p0_vs_eta_gt_0p0,0.0,40_999,"[40,inf)",352916.0,124825634.0,0.0200277758936488,0.00048429548292430665,0.14151952477891097,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,0_10,"[0,10)",128.0,998.0,-0.013510676238538412,0.04853929490128174,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,10_15,"[10,15)",12813.0,206568.0,0.011051799482159392,0.003986836902757544,0.10512753912348273,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,15_20,"[15,20)",191293.0,5279597.0,0.011169581211122671,0.001083307987590278,0.1056862394596509,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,20_25,"[20,25)",830474.0,34318355.0,0.0046633371567902735,0.00044401578578409293,0.0682886312411537,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,25_30,"[25,30)",1456799.0,83353753.0,-0.0001508115417227304,0.00025380129711229473,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,30_35,"[30,35)",1315825.0,98644624.0,-0.0018139666194294539,0.0002897915517542419,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,35_40,"[35,40)",719776.0,67788283.0,-0.0024896878184050364,0.0003652301628953869,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,40_999,"[40,inf)",349570.0,42242425.0,-0.0018956802460276948,0.0005638642226958895,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,0_10,"[0,10)",146.0,1774.0,-0.08971420521722552,0.04708288182674249,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,10_15,"[10,15)",13312.0,315018.0,-0.019301332774092406,0.005104196034362244,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,15_20,"[15,20)",197680.0,7858697.0,-0.027205300518378227,0.0009262752881827618,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,20_25,"[20,25)",854141.0,50965742.0,-0.027830203259652613,0.000684504878054902,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,25_30,"[25,30)",1491923.0,124387879.0,-0.023662646631641318,0.00034350364896381936,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,30_35,"[30,35)",1340403.0,148510170.0,-0.015589688770460377,0.0003987038288060086,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,35_40,"[35,40)",729766.0,103304055.0,-0.005493648178129757,0.0005108431566821874,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p5_vs_eta_gt_0p5,0.5,40_999,"[40,inf)",352813.0,66029493.0,0.0040669486621312916,0.0005214566439132506,0.06377263254822786,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,0_10,"[0,10)",89.0,489.0,-0.04900753730256162,0.04890559303865858,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,10_15,"[10,15)",9957.0,100150.0,0.020816748877420577,0.004799731242388118,0.14428010561896806,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,15_20,"[15,20)",153229.0,2415022.0,0.020024679959610346,0.0012637866410388206,0.14150858616921572,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,20_25,"[20,25)",678655.0,14841030.0,0.013549016051813582,0.0004988841311668985,0.1164002407721461,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,25_30,"[25,30)",1211106.0,34080220.0,0.009120259376039908,0.00041182081050803425,0.09550004908920157,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,30_35,"[30,35)",1112590.0,38261596.0,0.00669194340721088,0.0005312734188977537,0.0818042994420885,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,35_40,"[35,40)",617899.0,24934291.0,0.005761454375604764,0.00039538138157009517,0.07590424477988543,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,40_999,"[40,inf)",306295.0,14551864.0,0.0034336669387974132,0.0008184354904670194,0.058597499424441424,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,0_10,"[0,10)",121.0,1011.0,-0.09128774232961537,0.04874655139959776,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,10_15,"[10,15)",12518.0,174014.0,0.0035618321846053844,0.00539533189328391,0.05968108732760643,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,15_20,"[15,20)",190942.0,4286406.0,-0.007824283986712121,0.000996840943605211,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,20_25,"[20,25)",836204.0,27331940.0,-0.008804283495028323,0.0007362458256351754,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,25_30,"[25,30)",1473409.0,65662599.0,-0.005678286555357025,0.0004606033436653315,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,30_35,"[30,35)",1331202.0,77305586.0,-0.0007253663634393306,0.00044665575113930365,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,35_40,"[35,40)",727202.0,53128993.0,0.006242078591702899,0.0004869460158421352,0.07900682623484441,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_0p8_vs_eta_gt_0p8,0.8,40_999,"[40,inf)",352325.0,33490205.0,0.011147032072172039,0.0006833667539434906,0.10557950592881195,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,0_10,"[0,10)",64.0,306.0,-0.022139514252192745,0.06880459269915913,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,10_15,"[10,15)",7169.0,56585.0,0.026246465050630986,0.007875449732317756,0.16200760800231262,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,15_20,"[15,20)",112164.0,1293983.0,0.021495456859342486,0.0013709638270234781,0.14661329018660788,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,20_25,"[20,25)",501539.0,7570444.0,0.016261020221906317,0.00046294853156883997,0.1275187053804512,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,25_30,"[25,30)",906766.0,16564289.0,0.01260932762127239,0.000637320832365441,0.11229126244402272,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,30_35,"[30,35)",845089.0,17786258.0,0.009626726928833481,0.000568452989384161,0.09811588520129388,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,35_40,"[35,40)",475480.0,11157049.0,0.00935481171225745,0.0006423807585666992,0.09672027560060739,
+Pythia WW enhanced shoving,enhanced_shoving,beam,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,40_999,"[40,inf)",238765.0,6208134.0,0.005100736217280693,0.0011118211339775617,0.07141943865139723,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,0_10,"[0,10)",100.0,643.0,-0.05753603255085751,0.05613751610434847,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,10_15,"[10,15)",10831.0,109825.0,-0.0026510528107718465,0.0056073311437687704,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,15_20,"[15,20)",168887.0,2666424.0,-0.010979798531785543,0.0012305422658870082,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,20_25,"[20,25)",755266.0,16707824.0,-0.0101466631669008,0.0007271234661755545,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,25_30,"[25,30)",1358941.0,39487089.0,-0.006621185423054112,0.0004997746621954735,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,30_35,"[30,35)",1252589.0,45819279.0,-0.0013394355235207772,0.0003810964923103533,nan,negative c2; v2{2} magnitude not defined
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,35_40,"[35,40)",696387.0,31095167.0,0.0052383463943453555,0.0005003069217231939,0.07237642153592118,
+Pythia WW enhanced shoving,enhanced_shoving,thrust,two_subevent,eta_lt_minus_1p0_vs_eta_gt_1p0,1.0,40_999,"[40,inf)",343378.0,19355058.0,0.009885074694198996,0.0007226120869374806,0.09942371293710066,
