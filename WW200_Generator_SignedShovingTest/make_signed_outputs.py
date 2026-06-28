@@ -23,12 +23,12 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "WW200_Generator_SignedShovingTest"
 PLOTS = OUT / "plots"
 
-FONT_SMALL = 15
-FONT_MEDIUM = 17
-FONT_LARGE = 19
-MARKER_SIZE = 7.5
-LINE_WIDTH = 2.0
-CAP_SIZE = 3.5
+FONT_SMALL = 22
+FONT_MEDIUM = 24
+FONT_LARGE = 28
+MARKER_SIZE = 9.0
+LINE_WIDTH = 2.4
+CAP_SIZE = 4.5
 
 plt.rcParams.update({
     "font.size": FONT_SMALL,
@@ -160,7 +160,7 @@ def plot_signed_c2(rows: list[dict]) -> None:
 
     for key, key_rows in by_key.items():
         axis, observable_type, case = key
-        fig, axs = plt.subplots(4, 1, figsize=(9.0, 12.6), sharex=True, constrained_layout=True)
+        fig, axs = plt.subplots(4, 1, figsize=(10.0, 14.5), sharex=True, constrained_layout=True)
         sample_map = {}
         for setting in labels:
             setting_rows = [r for r in key_rows if r["shoving_setting"] == setting]
@@ -168,7 +168,7 @@ def plot_signed_c2(rows: list[dict]) -> None:
             sample_map[setting] = setting_rows
             y = np.array([r["signed_c2_2"] for r in setting_rows], dtype=float)
             e = np.array([r["statistical_uncertainty"] for r in setting_rows], dtype=float)
-            axs[0].errorbar(BIN_CENTERS, y, yerr=e, marker=markers[setting], color=colors[setting], linestyle="-", label=labels[setting], capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.5, capthick=1.5)
+            axs[0].errorbar(BIN_CENTERS, y, yerr=e, marker=markers[setting], color=colors[setting], linestyle="-", label=labels[setting], capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.8, capthick=1.8)
 
         no = sample_map["no_shoving"]
         no_y = np.array([r["signed_c2_2"] for r in no], dtype=float)
@@ -180,7 +180,7 @@ def plot_signed_c2(rows: list[dict]) -> None:
             e = np.hypot(np.array([r["statistical_uncertainty"] for r in rows_s], dtype=float), no_e)
             deltas[setting] = y
             axs[axidx].axhline(0.0, color="0.5", linewidth=0.8)
-            axs[axidx].errorbar(BIN_CENTERS, y, yerr=e, marker=markers[setting], color=colors[setting], linestyle="-", capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.5, capthick=1.5)
+            axs[axidx].errorbar(BIN_CENTERS, y, yerr=e, marker=markers[setting], color=colors[setting], linestyle="-", capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.8, capthick=1.8)
             axs[axidx].set_ylabel(title)
 
         ratio = np.divide(deltas["enhanced_shoving"], deltas["nominal_shoving"], out=np.full_like(deltas["enhanced_shoving"], np.nan), where=np.abs(deltas["nominal_shoving"]) > 1e-15)
@@ -189,10 +189,10 @@ def plot_signed_c2(rows: list[dict]) -> None:
         axs[3].set_ylabel("enhanced response\n/ nominal response", labelpad=8)
         axs[3].set_xlabel(r"$N_{trk}^{offline}$")
         axs[0].set_ylabel(r"signed $c_2\{2\}$")
-        axs[0].legend(frameon=False, fontsize=FONT_MEDIUM, ncol=1, handlelength=1.6)
+        axs[0].legend(frameon=False, fontsize=FONT_MEDIUM, ncol=1, handlelength=1.3)
         for ax in axs:
             ax.grid(True, alpha=0.25)
-            ax.tick_params(axis="both", which="major", labelsize=FONT_SMALL, length=5, width=1.2)
+            ax.tick_params(axis="both", which="major", labelsize=FONT_SMALL, length=6, width=1.4)
             ax.set_xticks(BIN_CENTERS)
             ax.set_xticklabels(BIN_TEXT, rotation=30, ha="right", fontsize=FONT_SMALL)
         fig.suptitle(f"WW 200 GeV signed c2, {axis} axis, {observable_type}: {case}", fontsize=FONT_LARGE)
@@ -290,7 +290,7 @@ def plot_vndelta(rows: list[dict]) -> None:
         text_labels = [next(r["multiplicity_bin_text"] for r in scheme_rows if r["multiplicity_bin"] == b) for b in bins]
         sample_map = {}
 
-        fig, axs = plt.subplots(5, 1, figsize=(9.0, 14.8), sharex=True, constrained_layout=True)
+        fig, axs = plt.subplots(5, 1, figsize=(10.0, 17.2), sharex=True, constrained_layout=True)
         for setting in labels:
             setting_rows = [r for r in scheme_rows if r["shoving_setting"] == setting]
             setting_rows.sort(key=lambda r: bins.index(r["multiplicity_bin"]))
@@ -301,8 +301,8 @@ def plot_vndelta(rows: list[dict]) -> None:
             e = np.array([r["statistical_uncertainty"] for r in setting_rows], dtype=float)
             proxy = np.array([r["signed_vn_proxy"] for r in setting_rows], dtype=float)
             proxy_err = np.array([0.5 * er / math.sqrt(abs(v)) if abs(v) > 0 else math.nan for v, er in zip(y, e)], dtype=float)
-            axs[0].errorbar(centers, y, yerr=e, marker=markers[setting], color=colors[setting], linestyle="-", label=labels[setting], capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.5, capthick=1.5)
-            axs[1].errorbar(centers, proxy, yerr=proxy_err, marker=markers[setting], color=colors[setting], linestyle="-", capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.5, capthick=1.5)
+            axs[0].errorbar(centers, y, yerr=e, marker=markers[setting], color=colors[setting], linestyle="-", label=labels[setting], capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.8, capthick=1.8)
+            axs[1].errorbar(centers, proxy, yerr=proxy_err, marker=markers[setting], color=colors[setting], linestyle="-", capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.8, capthick=1.8)
 
         if not all(setting in sample_map for setting in ("no_shoving", "nominal_shoving", "enhanced_shoving")):
             plt.close(fig)
@@ -316,7 +316,7 @@ def plot_vndelta(rows: list[dict]) -> None:
             e = np.hypot(np.array([r["statistical_uncertainty"] for r in sample_map[setting]], dtype=float), no_e)
             deltas[setting] = y
             axs[axidx].axhline(0.0, color="0.5", linewidth=0.8)
-            axs[axidx].errorbar(centers, y, yerr=e, marker=markers[setting], color=colors[setting], linestyle="-", capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.5, capthick=1.5)
+            axs[axidx].errorbar(centers, y, yerr=e, marker=markers[setting], color=colors[setting], linestyle="-", capsize=CAP_SIZE, markersize=MARKER_SIZE, linewidth=LINE_WIDTH, elinewidth=1.8, capthick=1.8)
             axs[axidx].set_ylabel(title)
 
         signed_delta_proxy = np.array([signed_sqrt(v) for v in deltas["enhanced_shoving"]], dtype=float)
@@ -326,10 +326,10 @@ def plot_vndelta(rows: list[dict]) -> None:
 
         axs[0].set_ylabel(r"$V_{2\Delta}$")
         axs[1].set_ylabel(r"$v_2^{sgn}$")
-        axs[0].legend(frameon=False, fontsize=FONT_MEDIUM, handlelength=1.6)
+        axs[0].legend(frameon=False, fontsize=FONT_MEDIUM, handlelength=1.3)
         for ax in axs:
             ax.grid(True, alpha=0.25)
-            ax.tick_params(axis="both", which="major", labelsize=FONT_SMALL, length=5, width=1.2)
+            ax.tick_params(axis="both", which="major", labelsize=FONT_SMALL, length=6, width=1.4)
             ax.set_xticks(centers)
             ax.set_xticklabels(text_labels, rotation=30, ha="right", fontsize=FONT_SMALL)
         axs[-1].set_xlabel(r"$N_{trk}^{offline}$")
